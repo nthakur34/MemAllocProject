@@ -172,7 +172,7 @@ public class AVLtree<T extends Comparable<? super T>> {
     /**
      * Helper delete method. - This does the real work - IMPLEMENT!
      * @param value the value to delete
-     * @param curr the root of the subtree to look in
+     * @param curr the root of the subtree to look in.
      * @return the new subtree after rebalancing
      */
     private BNode delete(BNode curr, T value) {
