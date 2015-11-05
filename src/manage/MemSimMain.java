@@ -1,3 +1,4 @@
+package manage;
 /**
  * Memory Simulation for 600.226 - partial main driver for I/O handling.
  */
