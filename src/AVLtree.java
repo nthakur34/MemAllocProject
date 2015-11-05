@@ -3,6 +3,7 @@
  * Starter code for AVLtree implementation
  */
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 /**
@@ -176,7 +177,62 @@ public class AVLtree<T extends Comparable<? super T>> {
      * @return the new subtree after rebalancing
      */
     private BNode delete(BNode curr, T value) {
-        return null;
+    	BNode temp = null;
+    	//BNode toRemove = curr;
+
+    	if (curr.data.compareTo(value) != 0) {
+    		//System.out.println(curr.left.data + "---" + value);
+    		if (curr.left.data.compareTo(value) >= 0) {
+    			delete(curr.left, value);
+    		} else if (curr.right.data.compareTo(value) <= 0) {
+    			delete(curr.right, value);
+    		} else {
+    			return null; //could not find node
+    		}
+    	} else {
+    		if (curr.isLeaf()) {
+    			curr = null;
+    		} else if (curr.height == 1) {
+    			if (curr.left == null) {
+    				curr = curr.right;
+    				curr.right = null;
+    			} else {
+    				curr = curr.left;
+    				curr.left = null;
+    			}
+    		} else {
+    			temp = findMin(curr.right);
+    			curr = temp;
+    			delete(findMin(curr.right), curr.right.data);
+    		}
+    	}
+    			
+    		
+    	/*Iterator<BNode> iter = this.inOrderNodes().iterator();
+    	while (iter.hasNext() && iter != value) {
+    		toRemove = iter.next();
+    	}
+    	//BNode toRemove = curr; //not true;
+    	if (toRemove.isLeaf()) {
+    		iter.remove();
+    	} else if (height(toRemove) == 1) {
+    		if (toRemove.left == null) {
+    			temp = toRemove;
+    			toRemove.data = toRemove.right.data;
+    			toRemove.right.data = temp.data;
+    		} else if (toRemove.right == null) {
+    			temp = toRemove;
+    			toRemove.data = toRemove.left.data;
+    			toRemove.left.data = temp.data;
+    		}
+    	} else {
+    		temp = findMin(toRemove.right);
+    		toRemove = temp;
+    		temp = null;
+    		//How to set min to zero?
+    	} */
+    	curr = this.balance(curr);
+        return curr;
     }
 
 
@@ -264,7 +320,7 @@ public class AVLtree<T extends Comparable<? super T>> {
         if (k1 != null) {
             k2.left = k1.right;
             k1.right = k2;
-            k2.height = this.max(this.height(k2.left), 
+            k2.height = this.max(this.height(k2.left),
                 this.height(k2.right)) + 1;
             k1.height = this.max(this.height(k1.left), k2.height) + 1;
         }
@@ -400,4 +456,19 @@ public class AVLtree<T extends Comparable<? super T>> {
         iter.addLast(curr.data);
         return iter;
     }
+    
+  /*  public Iterable<BNode> inOrderNodes() {
+        return this.inOrderNodes(this.root);
+    }
+    
+    private Collection<BNode> inOrderNodes(BNode curr) {
+        LinkedList<BNode> iter = new LinkedList<BNode>();
+        if (curr.data == null) {
+            return iter;
+        }
+        iter.addAll(this.inOrderNodes(curr.left));
+        iter.addLast(curr);
+        iter.addAll(this.inOrderNodes(curr.right));
+        return iter;
+    } */
 }
