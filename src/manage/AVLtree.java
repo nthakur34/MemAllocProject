@@ -178,59 +178,58 @@ public class AVLtree<T extends Comparable<? super T>> {
      * @return the new subtree after rebalancing
      */
     private BNode delete(BNode curr, T value) {
-    	BNode temp = null;
-    	//BNode toRemove = curr;
+        BNode temp = null;
+        //BNode toRemove = curr;
 
-    	if (curr.data.compareTo(value) != 0) {
-    		//System.out.println(curr.left.data + "---" + value);
-    		if (curr.left.data.compareTo(value) >= 0) {
-    			delete(curr.left, value);
-    		} else if (curr.right.data.compareTo(value) <= 0) {
-    			delete(curr.right, value);
-    		} else {
-    			return null; //could not find node
-    		}
-    	} else {
-    		if (curr.isLeaf()) {
-    			curr = null;
-    		} else if (curr.height == 1) {
-    			if (curr.left == null) {
-    				curr = curr.right;
-    				curr.right = null;
-    			} else {
-    				curr = curr.left;
-    				curr.left = null;
-    			}
-    		} else {
-    			temp = findMin(curr.right);
-    			curr = temp;
-    			delete(findMin(curr.right), curr.right.data);
-    		}
-    	}
-    			
-    		
-    	/*Iterator<BNode> iter = this.inOrderNodes().iterator();
-    	while (iter.hasNext() && iter != value) {
-    		toRemove = iter.next();
-    	}
-    	//BNode toRemove = curr; //not true;
-    	if (toRemove.isLeaf()) {
-    		iter.remove();
-    	} else if (height(toRemove) == 1) {
-    		if (toRemove.left == null) {
-    			temp = toRemove;
-    			toRemove.data = toRemove.right.data;
-    			toRemove.right.data = temp.data;
-    		} else if (toRemove.right == null) {
-    			temp = toRemove;
-    			toRemove.data = toRemove.left.data;
-    			toRemove.left.data = temp.data;
-    		}
-    	} else {
-    		temp = findMin(toRemove.right);
-    		toRemove = temp;
-    		temp = null;
-    		//How to set min to zero?
+        if (curr.data.compareTo(value) != 0) {
+            //System.out.println(curr.left.data + "---" + value);
+            if (curr.left.data.compareTo(value) >= 0) {
+                this.delete(curr.left, value);
+            } else if (curr.right.data.compareTo(value) <= 0) {
+                this.delete(curr.right, value);
+            } else {
+                return null; //could not find node
+            }
+        } else {
+            if (curr.isLeaf()) {
+                curr = null;
+            } else if (curr.height == 1) {
+                if (curr.left == null) {
+                    curr = curr.right;
+                    curr.right = null;
+                } else {
+                    curr = curr.left;
+                    curr.left = null;
+                }
+            } else {
+                temp = this.findMin(curr.right);
+                curr = temp;
+                this.delete(this.findMin(curr.right), curr.right.data);
+            }
+        }
+        
+        /*Iterator<BNode> iter = this.inOrderNodes().iterator();
+    while (iter.hasNext() && iter != value) {
+    toRemove = iter.next();
+    }
+    //BNode toRemove = curr; //not true;
+    if (toRemove.isLeaf()) {
+    iter.remove();  
+    } else if (height(toRemove) == 1) {
+    if (toRemove.left == null) {
+        temp = toRemove;
+    toRemove.data = toRemove.right.data;
+    toRemove.right.data = temp.data;
+        	} else if (toRemove.right == null) {
+        		temp = toRemove;
+        		toRemove.data = toRemove.left.data;
+        		toRemove.left.data = temp.data;
+        	}
+        } else {
+        	temp = findMin(toRemove.right);
+        	toRemove = temp;
+        	temp = null;
+        	//How to set min to zero?
     	} */
     	curr = this.balance(curr);
         return curr;
