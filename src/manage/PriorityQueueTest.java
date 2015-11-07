@@ -3,6 +3,8 @@ package manage;
  * 600.226.01
  * nthakur2
  * p4
+
+/** TESTS for 600.226 Fall 2015 Project 3 - HashMapOpen implementation
  */
 
 
@@ -23,11 +25,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.TreeSet;
 
-public class AVLtreeTest {
+public class PriorityQueueTest {
 
-    static AVLtree<Integer> e4;  // empty map, max load .4
-    static AVLtree<Integer> e7;  // empty map, max load .7
-    static AVLtree<Integer> all;  // all in map
+    static PriorityQueue<Integer> e4;  // empty map, max load .4
+    static PriorityQueue<Integer> e7;  // empty map, max load .7
+    static PriorityQueue<Integer> all;  // all in map
 
     // note - Integer hashCode() returns the int value
     static Integer[] iray = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
@@ -46,11 +48,11 @@ public class AVLtreeTest {
     @Before
     public void setup() {
         // these start out empty before each test
-        e4 = new AVLtree<Integer>();  
-        e7 = new AVLtree<Integer>();  
+        e4 = new PriorityQueue<Integer>();  
+        e7 = new PriorityQueue<Integer>();  
 
         // this is full set, assuming put works correctly
-        all = new AVLtree<Integer>();
+        all = new PriorityQueue<Integer>();
         for (int i=0; i < iray.length; i++) {
             all.add(svals.get(i));
         }
@@ -65,8 +67,8 @@ public class AVLtreeTest {
 
 
     @Test
-    public void testEmptyTree() {
-        assertFalse(e4.contains(1));
+    public void testEmptyQueue() {
+        assertFalse(e4.contains((Integer) 1));
         assertTrue(all.contains((Integer) 1));
         assertTrue(e4.isEmpty());
         assertFalse(all.isEmpty());
@@ -75,27 +77,24 @@ public class AVLtreeTest {
     @Test
     public void testAdd() {
         assertEquals(11, all.size());
+        assertEquals("[]", e4.toString());
         assertTrue(e4.add((Integer) 5));
         assertTrue(e4.contains((Integer) 5));
         assertTrue(e4.size() == 1);
+        assertEquals("[5]", e4.toString());
         
         assertTrue(all.add((Integer) 11));
-        //Use traversal to see if last one is 11. 
-        Iterator<Integer> iter = all.preOrder().iterator();
-        int temp = 0;
-        while(iter.hasNext()) {
-        	temp = iter.next();
-        	System.out.print(temp + "   ");
-        }
+        assertTrue(all.contains((Integer) 11));
+        /*assertEquals("[11, ")
         System.out.println("");
         assertEquals(11, temp);
         System.out.println(all.toString());
         assertTrue(all.remove((Integer) 7));
         assertFalse(all.contains((Integer) 7)); 
-        assertEquals("[0, 1, 2, 3, 4, 5, 6, 8, 9, 10, 11]", all.toString());
+        assertEquals("[0, 1, 2, 3, 4, 5, 6, 8, 9, 10, 11]", all.toString());*/
 
     }
-    
+ /*   
     @Test
     public void testRemove() {
         assertEquals(11, all.size());
@@ -121,10 +120,7 @@ public class AVLtreeTest {
         assertFalse(all.contains((Integer) 7)); 
         assertEquals("[0, 1, 2, 3, 4, 5, 6, 8, 9, 10, 11]", all.toString());
 
-    }
+    } */
 
 }
-
-
-
 
