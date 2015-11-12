@@ -65,46 +65,7 @@ public class QuickDefragTest {
     public void testDefrag() {
         e4.defragBlocks();
         assertEquals("[]", all.toString());
-        System.out.println(svals.get(1).getSize());
-        System.out.println(svals.get(2).getSize());
         assertEquals("[0, 25, 33, 39]", e4.toString());
 
     }
-  
-/*    @Test
-    public void testRemove() {
-        assertEquals(11, all.size());
-        assertEquals((Integer) 10, all.removeMax());
-        assertFalse(all.contains((Integer) 10));
-        assertEquals(10, all.size());
-        assertEquals((Integer) 9, all.removeMax());
-        assertFalse(all.contains((Integer) 9));
-        assertTrue(e4.add((Integer) 6));
-        assertTrue(e4.contains((Integer) 6));
-        assertEquals("[6]", e4.toString());
-        assertEquals((Integer) 6, e4.removeMax());
-        assertTrue(e4.isEmpty());
-        assertTrue(all.add((Integer) 11));
-        assertEquals("[11, 8, 5, 6, 7, 1, 4, 0, 3, 2]", all.toString());
-        assertTrue(all.contains((Integer) 11));
-        assertEquals((Integer) 11, all.removeMax());
-        assertFalse(all.contains((Integer) 11));
-    }
-    
-    @Test
-    public void testSize() {
-        assertFalse(e4.contains((Integer) 1));
-        assertTrue(all.contains((Integer) 1));
-        assertTrue(e4.isEmpty());
-        assertFalse(all.isEmpty());
-        assertEquals(0, e4.size());
-        assertEquals(11, all.size());
-        assertTrue(e4.add(12));
-        assertTrue(all.add(12));
-        all.removeMax();
-        assertEquals(1, e4.size());
-        assertEquals(11, all.size());
-        
-    }
-*/
 }

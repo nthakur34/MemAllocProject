@@ -10,12 +10,12 @@ import java.util.ArrayList;
 public class QuickDefrag<T extends Comparable<? super T>> {
 
     /**
-     * edsa.
+     * Arraylist holding free blocks
      */
     private ArrayList<T> freeList = new ArrayList<T>();
     
     /**
-     * fdsfdes.
+     * Constructor to set up arraylist of blocks
      * @param blockList List to sort and defrag.
      */
     public QuickDefrag(ArrayList<T> blockList) {
@@ -28,6 +28,7 @@ public class QuickDefrag<T extends Comparable<? super T>> {
     }
     
     /**
+     * quick sorts all values
      * @param lowerIndex lower index to compare to pivot
      * @param higherIndex higher index to compare to pivot
      */
@@ -66,18 +67,14 @@ public class QuickDefrag<T extends Comparable<? super T>> {
      * Defragment the adjacent blocks.
      */
     public void defragBlocks() {
-        
+     
         int i = 1;
         int j = 1;
-        int numAdded = 0;
-        int changingSize = this.freeList.size() - 1;
-        while (i < changingSize) {
+
+        while (i < this.freeList.size() - 1) {
             int size = 0;
             int count = 0;
-            if (!this.hasAdjacent(j)) {
-                j++;
-                i++;
-            }
+
             while (this.hasAdjacent(j)) {
                 size += ((MemBlock) this.freeList.get(j)).getSize();
                 count++;
@@ -86,15 +83,15 @@ public class QuickDefrag<T extends Comparable<? super T>> {
             if (count > 0) {
                 size += ((MemBlock) this.freeList.get(j)).getSize();
                 this.combine(i, j, size);
-                numAdded++;
-                changingSize = this.freeList.size() - 1;
-                changingSize -= numAdded;
+                j = 1;
+            } else {
+                j++;
             }
-            j -= count;
             i = j;
             
         }
-        quickSort(1, this.freeList.size() - 1);
+        
+        this.quickSort(1, this.freeList.size() - 1);
     }
     
     /**
@@ -130,10 +127,13 @@ public class QuickDefrag<T extends Comparable<? super T>> {
         @SuppressWarnings("unchecked")
         T newBlock = (T) new MemBlock(start, size, true);
         int i = bottomIndex;
-        while (i < topIndex) {
+        int count = 0;
+        //remove all blocks that are adjacent and combinable
+        while (count <= (topIndex - bottomIndex)) {
             this.freeList.remove(i);
-            i++;
+            count++;
         }
+        System.out.println("-----");
         this.freeList.add(newBlock);
     }
     
