@@ -13,7 +13,7 @@ import java.util.ListIterator;
  *
  * @param <T> Type of data being sorted
  */
-public class BucketSorter<T extends Comparable<? super T>> {
+public class BucketSorter<T extends Comparable<T>> {
     
     /**
      * HashMap representation of the data.
@@ -30,8 +30,10 @@ public class BucketSorter<T extends Comparable<? super T>> {
     /**
      * Read data into HashMap.
      * @param blocks the collection of info to be sorted
+     * @param comparator comparator for type of data being sorted
      */
-    public void read(Collection<T> blocks) {
+    public void read(Collection<T> blocks,
+            Comparator<? super T> comparator) {
         // get an iterator to go through all values
         Iterator<T> blockIter = blocks.iterator();
         while (blockIter.hasNext()) {
@@ -49,11 +51,8 @@ public class BucketSorter<T extends Comparable<? super T>> {
                 // find where either the next no-element position is
                 // or where 
                 // make comparator to compare memblock addresses
-                Comparator<MemBlock> comparator = 
-                        new MemBlock.MemBlockComparator();
                 while (listIterator.hasNext()) {
-                    if (comparator.compare((MemBlock) listIterator.next(),
-                            (MemBlock) toInsert) < 0) {
+                    if (comparator.compare(listIterator.next(), toInsert) < 0) {
                         break;
                     }
                 }
