@@ -1,5 +1,7 @@
 package manage;
 
+import java.util.Comparator;
+
 /**
  * MemBlock is a class used to represent a block of memory.
  * @author Nitin
@@ -119,7 +121,6 @@ public class MemBlock implements Comparable<MemBlock> {
 
     @Override
     public int compareTo(MemBlock o) {
-
         if (this.getSize() < o.getSize()) {
             return -1;
         } else if (this.getSize() > o.getSize()) {
@@ -127,4 +128,21 @@ public class MemBlock implements Comparable<MemBlock> {
         } 
         return 0;
     }
+    
+    /**
+     * Comparator to compare addresses of memblocks.
+     * @author Nitin
+     *
+     */
+    public static class MemBlockComparator implements Comparator<MemBlock> {
+
+        /**
+         * Address compare.
+         */
+        @Override
+        public int compare(MemBlock o1, MemBlock o2) {
+            return o1.getStartAddress() - o2.getStartAddress();
+        } 
+    }
+    
 }

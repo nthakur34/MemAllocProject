@@ -38,15 +38,15 @@ public class PriorityQueue<T extends Comparable<? super T>> {
     /**
      * Add the value to the priority queue.
      * @param value the T to add
-     * @return ture if added, else false
+     * @return true if added, else false
      */
     public boolean add(T value) {
         //add to array list and increase block count
         this.freeBlocks.add(value);
         this.numBlocks++;
         int currVal = this.numBlocks;
-        //until block is no longer greater than its parent and the block
-        //is not the root
+        // until block is no longer greater than its parent and the block
+        // is not the root
         while ((currVal > 1) && (this.freeBlocks.get(currVal).compareTo(
                 this.freeBlocks.get(this.parent(currVal))) > 0)) {
             //set parent as current block, and the block as the parent
