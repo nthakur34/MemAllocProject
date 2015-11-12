@@ -3,19 +3,21 @@ package manage;
 import java.util.ArrayList;
 
 /**
+ * Defragger class that both pulls data and defrags through
+ * quick sort method.
  * @author navthakur
  *
- * @param <T>
+ * @param <T> Type of object getting defragged
  */
 public class QuickDefrag<T extends Comparable<? super T>> {
 
     /**
-     * Arraylist holding free blocks
+     * Arraylist holding free blocks.
      */
     private ArrayList<T> freeList = new ArrayList<T>();
     
     /**
-     * Constructor to set up arraylist of blocks
+     * Constructor to set up arraylist of blocks.
      * @param blockList List to sort and defrag.
      */
     public QuickDefrag(ArrayList<T> blockList) {
@@ -28,7 +30,7 @@ public class QuickDefrag<T extends Comparable<? super T>> {
     }
     
     /**
-     * quick sorts all values
+     * quick sorts all values.
      * @param lowerIndex lower index to compare to pivot
      * @param higherIndex higher index to compare to pivot
      */
@@ -40,10 +42,12 @@ public class QuickDefrag<T extends Comparable<? super T>> {
                 - lowerIndex) / 2)).getStartAddress();
         
         while (i <= j) {
-            while (((MemBlock) this.freeList.get(i)).getStartAddress() < (pivot)) {
+            while (((MemBlock) this.freeList.get(i))
+                    .getStartAddress() < (pivot)) {
                 i++;
             }
-            while (((MemBlock) this.freeList.get(j)).getStartAddress() > pivot) {
+            while (((MemBlock) this.freeList.get(j))
+                    .getStartAddress() > pivot) {
                 j--;
             }
             if (i <= j) {
@@ -149,7 +153,8 @@ public class QuickDefrag<T extends Comparable<? super T>> {
         for (int i = 1; i < this.freeList.size() - 1; i++) {
             list += ((MemBlock) this.freeList.get(i)).getStartAddress() + ", ";
         }
-        list += ((MemBlock) this.freeList.get(this.freeList.size() - 1)).getStartAddress() + "]";
+        list += ((MemBlock) this.freeList.get(this.freeList.size() - 1))
+                .getStartAddress() + "]";
         return list;
         
     }
