@@ -5,7 +5,7 @@ package manage;
  * @author Nitin
  *
  */
-public class MemBlock {
+public class MemBlock implements Comparable<MemBlock> {
     
     /**
      * The start address of the memblock.
@@ -117,4 +117,14 @@ public class MemBlock {
         this.isFree = newFree;
     }
 
+    @Override
+    public int compareTo(MemBlock o) {
+
+        if (this.getSize() < o.getSize()) {
+            return -1;
+        } else if (this.getSize() > o.getSize()) {
+            return 1;
+        } 
+        return 0;
+    }
 }

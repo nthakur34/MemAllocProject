@@ -10,32 +10,22 @@ import java.util.ArrayList;
 public class PriorityQueue<T extends Comparable<? super T>> {
 
     /**
-     * array of free blocks.
+     * arraylist of free blocks.
      */
     private ArrayList<T> freeBlocks;
     
     /**
-     * current size of array.
-     */
-    private int size;
-    
-    /**
-     * 
+     * the  number of blocks in the arraylist.
      */
     private int numBlocks;
     
-    
     /**
-     * 
+     * Constructor to set up arraylist with empty position 0.
      */
-    //@SuppressWarnings("unchecked")
     public PriorityQueue() {
-        final int sizeToSet = 5;
-        this.size = sizeToSet;
         this.numBlocks = 0;
         this.freeBlocks = new ArrayList<T>();
         this.freeBlocks.add(null);
-                //(T[]) new Object[this.size];
     }
     
     /**
@@ -46,50 +36,27 @@ public class PriorityQueue<T extends Comparable<? super T>> {
     }
     
     /**
-     * Resize the array.
-     */
-   // @SuppressWarnings("unchecked")
-    public void resize() {
-        ArrayList<T> tempArray = new ArrayList<T>();
-                //(T[]) new Object[this.size * 2];
-        for (int i = 1; i < this.size; i++) {
-            tempArray.add(this.freeBlocks.get(i));
-        }
-        this.freeBlocks = tempArray;
-    }
-    
-    /**
+     * Add the value to the priority queue.
      * @param value the T to add
      * @return ture if added, else false
      */
     public boolean add(T value) {
-      //  if (this.numBlocks > this.size) {
-        //    this.resize(); //call function to resize
-        //}
-        this.freeBlocks.add(value);//[this.numBlocks] = value;
+        //add to array list and increase block count
+        this.freeBlocks.add(value);
         this.numBlocks++;
         int currVal = this.numBlocks;
-        //System.out.println(this.freeBlocks.toString());
-        //System.out.println("----" + this.freeBlocks.size());
-       // System.out.println(currVal + "----" + this.freeBlocks.get(currVal) +
-         //       "------" + this.freeBlocks.get(this.parent(currVal)));
+        //until block is no longer greater than its parent and the block
+        //is not the root
         while ((currVal > 1) && (this.freeBlocks.get(currVal).compareTo(
                 this.freeBlocks.get(this.parent(currVal))) > 0)) {
-           // System.out.println("----" + this.freeBlocks.size());
+            //set parent as current block, and the block as the parent
             T temp = this.freeBlocks.get(this.parent(currVal));
-            this.freeBlocks.set(this.parent(currVal), this.freeBlocks.get(currVal));
+            this.freeBlocks.set(this.parent(currVal), this.freeBlocks.
+                    get(currVal));
             this.freeBlocks.set(currVal, temp);
             currVal = this.parent(currVal);
-            if (currVal == 1) {
-                return true;
-            }
-            //System.out.println(currVal);
-           // System.out.println("----" + this.freeBlocks.size());
-            //for (int i = 0; i < this.freeBlocks.size(); i++) {
-              //  System.out.println("****" + this.freeBlocks.get(i));
-            //}
         }
-    //this.balance();
+
         return true;
     }
     
@@ -98,7 +65,7 @@ public class PriorityQueue<T extends Comparable<? super T>> {
      * @param pos int
      * @return the left child index.
      */
-    public int leftChild(int pos) {
+    private int leftChild(int pos) {
         if (pos > this.numBlocks / 2) {
             return 0;
         }
@@ -110,7 +77,7 @@ public class PriorityQueue<T extends Comparable<? super T>> {
      * @param pos the index of current block
      * @return the index of right child
      */
-    public int rightChild(int pos) {
+    private int rightChild(int pos) {
         if (pos > (this.numBlocks - 1) / 2) {
             return 0;
         }
@@ -122,7 +89,7 @@ public class PriorityQueue<T extends Comparable<? super T>> {
      * @param pos position of child.
      * @return the parent position
      */
-    public int parent(int pos) {
+    private int parent(int pos) {
         if (pos <= 1) {
             return 0;
         }
@@ -133,14 +100,16 @@ public class PriorityQueue<T extends Comparable<? super T>> {
      * @return the block
      */
     public T removeMax() {
+        //if empty, there is no value to remove
         if (this.numBlocks == 0)  {
             return null;
         }
+        //swap last value with the root, and remove root
         T temp = this.freeBlocks.get(1);
         this.freeBlocks.set(1, this.freeBlocks.get(this.numBlocks));
         this.freeBlocks.remove(this.numBlocks);
         this.numBlocks--;
-        
+        //as long as there is not only a root
         if (this.numBlocks != 1) {      // Not on last element
             this.swap(1);
         }
@@ -150,118 +119,100 @@ public class PriorityQueue<T extends Comparable<? super T>> {
     /**
      * @param curr the current value to swap up
      */
-    public void swap(int curr) {
+    private void swap(int curr) {
         
+        //if no children end swapping
         if ((this.leftChild(curr) == 0 && this.rightChild(curr) == 0)) {
             return;
+        //if no left child swap with right child
         } else if (this.leftChild(curr) == 0) {
+            //if right child is greater, swap with child
             if (this.freeBlocks.get(curr).
                 compareTo(this.freeBlocks.get(this.rightChild(curr))) < 0) {
-            T temp = this.freeBlocks.get(this.rightChild(curr));
-            this.freeBlocks.set(this.rightChild(curr), this.freeBlocks
+                
+                T temp = this.freeBlocks.get(this.rightChild(curr));
+                this.freeBlocks.set(this.rightChild(curr), this.freeBlocks
                     .get(curr));
-            this.freeBlocks.set(curr, temp);
-            curr = this.rightChild(curr);
-            swap(curr);
+                this.freeBlocks.set(curr, temp);
+                curr = this.rightChild(curr);
+                //call back swap with new curr
+                this.swap(curr);
             }
+        //if no right child, swap with left child
         } else if (this.rightChild(curr) == 0) {
-            if(this.freeBlocks.get(curr).compareTo(this.freeBlocks.get(
+          //if left child is greater, swap with child
+            if (this.freeBlocks.get(curr).compareTo(this.freeBlocks.get(
                 this.leftChild(curr))) < 0) {
-            T temp = this.freeBlocks.get(this.leftChild(curr));
-            this.freeBlocks.set(this.leftChild(curr), this.freeBlocks.get
-                    (curr));
-            this.freeBlocks.set(curr, temp);
-            curr = this.leftChild(curr);
-            swap(curr);
+                
+                T temp = this.freeBlocks.get(this.leftChild(curr));
+                this.freeBlocks.set(this.leftChild(curr), this.freeBlocks.
+                        get(curr));
+                this.freeBlocks.set(curr, temp);
+                curr = this.leftChild(curr);
+                //call back swap with new curr
+                this.swap(curr);
             }
-        } else {
+        } else {   
+            /*ROUNDABOUT WAY OF DOING IT, but it works about the same way*/
             int temp = curr;
-            curr = swapLeft(curr);
+            curr = this.swapLeft(curr);
+            //if not changed from swapLeft
             if (temp == curr) {
-                curr = swapRight(curr);
+                curr = this.swapRight(curr);
             } 
+            //if changed from either swapLeft or swapRight, call back swap wih
+            //new curr value
             if (temp != curr) {
-                swap(curr);
+                this.swap(curr);
             }
         }
-        /*
-        while (this.freeBlocks.get(curr).compareTo(this.freeBlocks.get(
-                this.leftChild(curr))) < 0 || this.freeBlocks.get(curr).
-                compareTo(this.freeBlocks.get(this.rightChild(curr))) < 0) {
-            
-          /*  if (this.freeBlocks.get(this.leftChild(curr)).compareTo(this
-                    .freeBlocks.get(this.rightChild(curr))) > 0) {
-                T temp = this.freeBlocks.get(this.leftChild(curr));
-                this.freeBlocks.set(this.leftChild(curr), this.freeBlocks.get
-                        (curr));
-                this.freeBlocks.set(curr, temp);
-                curr = this.leftChild(curr);
-            } else if (this.freeBlocks.get(this.rightChild(curr)).compareTo(
-                    this.freeBlocks.get(this.leftChild(curr))) >= 0) {
-                T temp = this.freeBlocks.get(this.rightChild(curr));
-                this.freeBlocks.set(this.rightChild(curr), this.freeBlocks
-                        .get(curr));
-                this.freeBlocks.set(curr, temp);
-                curr = this.rightChild(curr);
-            }
-            if (this.leftChild(curr) == 0) {
-                T temp = this.freeBlocks.get(this.rightChild(curr));
-                this.freeBlocks.set(this.rightChild(curr), this.freeBlocks
-                        .get(curr));
-                this.freeBlocks.set(curr, temp);
-                curr = this.rightChild(curr);
-            } else if (this.rightChild(curr) == 0) {
-                T temp = this.freeBlocks.get(this.leftChild(curr));
-                this.freeBlocks.set(this.leftChild(curr), this.freeBlocks.get
-                        (curr));
-                this.freeBlocks.set(curr, temp);
-                curr = this.leftChild(curr);
-            } else {
-                int temp = curr;
-                curr = swapLeft(curr);
-                if (temp != curr) {
-                    curr = swapRight(curr);
-                }
-            }
-        } */
     }
     
     /**
+     * decide whether or not to swap with left child.
      * @param curr the current value to swap up
+     * @return new position curr
      */
     private int swapLeft(int curr) {
-
-        if(this.freeBlocks.get(curr).compareTo(this.freeBlocks.get(
+        //checks if child is larger than parent
+        if (this.freeBlocks.get(curr).compareTo(this.freeBlocks.get(
                 this.leftChild(curr))) < 0) {
-         //   System.out.println(this.freeBlocks.get(this.leftChild(curr)) + "   &&&& " + this.freeBlocks.get(this.rightChild(curr)));
-        if (this.freeBlocks.get(this.leftChild(curr)).compareTo(this
-                .freeBlocks.get(this.rightChild(curr))) > 0) {
-            T temp = this.freeBlocks.get(this.leftChild(curr));
-            this.freeBlocks.set(this.leftChild(curr), this.freeBlocks.get
-                    (curr));
-            this.freeBlocks.set(curr, temp);
-            curr = this.leftChild(curr);
+            //checks if left child greater than right child
+            if (this.freeBlocks.get(this.leftChild(curr)).compareTo(this
+                    .freeBlocks.get(this.rightChild(curr))) > 0) {
+                
+                T temp = this.freeBlocks.get(this.leftChild(curr));
+                this.freeBlocks.set(this.leftChild(curr), this.freeBlocks.
+                        get(curr));
+                this.freeBlocks.set(curr, temp);
+                curr = this.leftChild(curr);
+            }
         }
-        }
+        //returns new curr value
         return curr;
     }
     
     /**
+     * Decide whether or not to swap with right child.
      * @param curr the current value to swap up
+     * @return new position curr
      */
     private int swapRight(int curr) {
-
+        //checks if child is larger than parent
         if (this.freeBlocks.get(curr).
                 compareTo(this.freeBlocks.get(this.rightChild(curr))) < 0) {
-        if (this.freeBlocks.get(this.rightChild(curr)).compareTo(
-                this.freeBlocks.get(this.leftChild(curr))) >= 0) {
-            T temp = this.freeBlocks.get(this.rightChild(curr));
-            this.freeBlocks.set(this.rightChild(curr), this.freeBlocks
-                    .get(curr));
-            this.freeBlocks.set(curr, temp);
-            curr = this.rightChild(curr);
+            //checks if right child greater than left child
+            if (this.freeBlocks.get(this.rightChild(curr)).compareTo(
+                    this.freeBlocks.get(this.leftChild(curr))) >= 0) {
+                
+                T temp = this.freeBlocks.get(this.rightChild(curr));
+                this.freeBlocks.set(this.rightChild(curr), this.freeBlocks
+                        .get(curr));
+                this.freeBlocks.set(curr, temp);
+                curr = this.rightChild(curr);
+            }
         }
-        }
+        //returns new curr value
         return curr;
     }
     
@@ -276,22 +227,25 @@ public class PriorityQueue<T extends Comparable<? super T>> {
     }
     
     /**
+     * @param value object to check
      * @return if priority queue contains value
      */
     public boolean contains(T value) {
+        //if empty list, return false
         if (this.numBlocks == 0)  {
             return false;
         }
-        boolean contains = false;
+        //goes through every position, returns true if found
         for (int i = 1; i <= this.numBlocks; i++) {
             if (this.freeBlocks.get(i) == value) {
-                contains = true;
+                return true;
             }
         }
-        return contains;
+        return false;
     }
     
     /**
+     * Get string form.
      * @return string form "[1, 2, 4]"
      */
     public String toString() {

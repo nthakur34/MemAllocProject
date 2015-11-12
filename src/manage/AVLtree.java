@@ -220,7 +220,7 @@ public class AVLtree<T extends Comparable<? super T>> {
         temp = toRemove;
     toRemove.data = toRemove.right.data;
     toRemove.right.data = temp.data;
-        	} else if (toRemove.right == null) {
+    } else if (toRemove.right == null) {
         		temp = toRemove;
         		toRemove.data = toRemove.left.data;
         		toRemove.left.data = temp.data;

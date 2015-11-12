@@ -25,20 +25,22 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.TreeSet;
 
-public class PriorityQueueTest {
+public class QuickDefragTest {
 
-    static PriorityQueue<Integer> e4;  // empty map, max load .4
-    static PriorityQueue<Integer> e7;  // empty map, max load .7
-    static PriorityQueue<Integer> all;  // all in map
+    static QuickDefrag<MemBlock> e4;  
+    static QuickDefrag<MemBlock> all;
 
     // note - Integer hashCode() returns the int value
-    static Integer[] iray = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-    static ArrayList<Integer> svals;
+    static MemBlock[] iray = {null, new MemBlock(0, 10, true), new MemBlock(
+            10, 7, true), new MemBlock(17, 3, true), new MemBlock(25, 6, true),
+            new MemBlock(33, 5, true), new MemBlock(39, 3, true), new MemBlock
+            (42, 8, true)};
+    static ArrayList<MemBlock> svals;
 
     @BeforeClass
     public static void init() {
-        svals = new ArrayList<Integer>();
-        for (Integer val: iray) {
+        svals = new ArrayList<MemBlock>();
+        for (MemBlock val: iray) {
             svals.add(val);
         } 
     }
@@ -48,57 +50,28 @@ public class PriorityQueueTest {
     @Before
     public void setup() {
         // these start out empty before each test
-        e4 = new PriorityQueue<Integer>();  
-        e7 = new PriorityQueue<Integer>();  
-
-        // this is full set, assuming put works correctly
-        all = new PriorityQueue<Integer>();
-        for (int i=0; i < iray.length; i++) {
-            all.add(svals.get(i));
-        }
+        e4 = new QuickDefrag<MemBlock>(svals);  
+        all = new QuickDefrag<MemBlock>(null);  
     }
 
     @Test
-    public void testInit() {
-        assertEquals("[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]", svals.toString());
-        // won't necessarily be in this order
-        // assertEquals("[3=tre, 6=six, 0=zro, 1=one, 10=ten, 5=fyv, 8=ate, 9=nyn, 4=for, 7=svn, 2=two]", entries.toString());
-    }
-
-
-    @Test
-    public void testEmptyQueue() {
-        assertFalse(e4.contains((Integer) 1));
-        assertTrue(all.contains((Integer) 1));
-        assertTrue(e4.isEmpty());
-        assertFalse(all.isEmpty());
+    public void testSortedList() {
+        //sorted by size
+        assertEquals("[0, 10, 17, 25, 33, 39, 42]", e4.toString());
+        assertEquals("[]", all.toString());
     }
 
     @Test
-    public void testAdd() {
-        assertEquals(11, all.size());
-        assertEquals("[]", e4.toString());
-        assertTrue(e4.add((Integer) 5));
-        assertTrue(e4.contains((Integer) 5));
-        assertTrue(e4.size() == 1);
-        assertEquals("[5]", e4.toString());
-        assertTrue(all.add((Integer) 11));
-        assertTrue(all.contains((Integer) 11));
-        assertTrue(all.add((Integer) 5));
-        assertTrue(all.add((Integer) 5));
-        assertTrue(all.add((Integer) 11));
-        assertEquals("[11, 9, 11, 6, 8, 5, 10, 0, 3, 2, 7, 1, 5, 4, 5]", all.toString());
-        /*assertEquals("[11, ")
-        System.out.println("");
-        assertEquals(11, temp);
-        System.out.println(all.toString());
-        assertTrue(all.remove((Integer) 7));
-        assertFalse(all.contains((Integer) 7)); 
-        assertEquals("[0, 1, 2, 3, 4, 5, 6, 8, 9, 10, 11]", all.toString());*/
+    public void testDefrag() {
+        e4.defragBlocks();
+        assertEquals("[]", all.toString());
+        System.out.println(svals.get(1).getSize());
+        System.out.println(svals.get(2).getSize());
+        assertEquals("[0, 25, 33, 39]", e4.toString());
 
     }
   
-    @Test
+/*    @Test
     public void testRemove() {
         assertEquals(11, all.size());
         assertEquals((Integer) 10, all.removeMax());
@@ -133,6 +106,5 @@ public class PriorityQueueTest {
         assertEquals(11, all.size());
         
     }
-
+*/
 }
-
