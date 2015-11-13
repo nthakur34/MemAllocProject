@@ -188,18 +188,21 @@ public class AVLtree<T extends Comparable<? super T>> {
     private BNode delete(BNode curr, T value) {
         BNode temp = null;
         //BNode toRemove = curr;
-        //if value not equal to node value
+        // if value not equal to node value, keep going down
         if (curr.data.compareTo(value) != 0) {
-            //Check if less than or equal to value at left.
+            // if value is less than curr, move to left child
             if (curr.left != null && curr.left.data.compareTo(value) >= 0) {
                 curr.left = this.delete(curr.left, value);
-            //check if greater than or equal to value at right
+                curr = this.balance(curr);
+            // if value is greater than curr, move to right child
             } else if (curr.right != null && curr.right.data.compareTo(
                     value) <= 0) {
                 curr.right = this.delete(curr.right, value);
-            } else {
-                return null; //could not find node
+                curr = this.balance(curr);
             }
+//            else {
+//                return null; //could not find node
+//            }
         } else {
             //if value is a leaf, remove it
             if (curr.isLeaf()) {
@@ -226,7 +229,7 @@ public class AVLtree<T extends Comparable<? super T>> {
         } else {
             System.out.println("***");
         }
-        curr = this.balance(curr);
+        
         return curr;
     }
 
