@@ -8,7 +8,7 @@ import java.util.Collection;
  * @author Nitin
  *
  */
-public class QueueFitAlloc implements AllocScheme {
+public class QueueFitAlloc implements MemoryManager {
 
     /**
      * Overall size of the memory (free and allocated).
