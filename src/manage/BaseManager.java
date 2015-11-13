@@ -58,10 +58,30 @@ public class BaseManager implements MemoryManager {
     @Override
     public boolean dealloc(int id) {
         // TODO Auto-generated method stub
-        if (this.allocMem.get(id) != null) {
-            return true; 
-        }
         return false;
+    }
+    
+    /**
+     * Dealloc covers the ArrayList allocMem's part of the dealloc.
+     * @param id id of the block being deallocated
+     * @return the memblock associated with the allocation
+     *          will return null if request is out of bounds
+     *          or id leads to failed request/request already removed
+     */
+    private MemBlock deallocHelper(int id) {
+        // if id is within allocMem's size
+        // and is >= 1
+        if (this.allocMem.size() > id
+                && id >= 1) {
+            // will return a memblock at id if was successful alloc
+            // will return null if failed
+            MemBlock toReturn = this.allocMem.get(id);
+            // set to null to indicate deallocated
+            this.allocMem.set(id, null);
+            return toReturn;
+        }
+        // if out of bounds, return null
+        return null;
     }
 
     @Override
