@@ -53,7 +53,8 @@ public class Defrag {
      * Function to quickSort the freeList.
      */
     public void quickSort() {
-        this.quickSort = new QuickSort<MemBlock>(this.freeList, new MemBlock.MemBlockComparator());
+        this.quickSort = new QuickSort<MemBlock>(this.freeList, new MemBlock.
+                MemBlockComparator());
         this.freeList = this.quickSort.getList();
     }
     
@@ -61,7 +62,8 @@ public class Defrag {
      * Function to bucketSort the freeList.
      */
     public void bucketSort() {
-        this.freeList = this.bucketSort.sort(this.freeList, new MemBlock.MemBlockComparator());
+        this.freeList = this.bucketSort.sort(this.freeList, new MemBlock.
+                MemBlockComparator());
     }
     
     /**
@@ -75,7 +77,7 @@ public class Defrag {
             MemBlock curr = this.freeList.get(i);
             MemBlock next = this.freeList.get(i + 1);
             // check if the 2 blocks are adjacent    
-            if(curr.getRightAdjacent() == next.getStartAddress()) {
+            if (curr.getRightAdjacent() == next.getStartAddress()) {
                 // if they are, combine the 2
                 curr.combineData(next);
                 // move the current expanded block forward an index
@@ -111,6 +113,10 @@ public class Defrag {
         
     }
     
+    /**
+     * gives collection back sorted and defragged.
+     * @return the collection
+     */
     public Collection<MemBlock> getCollection() {
         return this.freeList;
     }
