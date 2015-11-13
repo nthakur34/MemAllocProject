@@ -194,7 +194,8 @@ public class AVLtree<T extends Comparable<? super T>> {
             if (curr.left != null && curr.left.data.compareTo(value) >= 0) {
                 curr.left = this.delete(curr.left, value);
             //check if greater than or equal to value at right
-            } else if (curr.right != null && curr.right.data.compareTo(value) <= 0) {
+            } else if (curr.right != null && curr.right.data.compareTo(
+                    value) <= 0) {
                 curr.right = this.delete(curr.right, value);
             } else {
                 return null; //could not find node
@@ -216,7 +217,8 @@ public class AVLtree<T extends Comparable<? super T>> {
             } else {
                 temp = this.findMin(curr.right);
                 curr = temp;
-                curr.right = this.delete(this.findMin(curr.right), curr.right.data);
+                curr.right = this.delete(this.findMin(curr.right), 
+                        curr.right.data);
             }
         }
         if (curr != null) {
