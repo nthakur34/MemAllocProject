@@ -129,15 +129,15 @@ public class AVLtree<T extends Comparable<? super T>> {
      * @return true if added, false if val is null
      */
     public boolean add(T val) {
-        System.out.println("ADDING : " + val);
+//        System.out.println("ADDING : " + val);
         if (val != null) {
             this.root = this.insert(val, this.root);
-            System.out.println("after inserting: " + val);
+//            System.out.println("after inserting: " + val);
             this.size++;
             //how you can check whether the root is balanced:
             //System.out.println(Math.abs(balanceFactor(this.root)));
-            System.out.println("root.data: " + root.data);
-            System.out.println("root.height: " + this.root.height);
+//            System.out.println("root.data: " + root.data);
+//            System.out.println("root.height: " + this.root.height);
             return true;
         }
         return false;
@@ -150,15 +150,15 @@ public class AVLtree<T extends Comparable<? super T>> {
      * @return the node that is inserted
      */
     private BNode insert(T val, BNode curr) {
-        System.out.println("INSIDE INSERT");
-        if (curr != null) {
-            System.out.println("curr.data: " + curr.data);
-            System.out.println("curr.height: " + curr.height);
-        }
+//        System.out.println("INSIDE INSERT");
+//        if (curr != null) {
+//            System.out.println("curr.data: " + curr.data);
+//            System.out.println("curr.height: " + curr.height);
+//        }
         
         BNode temp = curr;
         if (temp == null) { // leaf, make new node
-            System.out.println("adding leaf: " + val);
+//            System.out.println("adding leaf: " + val);
             return new BNode(val);
         }
         if (val.compareTo(temp.data) < 0) {
@@ -245,23 +245,28 @@ public class AVLtree<T extends Comparable<? super T>> {
                 System.out.println("ONLY HAS CHILDREN");
                 // if there's only a left child
                 if (curr.right == null) {
-                    curr = curr.left;
+                    curr.data = curr.left.data;
                     curr.left = null;
                     return curr;
                 // if there exists a right child
                 } else {
-                    curr = curr.right;
+                    curr.data = curr.right.data;
                     curr.right = null;
                     return curr;
                 }
                //if grandchildren
             } else if (curr.height > 1) {
                 System.out.println("HAS GRANDCHILDREN");
-                temp = this.findMin(curr.right);
-                curr = temp;
-                System.out.println("about to delete: " + temp.data);
+                System.out.println("the min value: " + this.findMin(curr.right).data);
+                curr.data = this.findMin(curr.right).data;
+//                temp = curr;
+//                temp.data = this.findMin(curr.right).data;
+//                temp.right = curr.right;
+//                temp.left = curr.left;
+//                curr = temp;
+                System.out.println("about to delete: " + this.findMin(curr.right).data);
                 System.out.println("from subtree: " + curr.right.data);
-                curr.right = this.delete(curr.right, temp.data);
+                curr.right = this.delete(curr.right, this.findMin(curr.right).data);
                 curr = this.balance(curr);
                 return curr;
             }
