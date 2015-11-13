@@ -133,11 +133,14 @@ public class MemBlock implements Comparable<MemBlock> {
             try {
                 //check if size and address are equal
                 //returns false if not,
-                int size = this.getSize() - obj.getSize();
-                int address = this.getStartAddress() - obj.getStartAddress();
-                if (this.isFree() && obj.isFree()) {
-                    if ((size + address));
+                if (this.getSize() != obj.getSize()) {
+                    return false;
+                } else if (this.getStartAddress() != obj.getStartAddress()) {
+                    return false;
+                } else if (this.isFree() != obj.isFree()) {
+                    return false;
                 }
+                return true;
 
             //cathc excetions and return false
             } catch (ClassCastException e) {
@@ -145,8 +148,6 @@ public class MemBlock implements Comparable<MemBlock> {
             }
         }
         return false;
-
-        return isFree;
         
     }
     
