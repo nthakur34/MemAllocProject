@@ -81,9 +81,7 @@ public class Defrag<T> {
     private boolean hasAdjacent(int index) {
 
         if (index < this.freeList.size() - 1) {
-            int pos = this.freeList.get(index).getStartAddress() 
-                    + this.freeList.get(index).getSize();
-            int nextPos = this.freeList.get(index + 1).
+            int pos = this.freeList.get(index).getRightAdjacent();
                     getStartAddress();
             
             if (pos == nextPos) {
