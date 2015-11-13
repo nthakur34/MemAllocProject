@@ -2,7 +2,6 @@ package manage;
 
 import java.util.Collection;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.ListIterator;
@@ -14,52 +13,77 @@ import java.util.ListIterator;
  * @param <T> Type of data being sorted
  */
 public class BucketSorter<T extends Comparable<T>> {
+   
+    /**
+     * 10 is the max length of the linked list, and the array
+     * will be separated into tens.
+     */
+    private static final int TEN = 10;
     
     /**
-     * HashMap representation of the data.
+     * Bucket array representation of the data.
      */
-    private HashMap<Integer, LinkedList<T>> data;
+    private LinkedList<T>[] data;
+   
     
     /**
      * Constructor for defrag.
+     * @param size max size of elements coming in
      */
-    public BucketSorter() {
-        this.data = new HashMap<Integer, LinkedList<T>>();
+    @SuppressWarnings("unchecked")
+    public BucketSorter(int size) {
+        // create data array with inputted size
+        this.data = (LinkedList<T>[]) new LinkedList[(size / TEN) + 1];
     }
     
     /**
-     * Read data into HashMap.
+     * Sort data into HashMap.
+     * 
+     * Exceptions to throw:
+     *      size =< 0
+     *      blocks is messed up/null
+     *      bad comparator?
+     * 
      * @param blocks the collection of info to be sorted
      * @param comparator comparator for type of data being sorted
+     * @return array of all values sorted
      */
-    public void read(Collection<T> blocks,
+    public LinkedList<T>[] sort(Collection<T> blocks,
             Comparator<? super T> comparator) {
         // get an iterator to go through all values
         Iterator<T> blockIter = blocks.iterator();
         while (blockIter.hasNext()) {
             // grab value of size
             T toInsert = blockIter.next();
-            // check if hash code already exists
-            // because generic, not
-            if (this.data.containsKey(toInsert)) {
-                // does contain key
-                // get the linked list at the bucket
-                LinkedList<T> currList = this.data.get(blockIter.hashCode());
-                // make an iterator for the list
-                ListIterator<T> listIterator = 
-                        (ListIterator<T>) currList.iterator();
-                // find where either the next no-element position is
-                // or where 
-                // make comparator to compare memblock addresses
-                while (listIterator.hasNext()) {
-                    if (comparator.compare(listIterator.next(), toInsert) < 0) {
-                        break;
-                    }
-                }
-            } else {
-                System.out.println("filler");
+            // use hash code to find out
+            // which bucket it should be placed in
+            int index = toInsert.hashCode();
+            // find linked list index in main array
+            int tens = index / TEN;
+            // check if no list there
+            if (this.data[tens] == null) {
+                // then make one
+                this.data[tens] = new LinkedList<T>();
             }
+            // does contain index
+            // get the linked list at the bucket
+            LinkedList<T> currList = this.data[tens];
+            // make an iterator for the list
+            ListIterator<T> listIterator = currList.listIterator();
+            // find where either the next no-element position is
+            // or where 
+            // make comparator to compare memblock addresses
+            while (listIterator.hasNext()) {
+                if (comparator.compare(listIterator.next(), toInsert) > 0) {
+                    // need to go back one with listiterator
+                    listIterator.previous();
+                    break;
+                }
+            }
+            // add when either end condition is reached
+            listIterator.add(toInsert);
         }
+        return this.data;
     }
 
 }

@@ -10,7 +10,7 @@ import java.util.Comparator;
  *
  * @param <T> Type of object getting defragged
  */
-public class QuickDefrag<T> {
+public class Defrag<T> {
 
     /**
      * Arraylist holding free blocks.
@@ -31,7 +31,7 @@ public class QuickDefrag<T> {
      * Constructor to set up arraylist of blocks.
      * @param blockList List to sort and defrag.
      */
-    public QuickDefrag(ArrayList<MemBlock> blockList) {
+    public Defrag(ArrayList<MemBlock> blockList) {
         
         if (blockList == null || blockList.size() < 1) {
             return;
@@ -72,6 +72,7 @@ public class QuickDefrag<T> {
         this.freeList = quick.getList();*/
         //this.quickSort(1, this.freeList.size() - 1);
     }
+
     
     /**
      * check if has adjacent.

@@ -27,8 +27,8 @@ import java.util.TreeSet;
 
 public class QuickDefragTest {
 
-    static QuickDefrag<MemBlock> e4;  
-    static QuickDefrag<MemBlock> all;
+    static Defrag<MemBlock> e4;  
+    static Defrag<MemBlock> all;
 
     // note - Integer hashCode() returns the int value
     static MemBlock[] iray = {new MemBlock(0, 10, true), new MemBlock(
@@ -50,8 +50,8 @@ public class QuickDefragTest {
     @Before
     public void setup() {
         // these start out empty before each test
-        e4 = new QuickDefrag<MemBlock>(svals);  
-        all = new QuickDefrag<MemBlock>(null);  
+        e4 = new Defrag<MemBlock>(svals);  
+        all = new Defrag<MemBlock>(null);  
     }
 
     @Test
