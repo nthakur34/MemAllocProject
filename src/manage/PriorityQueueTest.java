@@ -120,13 +120,12 @@ public class PriorityQueueTest {
         assertEquals((Integer) 14, e5.removeMax());
         e5.add(14);
         assertEquals("[14, 13, 10, 9, 6, 5, 8, 7]", e5.toString());
-        assertEquals("[, ")
-        System.out.println("");
-        assertEquals(11, temp);
-        System.out.println(all.toString());
-        assertTrue(all.remove((Integer) 7));
-        assertFalse(all.contains((Integer) 7)); 
-        assertEquals("[0, 1, 2, 3, 4, 5, 6, 8, 9, 10, 11]", all.toString());*/
+        assertEquals("[0, 10, 42, 25, 33, 39, 17]", e7.toString());
+        e7.add(new MemBlock(55, 13, true));
+        assertEquals("[55, 0, 42, 10, 33, 39, 17, 25]", e7.toString());
+        assertEquals(new MemBlock(55, 13, true), e7.removeMax());
+        e7.add(new MemBlock(74, 8, true));
+        assertEquals("[0, 74, 42, 10, 33, 39, 17, 25]", e7.toString());
 
     }
   
@@ -149,6 +148,7 @@ public class PriorityQueueTest {
         assertTrue(all.contains((Integer) 11));
         assertEquals((Integer) 11, all.removeMax());
         assertFalse(all.contains((Integer) 11));
+        
     }
     
     @Test
@@ -165,6 +165,49 @@ public class PriorityQueueTest {
         all.removeMax();
         assertEquals(1, e4.size());
         assertEquals(11, all.size());
+        assertEquals(7, e7.size());
+        e7.add(new MemBlock(98, 4, true));
+        assertEquals(8, e7.size());
+        e7.add(new MemBlock(108, 4, true));
+        e7.add(new MemBlock(135, 4, true));
+        assertEquals(10, e7.size());
+        assertEquals(new MemBlock(0, 10, true), e7.removeMax());
+        assertEquals(9, e7.size());
+        assertEquals(new MemBlock(42, 8, true), e7.removeMax());
+        assertEquals(new MemBlock(10, 7, true), e7.removeMax());
+        assertEquals(7, e7.size());
+        
+    }
+    
+    @Test
+    public void testContains() {
+        assertFalse(e4.contains((Integer) 1));
+        assertTrue(all.contains((Integer) 1));
+        assertTrue(e4.isEmpty());
+        assertFalse(all.isEmpty());
+        assertEquals(0, e4.size());
+        assertEquals(11, all.size());
+        assertTrue(e4.add(12));
+        assertTrue(e4.contains((Integer) 12));
+        assertTrue(all.add(12));
+        assertTrue(all.contains((Integer) 12));
+        all.removeMax();
+        assertFalse(all.contains((Integer) 12));
+        e7.add(new MemBlock(98, 4, true));
+        assertTrue(e7.contains(new MemBlock(98, 4, true)));
+        assertEquals(8, e7.size());
+        e7.add(new MemBlock(108, 4, true));
+        e7.add(new MemBlock(135, 4, true));
+        assertTrue(e7.contains(new MemBlock(108, 4, true)));
+        assertTrue(e7.contains(new MemBlock(135, 4, true)));
+        assertEquals(new MemBlock(0, 10, true), e7.removeMax());
+        assertFalse(e7.contains(new MemBlock(0, 10, true)));
+        assertTrue(e7.contains(new MemBlock(42, 8, true)));
+        assertTrue(e7.contains(new MemBlock(10, 7, true)));
+        assertEquals(new MemBlock(42, 8, true), e7.removeMax());
+        assertEquals(new MemBlock(10, 7, true), e7.removeMax());
+        assertFalse(e7.contains(new MemBlock(42, 8, true)));
+        assertFalse(e7.contains(new MemBlock(10, 7, true)));
         
     }
 

@@ -31,23 +31,24 @@ public class QuickSort<T extends Comparable<? super T>> {
     
     /**
      * quick sorts all values.
-     * @param lowerIndex lower index to compare to pivot
-     * @param higherIndex higher index to compare to pivot
+     * @param lowerIndex lower index to compare to pivotPoint
+     * @param higherIndex higher index to compare to pivotPoint
      * @param comparator for starting address of Memblocks
      */
     private void quickSort(int lowerIndex, int higherIndex, Comparator<?
             super T> comparator) {
         int i = lowerIndex;
         int j = higherIndex;
-        T pivot = this.freeList.get(lowerIndex + (higherIndex 
+        //the point to pivot around
+        T pivotPoint = this.freeList.get(lowerIndex + (higherIndex 
                 - lowerIndex) / 2);
         
         while (i <= j) {
-            while (comparator.compare(this.freeList.get(i), pivot) < 0) {
+            while (comparator.compare(this.freeList.get(i), pivotPoint) < 0) {
                // System.out.println("stuckOrNO?");
                 i++;
             }
-            while (comparator.compare(this.freeList.get(j), pivot) > 0) {
+            while (comparator.compare(this.freeList.get(j), pivotPoint) > 0) {
                 j--;
             }
             if (i <= j) {

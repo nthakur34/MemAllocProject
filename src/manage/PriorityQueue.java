@@ -248,7 +248,7 @@ public class PriorityQueue<T extends Comparable<? super T>> {
     }
     
     /**
-     * Get string form.
+     * Get string form. If MemBlock, creates string of starting address.
      * @return string form "[1, 2, 4]"
      */
     public String toString() {
