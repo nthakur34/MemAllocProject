@@ -41,6 +41,10 @@ public class PriorityQueue<T extends Comparable<? super T>> {
      * @return true if added, else false
      */
     public boolean add(T value) {
+        if (value == null) {
+            return false; 
+        }
+     
         //add to array list and increase block count
         this.freeBlocks.add(value);
         this.numBlocks++;
@@ -265,7 +269,8 @@ public class PriorityQueue<T extends Comparable<? super T>> {
     }
     
     /**
-     * Return arraylist to manage (mostly Defrag
+     * Return arraylist to manage (mostly Defrag).
+     * @return the ArrayListholding free blocks.
      */
     public ArrayList<T> getList() {
         return this.freeBlocks;

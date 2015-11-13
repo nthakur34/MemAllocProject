@@ -26,6 +26,9 @@ public class WorstFitAlloc implements MemoryManager {
             return false;
         }
         MemBlock temp = this.freeBlocks.removeMax();
+        if (temp == null) {
+            return false;
+        }
         if (temp.getSize() < size) {
             sortedBlocks = new Defrag(this.freeBlocks.getList(), size);
             
@@ -44,7 +47,7 @@ public class WorstFitAlloc implements MemoryManager {
     public Collection<MemBlock> bucketDefrag() {
         sortedBlocks = new Defrag(this.freeBlocks.getList(), size);
         sortedBlocks.bucketSort();
-        sorted.
+        //sorted.
         return null;
     }
 
