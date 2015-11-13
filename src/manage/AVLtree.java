@@ -232,7 +232,7 @@ public class AVLtree<T extends Comparable<? super T>> {
      * @return the root node of the newly balanced subtree
      */
     private BNode balance(BNode curr) {
-        int factor = this.balanceFactor(curr);
+        
         if (curr.isLeaf()) {
             return curr;
         } else if (!curr.hasTwoChildren()) {
