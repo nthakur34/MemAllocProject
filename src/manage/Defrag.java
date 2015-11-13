@@ -27,11 +27,6 @@ public class Defrag {
     private BucketSort<MemBlock> bucketSort;
     
     /**
-     * Comparator for MemBlock to be used in sorts.
-     */
-    private Comparator<MemBlock> comparator;
-    
-    /**
      * Constructor to set up arraylist of blocks.
      * 
      * Inline comment has error throw
@@ -48,7 +43,7 @@ public class Defrag {
         this.freeList = blockList;
         // initialize BucketSort but not QuickSort
         // because QuickSort sorts upon initialization
-        
+        this.bucketSort = new BucketSort<MemBlock>(maxSize);
     }
     
     /**
@@ -57,6 +52,13 @@ public class Defrag {
     public void quickSort() {
         this.quickSort = new QuickSort<MemBlock>(this.freeList, new MemBlock.MemBlockComparator());
         this.freeList = this.quickSort.getList();
+    }
+    
+    /**
+     * Function to bucketSort the freeList.
+     */
+    public void bucketSort() {
+        this.freeList = this.bucketSort.sort(this.freeList, new MemBlock.MemBlockComparator());
     }
     
     /**
