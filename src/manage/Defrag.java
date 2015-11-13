@@ -1,7 +1,6 @@
 package manage;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 
 /**
  * Defragger class that both pulls data and defrags through
@@ -95,7 +94,7 @@ public class Defrag {
         // if not, return a bigger list
         String list = "[";
         // iterate through array list
-        for (int i = 1; i < this.freeList.size() - 1; i++) {
+        for (int i = 0; i < this.freeList.size() - 1; i++) {
             // if value is not null
             // add to string being outputted
             if (this.freeList.get(i) != null) {

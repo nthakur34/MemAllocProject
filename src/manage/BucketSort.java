@@ -91,9 +91,7 @@ public class BucketSort<T extends Comparable<T>> {
             // check if there is a linked list in this index
             if (data[i] != null) {
                 // if so, go through linked list and move all data to arraylist
-                for (int j = 0; j < data[i].size(); j++) {
-                    output.add(data[i].get(j));
-                }
+                output.addAll(data[i]);
             }
         }
         return output;
