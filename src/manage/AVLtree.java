@@ -191,10 +191,10 @@ public class AVLtree<T extends Comparable<? super T>> {
         //if value not equal to node value
         if (curr.data.compareTo(value) != 0) {
             //Check if less than or equal to value at left.
-            if (curr.left.data.compareTo(value) >= 0) {
+            if (curr.left != null && curr.left.data.compareTo(value) >= 0) {
                 this.delete(curr.left, value);
             //check if greater than or equal to value at right
-            } else if (curr.right.data.compareTo(value) <= 0) {
+            } else if (curr.right != null && curr.right.data.compareTo(value) <= 0) {
                 this.delete(curr.right, value);
             } else {
                 return null; //could not find node
