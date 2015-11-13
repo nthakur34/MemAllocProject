@@ -65,7 +65,7 @@ public class QuickDefragTest {
     public void testDefrag() {
         e4.defragBlocks();
         assertEquals("[]", all.toString());
-        assertEquals("[0, 25, 33, 39]", e4.toString());
+        assertEquals("[25, 33, 0, 39]", e4.toString());
 
     }
 }

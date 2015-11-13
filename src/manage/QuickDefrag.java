@@ -18,7 +18,7 @@ public class QuickDefrag<T> {
     private ArrayList<MemBlock> freeList = new ArrayList<MemBlock>();
     
     /**
-     * sdxds.
+     * Sorts the list, to keep in order
      */
     private QuickSort<MemBlock> quick;
     
@@ -39,47 +39,8 @@ public class QuickDefrag<T> {
         this.comparator = new MemBlock.MemBlockComparator();
         this.quick = new QuickSort<MemBlock>(blockList, this.comparator);
         this.freeList = this.quick.getList();
-       // this.quickSort(1, blockList.size() - 1);
     }
     
-    /**
-     * quick sorts all values.
-     * @param lowerIndex lower index to compare to pivot
-     * @param higherIndex higher index to compare to pivot
-     *
-    private void quickSort(int lowerIndex, int higherIndex) {
-        
-        int i = lowerIndex;
-        int j = higherIndex;
-        int pivot = ((MemBlock) this.freeList.get(lowerIndex + (higherIndex 
-                - lowerIndex) / 2)).getStartAddress();
-        
-        while (i <= j) {
-            while (((MemBlock) this.freeList.get(i))
-                    .getStartAddress() < (pivot)) {
-                i++;
-            }
-            while (((MemBlock) this.freeList.get(j))
-                    .getStartAddress() > pivot) {
-                j--;
-            }
-            if (i <= j) {
-                T temp = this.freeList.get(i);
-                this.freeList.set(i, this.freeList.get(j));
-                this.freeList.set(j, temp);
-                i++;
-                j--;
-            }
-        }
-        
-        if (lowerIndex < j) {
-            this.quickSort(lowerIndex, j);
-        }
-        if (i < higherIndex) {
-            this.quickSort(i, higherIndex);
-        }   
-    }
-    */
     /**
      * Defragment the adjacent blocks.
      */
@@ -93,12 +54,12 @@ public class QuickDefrag<T> {
             int count = 0;
 
             while (this.hasAdjacent(j)) {
-                size += ((MemBlock) this.freeList.get(j)).getSize();
+                size += this.freeList.get(j).getSize();
                 count++;
                 j++;
             }
             if (count > 0) {
-                size += ((MemBlock) this.freeList.get(j)).getSize();
+                size += this.freeList.get(j).getSize();
                 this.combine(i, j, size);
                 j = 1;
             } else {
@@ -107,8 +68,8 @@ public class QuickDefrag<T> {
             i = j;
             
         }
-        this.quick = new QuickSort<MemBlock>(this.freeList, this.comparator);
-        this.freeList = quick.getList();
+      /*  this.quick = new QuickSort<MemBlock>(this.freeList, this.comparator);
+        this.freeList = quick.getList();*/
         //this.quickSort(1, this.freeList.size() - 1);
     }
     
