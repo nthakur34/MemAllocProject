@@ -19,9 +19,9 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class BucketSorterTest {
+public class BucketSortTest {
 
-    BucketSorter<Integer> testSort;
+    BucketSort<Integer> testSort;
     
     @Test
     public void linkedListTest() {
@@ -37,7 +37,7 @@ public class BucketSorterTest {
         array.add(2);
         array.add(6);
         array.add(1);
-        testSort = new BucketSorter<Integer>(6);
+        testSort = new BucketSort<Integer>(6);
         LinkedList<Integer>[] output = testSort.sort(array, new Comparator<Integer>(){
             @Override
             public int compare(Integer s1, Integer s2) {
@@ -70,7 +70,7 @@ public class BucketSorterTest {
         array.add(2);
         array.add(10);
         // fsdsfdsdfdsf
-        testSort = new BucketSorter<Integer>(30);
+        testSort = new BucketSort<Integer>(30);
         LinkedList<Integer>[] output = testSort.sort(array, new Comparator<Integer>(){
             @Override
             public int compare(Integer s1, Integer s2) {

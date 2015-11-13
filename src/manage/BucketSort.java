@@ -12,7 +12,7 @@ import java.util.ListIterator;
  *
  * @param <T> Type of data being sorted
  */
-public class BucketSorter<T extends Comparable<T>> {
+public class BucketSort<T extends Comparable<T>> {
    
     /**
      * 10 is the max length of the linked list, and the array
@@ -31,7 +31,7 @@ public class BucketSorter<T extends Comparable<T>> {
      * @param size max size of elements coming in
      */
     @SuppressWarnings("unchecked")
-    public BucketSorter(int size) {
+    public BucketSort(int size) {
         // create data array with inputted size
         this.data = (LinkedList<T>[]) new LinkedList[(size / TEN) + 1];
     }
