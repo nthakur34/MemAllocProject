@@ -119,6 +119,7 @@ public class PriorityQueueTest {
         assertEquals(new MemBlock(55, 13, true), e7.removeMax());
         e7.add(new MemBlock(74, 8, true));
         assertEquals("[0, 74, 42, 10, 33, 39, 17, 25]", e7.toString());
+        assertFalse(e7.add(null));
 
     }
   

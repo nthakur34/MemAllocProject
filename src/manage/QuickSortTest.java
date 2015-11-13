@@ -13,7 +13,8 @@ public class QuickSortTest {
     
     static QuickSort<Integer> e4;  
     static QuickSort<Integer> e5; 
-    static QuickSort<Integer> e6; 
+    static QuickSort<Integer> e6;
+    static QuickSort<Integer> e7; 
     static QuickSort<Integer> all;
 
     // note - Integer hashCode() returns the int value
@@ -23,6 +24,7 @@ public class QuickSortTest {
     static ArrayList<Integer> svals;
     static ArrayList<Integer> pvals;
     static ArrayList<Integer> tvals;
+    static ArrayList<Integer> evals;
 
     @BeforeClass
     public static void init() {
@@ -37,8 +39,10 @@ public class QuickSortTest {
         tvals = new ArrayList<Integer>();
         for (Integer val: tray) {
             tvals.add(val);
-        } 
+        }
+        evals = new ArrayList<Integer>();
     }
+
     
     @Before
     public void setup() {
@@ -61,6 +65,12 @@ public class QuickSortTest {
                 return s1.compareTo(s2);
             }
         });
+        e7 = new QuickSort<Integer>(evals, new Comparator<Integer>(){
+            @Override
+            public int compare(Integer s1, Integer s2) {
+                return s1.compareTo(s2);
+            }
+        });
         all = new QuickSort<Integer>(null, new Comparator<Integer>(){
             @Override
             public int compare(Integer s1, Integer s2) {
@@ -77,6 +87,7 @@ public class QuickSortTest {
         assertEquals("[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]", e5.getList().toString());
         assertEquals("[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]", e6.getList().toString());
         assertEquals("[]", all.getList().toString());
+        assertEquals("[]", e7.getList().toString());
     }
 
 }
