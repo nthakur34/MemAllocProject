@@ -31,7 +31,7 @@ public class QuickDefragTest {
     static Defrag<MemBlock> all;
 
     // note - Integer hashCode() returns the int value
-    static MemBlock[] iray = {null, new MemBlock(0, 10, true), new MemBlock(
+    static MemBlock[] iray = {new MemBlock(0, 10, true), new MemBlock(
             10, 7, true), new MemBlock(17, 3, true), new MemBlock(25, 6, true),
             new MemBlock(33, 5, true), new MemBlock(39, 3, true), new MemBlock
             (42, 8, true)};

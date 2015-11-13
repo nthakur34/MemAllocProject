@@ -33,7 +33,7 @@ public class Defrag<T> {
      */
     public Defrag(ArrayList<MemBlock> blockList) {
         
-        if (blockList == null || blockList.size() <= 1) {
+        if (blockList == null || blockList.size() < 1) {
             return;
         }
         this.comparator = new MemBlock.MemBlockComparator();
@@ -46,8 +46,8 @@ public class Defrag<T> {
      */
     public void defragBlocks() {
      
-        int i = 1;
-        int j = 1;
+        int i = 0;
+        int j = 0;
 
         while (i < this.freeList.size() - 1) {
             int size = 0;
@@ -72,6 +72,7 @@ public class Defrag<T> {
         this.freeList = quick.getList();*/
         //this.quickSort(1, this.freeList.size() - 1);
     }
+
     
     /**
      * check if has adjacent.

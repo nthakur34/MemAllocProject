@@ -22,11 +22,11 @@ public class QuickSort<T extends Comparable<? super T>> {
      */
     public QuickSort(ArrayList<T> blockList, Comparator<? super T> comparator) {
         
-        if (blockList == null || blockList.size() <= 1) {
+        if (blockList == null || blockList.size() < 1) {
             return;
         }
         this.freeList = blockList;
-        this.quickSort(1, blockList.size() - 1, comparator);
+        this.quickSort(0, blockList.size() - 1, comparator);
     }
     
     /**
