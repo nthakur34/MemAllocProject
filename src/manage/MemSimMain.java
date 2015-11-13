@@ -123,7 +123,7 @@ final class MemSimMain {
      * @param id Current id number
      * @return String representation of the deallocation
      */
-    public static String formatDealloc(String output, Block temp,
+    public static String formatDealloc(String output, MemBlock temp,
         int id) {
 
         String sucString = "SUCCESS";
@@ -134,7 +134,7 @@ final class MemSimMain {
             sucString = "FAILED";
             address = -1;
         } else {
-            address = temp.getAddress();
+            address = temp.getStartAddress();
             deallocSize = temp.getSize();
         }
         output += String.format("D%4s%4s  %-7s%6s%7s        ",

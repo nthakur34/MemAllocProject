@@ -264,4 +264,10 @@ public class PriorityQueue<T extends Comparable<? super T>> {
         
     }
     
+    /**
+     * Return arraylist to manage (mostly Defrag
+     */
+    public ArrayList<T> getList() {
+        return this.freeBlocks;
+    }
 }

@@ -1,6 +1,10 @@
 package manage;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.LinkedList;
+
+import manage.AVLtree.BNode;
 
 /**
  * Defragger class that both pulls data and defrags through
@@ -105,6 +109,10 @@ public class Defrag {
                 .getStartAddress() + "]";
         return list;
         
+    }
+    
+    public Collection<MemBlock> getCollection() {
+        return this.freeList;
     }
 }
 
