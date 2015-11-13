@@ -3,7 +3,6 @@ package manage;
 import java.util.ArrayList;
 
 /**
- * @author navthakur
  *
  * @param <T>
  */

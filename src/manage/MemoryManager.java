@@ -6,7 +6,6 @@ import java.util.Collection;
 /**
  * General interface that implements different methods of managing data
  * to handle free memory.
- * @author Nitin
  *
  */
 public interface MemoryManager {
