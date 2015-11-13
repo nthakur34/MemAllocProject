@@ -18,7 +18,7 @@ public class QuickDefrag<T> {
     private ArrayList<MemBlock> freeList = new ArrayList<MemBlock>();
     
     /**
-     * Sorts the list, to keep in order
+     * Sorts the list, to keep in order.
      */
     private QuickSort<MemBlock> quick;
     
