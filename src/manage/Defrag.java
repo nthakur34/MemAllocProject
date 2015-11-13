@@ -2,9 +2,6 @@ package manage;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.LinkedList;
-
-import manage.AVLtree.BNode;
 
 /**
  * Defragger class that both pulls data and defrags through
@@ -53,8 +50,12 @@ public class Defrag {
      * Function to quickSort the freeList.
      */
     public void quickSort() {
+
         this.quickSort = new QuickSort<MemBlock>(this.freeList, new MemBlock.
                 MemBlockComparator());
+
+        this.quickSort = new QuickSort<MemBlock>(this.freeList,
+                new MemBlock.MemBlockComparator());
         this.freeList = this.quickSort.getList();
     }
     
@@ -62,8 +63,12 @@ public class Defrag {
      * Function to bucketSort the freeList.
      */
     public void bucketSort() {
+
         this.freeList = this.bucketSort.sort(this.freeList, new MemBlock.
                 MemBlockComparator());
+
+        this.freeList = this.bucketSort.sort(this.freeList,
+                new MemBlock.MemBlockComparator());
     }
     
     /**
@@ -115,7 +120,7 @@ public class Defrag {
     
     /**
      * gives collection back sorted and defragged.
-     * @return the collection
+     * @return sorted collection
      */
     public Collection<MemBlock> getCollection() {
         return this.freeList;

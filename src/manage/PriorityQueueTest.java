@@ -120,6 +120,8 @@ public class PriorityQueueTest {
         e7.add(new MemBlock(74, 8, true));
         assertEquals("[0, 74, 42, 10, 33, 39, 17, 25]", e7.toString());
         assertFalse(e7.add(null));
+        assertTrue(e4.add((Integer) 7));
+        assertEquals("[7, 5]", e4.toString());
 
     }
   
