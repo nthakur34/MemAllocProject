@@ -23,9 +23,9 @@ public class PriorityQueue<T extends Comparable<? super T>> {
      * Constructor to set up arraylist with empty position 0.
      */
     public PriorityQueue() {
+        //represents index
         this.numBlocks = -1;
         this.freeBlocks = new ArrayList<T>();
-       // this.freeBlocks.add(null);
     }
     
     /**
@@ -240,7 +240,7 @@ public class PriorityQueue<T extends Comparable<? super T>> {
         }
         //goes through every position, returns true if found
         for (int i = 0; i <= this.numBlocks; i++) {
-            if (this.freeBlocks.get(i) == value) {
+            if (this.freeBlocks.get(i).equals(value)) {
                 return true;
             }
         }
@@ -257,9 +257,9 @@ public class PriorityQueue<T extends Comparable<? super T>> {
         }
         String list = "[";
         for (int i = 0; i < this.numBlocks; i++) {
-            list += this.freeBlocks.get(i) + ", ";
+            list += this.freeBlocks.get(i).toString() + ", ";
         }
-        list += this.freeBlocks.get(this.numBlocks) + "]";
+        list += this.freeBlocks.get(this.numBlocks).toString() + "]";
         return list;
         
     }
