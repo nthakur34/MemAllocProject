@@ -56,7 +56,7 @@ public class BucketSort<T extends Comparable<T>> {
         // get an iterator to go through all values
         Iterator<T> blockIter = blocks.iterator();
         while (blockIter.hasNext()) {
-            // grab value of size
+            // grab next value
             T toInsert = blockIter.next();
             // use hash code to find out
             // which bucket it should be placed in

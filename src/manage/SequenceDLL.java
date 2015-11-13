@@ -4,6 +4,7 @@ import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 
 /**
+ * Citing from project 2 code:
  * Doubly linked list that uses Sequence.
  * No sentinel nodes.
  * @author Nitin

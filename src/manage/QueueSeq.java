@@ -1,6 +1,7 @@
 package manage;
 
 /**
+ * Citing from project 2 code:
  * QueueSeq is a queue wrapper for a Sequence, using the doubly linked
  * list sequence.
  * @author Nitin

@@ -3,6 +3,7 @@ package manage;
 /** 
  * Generic queue interface.
  *
+ * Citing using code from project 2:
  * 600.226 Data Structures, Fall 2015, Project 2
  *
  * @param <T> the underlying type stored in the list

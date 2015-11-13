@@ -45,7 +45,8 @@ public class BaseManager implements MemoryManager {
         this.failSize = 0;
         // initialize allocMem
         // make 0 term null
-        this.allocMem = new ArrayList<MemBlock>(2);
+        this.allocMem = new ArrayList<MemBlock>(1);
+        this.allocMem.set(0, null);
         
     }
     
@@ -61,14 +62,8 @@ public class BaseManager implements MemoryManager {
         return false;
     }
     
-    /**
-     * Dealloc covers the ArrayList allocMem's part of the dealloc.
-     * @param id id of the block being deallocated
-     * @return the memblock associated with the allocation
-     *          will return null if request is out of bounds
-     *          or id leads to failed request/request already removed
-     */
-    private MemBlock deallocHelper(int id) {
+    @Override
+    public MemBlock deallocHelper(int id) {
         // if id is within allocMem's size
         // and is >= 1
         if (this.allocMem.size() > id

@@ -1,6 +1,7 @@
 package manage;
 
 /** 
+ * Citing from project 2 code:
  * Generic sequence interface (positional list).
  *
  * 600.226 Data Structures, Fall 2015, Project 2

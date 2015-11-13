@@ -7,6 +7,12 @@ import java.util.Iterator;
 import org.junit.Test;
 import org.junit.Before;
 
+
+/**
+ * Written for Project 2, but updated extensively based on TA comments.
+ * @author Nitin
+ *
+ */
 public class SequenceTest {
     
     Sequence<Integer> testSeq;
