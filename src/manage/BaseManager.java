@@ -59,18 +59,14 @@ public class BaseManager implements MemoryManager {
     public boolean dealloc(int id) {
         // TODO Auto-generated method stub
         if (this.allocMem.get(id) != null) {
-            return; 
+            return true; 
         }
         return false;
     }
 
     @Override
-<<<<<<< HEAD
     public Collection<MemBlock> defrag(ArrayList<MemBlock> toSort, 
             boolean isBucket) {
-=======
-    public Collection<MemBlock> defrag(ArrayList<MemBlock> toSort, boolean isBucket) {
->>>>>>> branch 'master' of https://nthakur34@bitbucket.org/p4jnn/the-three-muskequeers.git
         // increment defragCount
         this.defragCount++;
         // initialize defragger

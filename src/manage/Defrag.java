@@ -50,13 +50,9 @@ public class Defrag {
      * Function to quickSort the freeList.
      */
     public void quickSort() {
-<<<<<<< HEAD
 
         this.quickSort = new QuickSort<MemBlock>(this.freeList, new MemBlock.
                 MemBlockComparator());
-
-=======
->>>>>>> branch 'master' of https://nthakur34@bitbucket.org/p4jnn/the-three-muskequeers.git
         this.quickSort = new QuickSort<MemBlock>(this.freeList,
                 new MemBlock.MemBlockComparator());
         this.freeList = this.quickSort.getList();
@@ -66,13 +62,9 @@ public class Defrag {
      * Function to bucketSort the freeList.
      */
     public void bucketSort() {
-<<<<<<< HEAD
 
         this.freeList = this.bucketSort.sort(this.freeList, new MemBlock.
                 MemBlockComparator());
-
-=======
->>>>>>> branch 'master' of https://nthakur34@bitbucket.org/p4jnn/the-three-muskequeers.git
         this.freeList = this.bucketSort.sort(this.freeList,
                 new MemBlock.MemBlockComparator());
     }
@@ -125,11 +117,9 @@ public class Defrag {
     }
     
     /**
-<<<<<<< HEAD
      * gives collection back sorted and defragged.
-=======
      * Return collection (post sort).
->>>>>>> branch 'master' of https://nthakur34@bitbucket.org/p4jnn/the-three-muskequeers.git
+     * Return collection (post sort).
      * @return sorted collection
      */
     public Collection<MemBlock> getCollection() {
