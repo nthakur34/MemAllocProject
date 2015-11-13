@@ -2,7 +2,7 @@ package manage;
 
 import java.util.Collection;
 
-public class WorstFitAlloc implements MemoryManager {
+public class WorstFitAlloc extends BaseManager {
     
     private MemBlock usedBlocks[];  
     
