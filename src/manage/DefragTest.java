@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.TreeSet;
 
-public class QuickDefragTest {
+public class DefragTest {
 
     static Defrag<MemBlock> e4;  
     static Defrag<MemBlock> all;
