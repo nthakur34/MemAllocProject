@@ -57,6 +57,7 @@ public class DefragTest {
     @Test
     public void testSortedList() {
         //sorted by size
+        System.out.println(e4.toString());
         assertEquals("[0, 10, 17, 25, 33, 39, 42]", e4.toString());
         assertEquals("[]", all.toString());
     }

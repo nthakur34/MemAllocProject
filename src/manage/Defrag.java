@@ -6,111 +6,79 @@ import java.util.Comparator;
 /**
  * Defragger class that both pulls data and defrags through
  * quick sort method.
- * @author navthakur
- *
- * @param <T> Type of object getting defragged
+ * @author Nitin and navthakur
+ * 
  */
-public class Defrag<T> {
+public class Defrag {
 
     /**
-     * Arraylist holding free blocks.
+     * ArrayList holding free blocks.
      */
     private ArrayList<MemBlock> freeList = new ArrayList<MemBlock>();
     
     /**
-     * Sorts the list, to keep in order.
+     * QuickSort to sort the list, to keep in order.
      */
-    private QuickSort<MemBlock> quick;
+    private QuickSort<MemBlock> quickSort;
     
     /**
-     * gfds.
+     * BucketSort to sort the list, to keep in order.
+     */
+    private BucketSort<MemBlock> bucketSort;
+    
+    /**
+     * Comparator for MemBlock to be used in sorts.
      */
     private Comparator<MemBlock> comparator;
     
     /**
      * Constructor to set up arraylist of blocks.
+     * 
+     * Inline comment has error throw
+     * 
      * @param blockList List to sort and defrag.
+     * @param maxSize total size of all memory
      */
-    public Defrag(ArrayList<MemBlock> blockList) {
+    public Defrag(ArrayList<MemBlock> blockList, int maxSize) {
         
         if (blockList == null || blockList.size() < 1) {
+            // need to make this an error throw
             return;
         }
-        this.comparator = new MemBlock.MemBlockComparator();
-        this.quick = new QuickSort<MemBlock>(blockList, this.comparator);
-        this.freeList = this.quick.getList();
+        this.freeList = blockList;
+        // initialize BucketSort but not QuickSort
+        // because QuickSort sorts upon initialization
+        
     }
     
     /**
-     * Defragment the adjacent blocks.
+     * Function to quickSort the freeList.
+     */
+    public void quickSort() {
+        this.quickSort = new QuickSort<MemBlock>(this.freeList, new MemBlock.MemBlockComparator());
+        this.freeList = this.quickSort.getList();
+    }
+    
+    /**
+     * Defragment the adjacent blocks after sorting. Assumes sorted list.
      */
     public void defragBlocks() {
-     
-        int i = 0;
-        int j = 0;
-
-        while (i < this.freeList.size() - 1) {
-            int size = 0;
-            int count = 0;
-
-            while (this.hasAdjacent(j)) {
-                size += this.freeList.get(j).getSize();
-                count++;
-                j++;
-            }
-            if (count > 0) {
-                size += this.freeList.get(j).getSize();
-                this.combine(i, j, size);
-                j = 1;
-            } else {
-                j++;
-            }
-            i = j;
-            
-        }
-      /*  this.quick = new QuickSort<MemBlock>(this.freeList, this.comparator);
-        this.freeList = quick.getList();*/
-        //this.quickSort(1, this.freeList.size() - 1);
-    }
-
-    
-    /**
-     * check if has adjacent.
-     * @param index index to check for adjacent blocks
-     * @return true if adjacent, else false.
-     */
-    private boolean hasAdjacent(int index) {
-
-        if (index < this.freeList.size() - 1) {
-            int pos = this.freeList.get(index).getRightAdjacent();
-                    getStartAddress();
-            
-            if (pos == nextPos) {
-                return true;
+        // make a loop to iterate through list of blocks
+        // except last one, as always checking i block and
+        // i + 1 for adjacency
+        for (int i = 0; i < this.freeList.size() - 1; i++) {
+            MemBlock curr = this.freeList.get(i);
+            MemBlock next = this.freeList.get(i + 1);
+            // check if the 2 blocks are adjacent    
+            if(curr.getRightAdjacent() == next.getStartAddress()) {
+                // if they are, combine the 2
+                curr.combineData(next);
+                // move the current expanded block forward an index
+                this.freeList.set(i + 1, curr);
+                // set the previous one to null
+                this.freeList.set(i, null);
             }
         }
-        return false;
-    }
-    
-    /**
-     * 
-     * @param bottomIndex index to start at
-     * @param topIndex index to stop at.
-     * @param size size of new block
-     */
-    private void combine(int bottomIndex, int topIndex, int size) {
-        int start = this.freeList.get(bottomIndex).
-                getStartAddress(); 
-       // @SuppressWarnings("unchecked")
-        MemBlock newBlock = new MemBlock(start, size, true);
-        int i = bottomIndex;
-        int count = 0;
-        //remove all blocks that are adjacent and combinable
-        while (count <= (topIndex - bottomIndex)) {
-            this.freeList.remove(i);
-            count++;
-        }
-        this.freeList.add(newBlock);
     }
     
     /**
@@ -118,12 +86,19 @@ public class Defrag<T> {
      * @return string form "[1, 2, 4]"
      */
     public String toString() {
+        // if list is null or empty, return empty brackets
         if (this.freeList == null || this.freeList.size() <= 1)  {
             return "[]";
         }
+        // if not, return a bigger list
         String list = "[";
+        // iterate through array list
         for (int i = 1; i < this.freeList.size() - 1; i++) {
-            list += this.freeList.get(i).getStartAddress() + ", ";
+            // if value is not null
+            // add to string being outputted
+            if (this.freeList.get(i) != null) {
+                list += this.freeList.get(i).getStartAddress() + ", ";
+            }
         }
         list += this.freeList.get(this.freeList.size() - 1)
                 .getStartAddress() + "]";

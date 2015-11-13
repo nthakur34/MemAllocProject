@@ -37,20 +37,29 @@ public class QuickSort<T extends Comparable<? super T>> {
      */
     private void quickSort(int lowerIndex, int higherIndex, Comparator<?
             super T> comparator) {
+        // i is front cursor moving forwards
+        // j is end cursor moving backwards
         int i = lowerIndex;
         int j = higherIndex;
-        //the point to pivot around
-        T pivotPoint = this.freeList.get(lowerIndex + (higherIndex 
+
+        // pivot point found by finding middle
+        T pivot = this.freeList.get(lowerIndex + (higherIndex 
                 - lowerIndex) / 2);
-        
+        // while front curr is less than or equal to end curr
         while (i <= j) {
-            while (comparator.compare(this.freeList.get(i), pivotPoint) < 0) {
+            // while front is less than pivot, move front cursor forwards
+            while (comparator.compare(this.freeList.get(i), pivot) < 0) {
                // System.out.println("stuckOrNO?");
                 i++;
             }
-            while (comparator.compare(this.freeList.get(j), pivotPoint) > 0) {
+            // while end is less than pivot, move end cursor backwards
+            while (comparator.compare(this.freeList.get(j), pivot) > 0) {
                 j--;
             }
+            // check if the i iterator is still behind the j
+            // if so, switch the terms
+            // if not, you know you're ready to quickSort the
+            // new subsets on the side of the pivot
             if (i <= j) {
                 T temp = this.freeList.get(i);
                 this.freeList.set(i, this.freeList.get(j));
@@ -59,7 +68,7 @@ public class QuickSort<T extends Comparable<? super T>> {
                 j--;
             }
         }
-        
+        // check that we've not reached either end of array
         if (lowerIndex < j) {
             this.quickSort(lowerIndex, j, comparator);
         }

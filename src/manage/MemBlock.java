@@ -148,7 +148,11 @@ public class MemBlock implements Comparable<MemBlock> {
             }
         }
         return false;
-        
+    }
+    
+    @Override
+    public int hashCode() {
+        return this.startAddress;
     }
     @Override
     public String toString() {
