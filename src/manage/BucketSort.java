@@ -1,5 +1,6 @@
 package manage;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -48,7 +49,7 @@ public class BucketSort<T extends Comparable<T>> {
      * @param comparator comparator for type of data being sorted
      * @return array of all values sorted
      */
-    public LinkedList<T>[] sort(Collection<T> blocks,
+    public ArrayList<T> sort(Collection<T> blocks,
             Comparator<? super T> comparator) {
         // get an iterator to go through all values
         Iterator<T> blockIter = blocks.iterator();
@@ -83,7 +84,19 @@ public class BucketSort<T extends Comparable<T>> {
             // add when either end condition is reached
             listIterator.add(toInsert);
         }
-        return this.data;
+        
+        ArrayList<T> output = new ArrayList<T>();
+        // need to convert data to array list
+        for (int i = 0; i < data.length; i++) {
+            // check if there is a linked list in this index
+            if (data[i] != null) {
+                // if so, go through linked list and move all data to arraylist
+                for (int j = 0; j < data[i].size(); j++) {
+                    output.add(data[i].get(j));
+                }
+            }
+        }
+        return output;
     }
 
 }

@@ -37,17 +37,17 @@ public class BucketSortTest {
         array.add(2);
         array.add(6);
         array.add(1);
-        testSort = new BucketSort<Integer>(6);
-        LinkedList<Integer>[] output = testSort.sort(array, new Comparator<Integer>(){
+        testSort = new BucketSort<Integer>(10);
+        ArrayList<Integer> output = testSort.sort(array, new Comparator<Integer>(){
             @Override
             public int compare(Integer s1, Integer s2) {
                 return s1.compareTo(s2);
             }
         });
-        assertTrue(output.length == 1);
-        assertFalse(output[0].isEmpty());
+        assertTrue(output.size() == 6);
+        assertFalse(output.isEmpty());
         for (int i = 0; i < 6; i++) {
-            assertEquals((Integer) output[0].get(i), (Integer) arr[i]);
+            assertEquals((Integer) output.get(i), (Integer) arr[i]);
         }
     }
     
@@ -56,9 +56,7 @@ public class BucketSortTest {
         // test 
         List<Integer> array = new ArrayList<Integer>();
         // {4, 23, 22, 1, 0, 12, 2, 10}
-        int arr0[] = {0, 1, 2, 4};
-        int arr1[] = {10, 12};
-        int arr2[] = {22, 23};
+        int arr[] = {0, 1, 2, 4, 10, 12, 22, 23};
         // {0, 1, 2, 3, 5, 6}
         // size = 30
         array.add(4);
@@ -71,25 +69,17 @@ public class BucketSortTest {
         array.add(10);
         // fsdsfdsdfdsf
         testSort = new BucketSort<Integer>(30);
-        LinkedList<Integer>[] output = testSort.sort(array, new Comparator<Integer>(){
+        ArrayList<Integer> output = testSort.sort(array, new Comparator<Integer>(){
             @Override
             public int compare(Integer s1, Integer s2) {
                 return s1.compareTo(s2);
             }
         });
-        assertTrue(output.length == 4);
-        assertFalse(output[0].isEmpty());
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < output[i].size(); j++) {
-                if (i == 0) {
-                    assertEquals((Integer) output[i].get(j), (Integer) arr0[j]);
-                } else if (i == 1) {
-                    assertEquals((Integer) output[i].get(j), (Integer) arr1[j]);
-                } else if (i == 2) {
-                    assertEquals((Integer) output[i].get(j), (Integer) arr2[j]);
-                }
-            }
+        assertFalse(output.isEmpty());
+        for (int i = 0; i < output.size(); i++) {
+            assertEquals((Integer) output.get(i), (Integer) arr[i]);
         }
+        System.out.println(output);
     }
     
 }
