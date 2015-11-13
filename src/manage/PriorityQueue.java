@@ -23,16 +23,16 @@ public class PriorityQueue<T extends Comparable<? super T>> {
      * Constructor to set up arraylist with empty position 0.
      */
     public PriorityQueue() {
-        this.numBlocks = 0;
+        //represents index
+        this.numBlocks = -1;
         this.freeBlocks = new ArrayList<T>();
-        this.freeBlocks.add(null);
     }
     
     /**
      * @return the size
      */
     public int size() {
-        return this.numBlocks;
+        return this.numBlocks + 1;
     }
     
     /**
@@ -47,7 +47,7 @@ public class PriorityQueue<T extends Comparable<? super T>> {
         int currVal = this.numBlocks;
         // until block is no longer greater than its parent and the block
         // is not the root
-        while ((currVal > 1) && (this.freeBlocks.get(currVal).compareTo(
+        while ((currVal > 0) && (this.freeBlocks.get(currVal).compareTo(
                 this.freeBlocks.get(this.parent(currVal))) > 0)) {
             //set parent as current block, and the block as the parent
             T temp = this.freeBlocks.get(this.parent(currVal));
@@ -66,10 +66,10 @@ public class PriorityQueue<T extends Comparable<? super T>> {
      * @return the left child index.
      */
     private int leftChild(int pos) {
-        if (pos > this.numBlocks / 2) {
-            return 0;
+        if (pos > (this.numBlocks - 1) / 2) {
+            return -1;
         }
-        return 2 * pos;
+        return 2 * pos + 1;
     }
      
     /**
@@ -78,10 +78,10 @@ public class PriorityQueue<T extends Comparable<? super T>> {
      * @return the index of right child
      */
     private int rightChild(int pos) {
-        if (pos > (this.numBlocks - 1) / 2) {
-            return 0;
+        if (pos > (this.numBlocks - 2) / 2) {
+            return -1;
         }
-        return 2 * pos + 1;
+        return 2 * pos + 2;
     }
     
     /**
@@ -90,10 +90,10 @@ public class PriorityQueue<T extends Comparable<? super T>> {
      * @return the parent position
      */
     private int parent(int pos) {
-        if (pos <= 1) {
-            return 0;
+        if (pos <= 0) {
+            return -1;
         }
-        return (pos) / 2;
+        return (pos - 1) / 2;
     }
     
     /**
@@ -101,31 +101,33 @@ public class PriorityQueue<T extends Comparable<? super T>> {
      */
     public T removeMax() {
         //if empty, there is no value to remove
-        if (this.numBlocks == 0)  {
+        if (this.numBlocks < 0)  {
             return null;
         }
-        //swap last value with the root, and remove root
-        T temp = this.freeBlocks.get(1);
-        this.freeBlocks.set(1, this.freeBlocks.get(this.numBlocks));
+        //swap last value with the root
+        T temp = this.freeBlocks.get(0);
+        this.freeBlocks.set(0, this.freeBlocks.get(this.numBlocks));
+        //remove the last value
         this.freeBlocks.remove(this.numBlocks);
         this.numBlocks--;
         //as long as there is not only a root
-        if (this.numBlocks != 1) {      // Not on last element
-            this.swap(1);
+        if (this.numBlocks > 0) {      // Not on last element
+            this.swap(0);
         }
         return temp;
     }
     
     /**
+     * Swap with children until none of the children are greater than curr.
      * @param curr the current value to swap up
      */
     private void swap(int curr) {
         
         //if no children end swapping
-        if ((this.leftChild(curr) == 0 && this.rightChild(curr) == 0)) {
+        if ((this.leftChild(curr) < 0 && this.rightChild(curr) < 0)) {
             return;
         //if no left child swap with right child
-        } else if (this.leftChild(curr) == 0) {
+        } else if (this.leftChild(curr) < 0) {
             //if right child is greater, swap with child
             if (this.freeBlocks.get(curr).
                 compareTo(this.freeBlocks.get(this.rightChild(curr))) < 0) {
@@ -139,8 +141,9 @@ public class PriorityQueue<T extends Comparable<? super T>> {
                 this.swap(curr);
             }
         //if no right child, swap with left child
-        } else if (this.rightChild(curr) == 0) {
+        } else if (this.rightChild(curr) < 0) {
           //if left child is greater, swap with child
+            System.out.println(this.leftChild(curr));
             if (this.freeBlocks.get(curr).compareTo(this.freeBlocks.get(
                 this.leftChild(curr))) < 0) {
                 
@@ -220,7 +223,7 @@ public class PriorityQueue<T extends Comparable<? super T>> {
      * @return the if list is empty
      */
     public boolean isEmpty() {
-        if (this.numBlocks == 0)  {
+        if (this.numBlocks == -1)  {
             return true;
         }
         return false;
@@ -232,12 +235,12 @@ public class PriorityQueue<T extends Comparable<? super T>> {
      */
     public boolean contains(T value) {
         //if empty list, return false
-        if (this.numBlocks == 0)  {
+        if (this.numBlocks == -1)  {
             return false;
         }
         //goes through every position, returns true if found
-        for (int i = 1; i <= this.numBlocks; i++) {
-            if (this.freeBlocks.get(i) == value) {
+        for (int i = 0; i <= this.numBlocks; i++) {
+            if (this.freeBlocks.get(i).equals(value)) {
                 return true;
             }
         }
@@ -245,7 +248,7 @@ public class PriorityQueue<T extends Comparable<? super T>> {
     }
     
     /**
-     * Get string form.
+     * Get string form. If MemBlock, creates string of starting address.
      * @return string form "[1, 2, 4]"
      */
     public String toString() {
@@ -253,10 +256,10 @@ public class PriorityQueue<T extends Comparable<? super T>> {
             return "[]";
         }
         String list = "[";
-        for (int i = 1; i < this.numBlocks; i++) {
-            list += this.freeBlocks.get(i) + ", ";
+        for (int i = 0; i < this.numBlocks; i++) {
+            list += this.freeBlocks.get(i).toString() + ", ";
         }
-        list += this.freeBlocks.get(this.numBlocks) + "]";
+        list += this.freeBlocks.get(this.numBlocks).toString() + "]";
         return list;
         
     }

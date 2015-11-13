@@ -8,7 +8,7 @@ import java.util.Collection;
  * @author Nitin
  *
  */
-public interface AllocScheme {
+public interface MemoryManager {
 
     /**
      * Function for allocating a free block of memory from fit model

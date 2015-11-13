@@ -121,12 +121,43 @@ public class MemBlock implements Comparable<MemBlock> {
 
     @Override
     public int compareTo(MemBlock o) {
-        if (this.getSize() < o.getSize()) {
-            return -1;
-        } else if (this.getSize() > o.getSize()) {
-            return 1;
-        } 
-        return 0;
+        return this.getSize() - o.getSize();
+    }
+    
+    @Override
+    public boolean equals(Object o) {
+        
+        if (o instanceof MemBlock) {
+            //cast m
+            MemBlock obj = (MemBlock) o;
+            try {
+                //check if size and address are equal
+                //returns false if not,
+                if (this.getSize() != obj.getSize()) {
+                    return false;
+                } else if (this.getStartAddress() != obj.getStartAddress()) {
+                    return false;
+                } else if (this.isFree() != obj.isFree()) {
+                    return false;
+                }
+                return true;
+
+            //cathc excetions and return false
+            } catch (ClassCastException e) {
+                return false;
+            }
+        }
+        return false;
+    }
+    
+    @Override
+    public int hashCode() {
+        return this.startAddress;
+    }
+    @Override
+    public String toString() {
+        return this.getStartAddress() + "";
+        
     }
     
     /**

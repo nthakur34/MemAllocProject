@@ -1,7 +1,6 @@
-package test;
+package manage;
 
 import static org.junit.Assert.*;
-import manage.MemBlock;
 
 import org.junit.Before;
 import org.junit.Test;
