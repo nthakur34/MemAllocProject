@@ -37,7 +37,6 @@ public class QuickSort<T extends Comparable<? super T>> {
      */
     private void quickSort(int lowerIndex, int higherIndex, Comparator<?
             super T> comparator) {
-        
         int i = lowerIndex;
         int j = higherIndex;
         T pivot = this.freeList.get(lowerIndex + (higherIndex 
@@ -45,9 +44,10 @@ public class QuickSort<T extends Comparable<? super T>> {
         
         while (i <= j) {
             while (comparator.compare(this.freeList.get(i), pivot) < 0) {
+               // System.out.println("stuckOrNO?");
                 i++;
             }
-            while (comparator.compare(this.freeList.get(i), pivot) > 0) {
+            while (comparator.compare(this.freeList.get(j), pivot) > 0) {
                 j--;
             }
             if (i <= j) {

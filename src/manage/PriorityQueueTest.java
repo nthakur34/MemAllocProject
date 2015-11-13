@@ -34,6 +34,11 @@ public class PriorityQueueTest {
     // note - Integer hashCode() returns the int value
     static Integer[] iray = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
     static ArrayList<Integer> svals;
+    static MemBlock[] pray = {null, new MemBlock(0, 10, true), new MemBlock(
+            10, 7, true), new MemBlock(17, 3, true), new MemBlock(25, 6, true),
+            new MemBlock(33, 5, true), new MemBlock(39, 3, true), new MemBlock
+            (42, 8, true)};
+    static ArrayList<MemBlock> pvals;
 
     @BeforeClass
     public static void init() {
@@ -41,15 +46,18 @@ public class PriorityQueueTest {
         for (Integer val: iray) {
             svals.add(val);
         } 
+        
+        pvals = new ArrayList<MemBlock>();
+        for (MemBlock val: pray) {
+            pvals.add(val);
+        } 
     }
-   
-
 
     @Before
     public void setup() {
         // these start out empty before each test
         e4 = new PriorityQueue<Integer>();  
-        e7 = new PriorityQueue<Integer>();  
+        e7 = new PriorityQueue<MemBlock>();  
 
         // this is full set, assuming put works correctly
         all = new PriorityQueue<Integer>();
