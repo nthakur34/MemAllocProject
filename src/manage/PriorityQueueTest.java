@@ -120,7 +120,7 @@ public class PriorityQueueTest {
         assertEquals((Integer) 14, e5.removeMax());
         e5.add(14);
         assertEquals("[14, 13, 10, 9, 6, 5, 8, 7]", e5.toString());
-        /*assertEquals("[11, ")
+        assertEquals("[, ")
         System.out.println("");
         assertEquals(11, temp);
         System.out.println(all.toString());

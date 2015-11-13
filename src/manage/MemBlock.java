@@ -154,6 +154,11 @@ public class MemBlock implements Comparable<MemBlock> {
     public int hashCode() {
         return this.startAddress;
     }
+    @Override
+    public String toString() {
+        return this.getStartAddress() + "";
+        
+    }
     
     /**
      * Comparator to compare addresses of memblocks.
