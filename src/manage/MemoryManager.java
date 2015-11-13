@@ -6,7 +6,6 @@ import java.util.Collection;
 /**
  * General interface that implements different methods of managing data
  * to handle free memory.
- * @author Nitin
  *
  */
 public interface MemoryManager {
@@ -18,6 +17,13 @@ public interface MemoryManager {
      * @return whether alloc could happen or not
      */
     boolean alloc(int size);
+    
+    /**
+     * Find the free block to be used to allocate.
+     * @param size
+     * @return the free memory block to use
+     */
+    MemBlock grabToAlloc(int size);
     
     /**
      * Deallocate a block of allocated memory in allocated array list

@@ -3,7 +3,6 @@ package manage;
 import java.util.ArrayList;
 
 /**
- * @author navthakur
  *
  * @param <T>
  */
@@ -15,16 +14,16 @@ public class PriorityQueue<T extends Comparable<? super T>> {
     private ArrayList<T> freeBlocks;
     
     /**
-     * the  number of blocks in the arraylist.
+     * the index in the arraylist.
      */
-    private int numBlocks;
+    private int blockIndex;
     
     /**
      * Constructor to set up arraylist with empty position 0.
      */
     public PriorityQueue() {
         //represents index
-        this.numBlocks = -1;
+        this.blockIndex = -1;
         this.freeBlocks = new ArrayList<T>();
     }
     
@@ -32,7 +31,7 @@ public class PriorityQueue<T extends Comparable<? super T>> {
      * @return the size
      */
     public int size() {
-        return this.numBlocks + 1;
+        return this.blockIndex + 1;
     }
     
     /**
@@ -47,8 +46,8 @@ public class PriorityQueue<T extends Comparable<? super T>> {
      
         //add to array list and increase block count
         this.freeBlocks.add(value);
-        this.numBlocks++;
-        int currVal = this.numBlocks;
+        this.blockIndex++;
+        int currVal = this.blockIndex;
         // until block is no longer greater than its parent and the block
         // is not the root
         while ((currVal > 0) && (this.freeBlocks.get(currVal).compareTo(
@@ -70,7 +69,7 @@ public class PriorityQueue<T extends Comparable<? super T>> {
      * @return the left child index.
      */
     private int leftChild(int pos) {
-        if (pos > (this.numBlocks - 1) / 2) {
+        if (pos > (this.blockIndex - 1) / 2) {
             return -1;
         }
         return 2 * pos + 1;
@@ -82,7 +81,7 @@ public class PriorityQueue<T extends Comparable<? super T>> {
      * @return the index of right child
      */
     private int rightChild(int pos) {
-        if (pos > (this.numBlocks - 2) / 2) {
+        if (pos > (this.blockIndex - 2) / 2) {
             return -1;
         }
         return 2 * pos + 2;
@@ -101,25 +100,39 @@ public class PriorityQueue<T extends Comparable<? super T>> {
     }
     
     /**
-     * @return the block
+     * @return the block at root
      */
     public T removeMax() {
         //if empty, there is no value to remove
-        if (this.numBlocks < 0)  {
+        if (this.blockIndex < 0)  {
             return null;
         }
         //swap last value with the root
         T temp = this.freeBlocks.get(0);
-        this.freeBlocks.set(0, this.freeBlocks.get(this.numBlocks));
+        this.freeBlocks.set(0, this.freeBlocks.get(this.blockIndex));
         //remove the last value
-        this.freeBlocks.remove(this.numBlocks);
-        this.numBlocks--;
+        this.freeBlocks.remove(this.blockIndex);
+        this.blockIndex--;
         //as long as there is not only a root
-        if (this.numBlocks > 0) {      // Not on last element
+        if (this.blockIndex > 0) {      // Not on last element
             this.swap(0);
         }
         return temp;
     }
+    
+    /**
+     * @return the block at root
+     */
+    public T getMax() {
+        //if empty, there is no value to remove
+        if (this.blockIndex < 0)  {
+            return null;
+        }
+        //return root value
+        return this.freeBlocks.get(0);
+    }
+    
+    
     
     /**
      * Swap with children until none of the children are greater than curr.
@@ -186,7 +199,7 @@ public class PriorityQueue<T extends Comparable<? super T>> {
                 this.leftChild(curr))) < 0) {
             //checks if left child greater than right child
             if (this.freeBlocks.get(this.leftChild(curr)).compareTo(this
-                    .freeBlocks.get(this.rightChild(curr))) > 0) {
+                    .freeBlocks.get(this.rightChild(curr))) >= 0) {
                 
                 T temp = this.freeBlocks.get(this.leftChild(curr));
                 this.freeBlocks.set(this.leftChild(curr), this.freeBlocks.
@@ -210,7 +223,7 @@ public class PriorityQueue<T extends Comparable<? super T>> {
                 compareTo(this.freeBlocks.get(this.rightChild(curr))) < 0) {
             //checks if right child greater than left child
             if (this.freeBlocks.get(this.rightChild(curr)).compareTo(
-                    this.freeBlocks.get(this.leftChild(curr))) >= 0) {
+                    this.freeBlocks.get(this.leftChild(curr))) > 0) {
                 
                 T temp = this.freeBlocks.get(this.rightChild(curr));
                 this.freeBlocks.set(this.rightChild(curr), this.freeBlocks
@@ -227,7 +240,7 @@ public class PriorityQueue<T extends Comparable<? super T>> {
      * @return the if list is empty
      */
     public boolean isEmpty() {
-        if (this.numBlocks == -1)  {
+        if (this.blockIndex == -1)  {
             return true;
         }
         return false;
@@ -239,11 +252,11 @@ public class PriorityQueue<T extends Comparable<? super T>> {
      */
     public boolean contains(T value) {
         //if empty list, return false
-        if (this.numBlocks == -1)  {
+        if (this.blockIndex == -1)  {
             return false;
         }
         //goes through every position, returns true if found
-        for (int i = 0; i <= this.numBlocks; i++) {
+        for (int i = 0; i <= this.blockIndex; i++) {
             if (this.freeBlocks.get(i).equals(value)) {
                 return true;
             }
@@ -260,10 +273,10 @@ public class PriorityQueue<T extends Comparable<? super T>> {
             return "[]";
         }
         String list = "[";
-        for (int i = 0; i < this.numBlocks; i++) {
+        for (int i = 0; i < this.blockIndex; i++) {
             list += this.freeBlocks.get(i).toString() + ", ";
         }
-        list += this.freeBlocks.get(this.numBlocks).toString() + "]";
+        list += this.freeBlocks.get(this.blockIndex).toString() + "]";
         return list;
         
     }

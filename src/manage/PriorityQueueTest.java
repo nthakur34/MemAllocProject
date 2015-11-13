@@ -23,6 +23,7 @@ public class PriorityQueueTest {
     static PriorityQueue<Integer> e4; 
     static PriorityQueue<Integer> e5; 
     static PriorityQueue<MemBlock> e7;  
+    static PriorityQueue<Integer> e8;
     static PriorityQueue<Integer> all;
 
     // note - Integer hashCode() returns the int value
@@ -32,7 +33,9 @@ public class PriorityQueueTest {
             10, 7, true), new MemBlock(17, 3, true), new MemBlock(25, 6, true),
             new MemBlock(33, 5, true), new MemBlock(39, 3, true), new MemBlock
             (42, 8, true)};
+    static Integer[] mray = {10, 9, 9, 7, 6, 5, 4 ,3 ,2, 1, 0};
     static ArrayList<MemBlock> pvals;
+    static ArrayList<Integer> mvals;
 
     @BeforeClass
     public static void init() {
@@ -45,6 +48,11 @@ public class PriorityQueueTest {
         for (MemBlock val: pray) {
             pvals.add(val);
         } 
+        
+        mvals = new ArrayList<Integer>();
+        for (Integer val: mray) {
+            mvals.add(val);
+        } 
     }
 
     @Before
@@ -53,6 +61,7 @@ public class PriorityQueueTest {
         e4 = new PriorityQueue<Integer>(); 
         e5 = new PriorityQueue<Integer>(); 
         e7 = new PriorityQueue<MemBlock>();  
+        e8 = new PriorityQueue<Integer>(); 
         
         e5.add(10);
         e5.add(9);
@@ -69,6 +78,10 @@ public class PriorityQueueTest {
         
         for (int i=0; i < pray.length; i++) {
             e7.add(pvals.get(i));
+        }
+        
+        for (int i=0; i < mray.length; i++) {
+            e8.add(mvals.get(i));
         }
         
     }
@@ -155,6 +168,9 @@ public class PriorityQueueTest {
         assertEquals(new MemBlock(10, 7, true), e7.removeMax());
         assertFalse(e7.contains(new MemBlock(0, 10, true)));
         assertEquals("[25, 33, 135, 108, 17, 39]", e7.toString());
+        assertEquals("[10, 9, 9, 7, 6, 5, 4, 3, 2, 1, 0]", e8.toString());
+        e8.removeMax();
+        assertEquals("[9, 7, 9, 3, 6, 5, 4, 0, 2, 1]", e8.toString());
     }
     
     @Test
