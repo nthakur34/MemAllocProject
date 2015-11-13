@@ -33,15 +33,23 @@ public class BucketSorter<T extends Comparable<T>> {
     @SuppressWarnings("unchecked")
     public BucketSorter(int size) {
         // create data array with inputted size
-        this.data = (LinkedList<T>[]) new Object[size / TEN];
+        this.data = (LinkedList<T>[]) new LinkedList[(size / TEN) + 1];
     }
     
     /**
-     * Read data into HashMap.
+     * Sort data into HashMap.
+     * 
+     * Exceptions to throw:
+     *      size =< 0
+     *      blocks is messed up/null
+     *      bad comparator?
+     * 
      * @param blocks the collection of info to be sorted
      * @param comparator comparator for type of data being sorted
+     * @return array of all values sorted
      */
-    public void read(Collection<T> blocks, Comparator<? super T> comparator) {
+    public LinkedList<T>[] sort(Collection<T> blocks,
+            Comparator<? super T> comparator) {
         // get an iterator to go through all values
         Iterator<T> blockIter = blocks.iterator();
         while (blockIter.hasNext()) {
@@ -66,7 +74,7 @@ public class BucketSorter<T extends Comparable<T>> {
             // or where 
             // make comparator to compare memblock addresses
             while (listIterator.hasNext()) {
-                if (comparator.compare(listIterator.next(), toInsert) < 0) {
+                if (comparator.compare(listIterator.next(), toInsert) > 0) {
                     // need to go back one with listiterator
                     listIterator.previous();
                     break;
@@ -75,6 +83,7 @@ public class BucketSorter<T extends Comparable<T>> {
             // add when either end condition is reached
             listIterator.add(toInsert);
         }
+        return this.data;
     }
 
 }
