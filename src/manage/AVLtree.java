@@ -220,9 +220,9 @@ public class AVLtree<T extends Comparable<? super T>> {
             }
         }
         if (curr != null) {
-            System.out.println("----" + curr.data);
+            System.out.println("---" + curr.data);
         } else {
-            System.out.println("****");
+            System.out.println("***");
         }
         curr = this.balance(curr);
         return curr;
