@@ -19,6 +19,13 @@ public interface MemoryManager {
     boolean alloc(int size);
     
     /**
+     * Find the free block to be used to allocate.
+     * @param size
+     * @return the free memory block to use
+     */
+    MemBlock grabToAlloc(int size);
+    
+    /**
      * Deallocate a block of allocated memory in allocated array list
      * based on id of allocation.
      * @param id id of allocation request   
