@@ -1,6 +1,7 @@
 package manage;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 /**
  * Defragger class that both pulls data and defrags through
@@ -9,31 +10,43 @@ import java.util.ArrayList;
  *
  * @param <T> Type of object getting defragged
  */
-public class QuickDefrag<T extends Comparable<? super T>> {
+public class QuickDefrag<T> {
 
     /**
      * Arraylist holding free blocks.
      */
-    private ArrayList<T> freeList = new ArrayList<T>();
+    private ArrayList<MemBlock> freeList = new ArrayList<MemBlock>();
+    
+    /**
+     * sdxds.
+     */
+    private QuickSort<MemBlock> quick;
+    
+    /**
+     * gfds.
+     */
+    private Comparator<MemBlock> comparator;
     
     /**
      * Constructor to set up arraylist of blocks.
      * @param blockList List to sort and defrag.
      */
-    public QuickDefrag(ArrayList<T> blockList) {
+    public QuickDefrag(ArrayList<MemBlock> blockList) {
         
         if (blockList == null || blockList.size() <= 1) {
             return;
         }
-        this.freeList = blockList;
-        this.quickSort(1, blockList.size() - 1);
+        this.comparator = new MemBlock.MemBlockComparator();
+        this.quick = new QuickSort<MemBlock>(blockList, this.comparator);
+        this.freeList = this.quick.getList();
+       // this.quickSort(1, blockList.size() - 1);
     }
     
     /**
      * quick sorts all values.
      * @param lowerIndex lower index to compare to pivot
      * @param higherIndex higher index to compare to pivot
-     */
+     *
     private void quickSort(int lowerIndex, int higherIndex) {
         
         int i = lowerIndex;
@@ -66,7 +79,7 @@ public class QuickDefrag<T extends Comparable<? super T>> {
             this.quickSort(i, higherIndex);
         }   
     }
-    
+    */
     /**
      * Defragment the adjacent blocks.
      */
@@ -94,8 +107,9 @@ public class QuickDefrag<T extends Comparable<? super T>> {
             i = j;
             
         }
-        
-        this.quickSort(1, this.freeList.size() - 1);
+        this.quick = new QuickSort<MemBlock>(this.freeList, this.comparator);
+        this.freeList = quick.getList();
+        //this.quickSort(1, this.freeList.size() - 1);
     }
     
     /**
@@ -104,12 +118,11 @@ public class QuickDefrag<T extends Comparable<? super T>> {
      * @return true if adjacent, else false.
      */
     private boolean hasAdjacent(int index) {
-        //HOW TO WRITE THIS
-        //TODO 
+
         if (index < this.freeList.size() - 1) {
-            int pos = ((MemBlock) this.freeList.get(index)).getStartAddress() 
-                    + ((MemBlock) this.freeList.get(index)).getSize();
-            int nextPos = ((MemBlock) this.freeList.get(index + 1)).
+            int pos = this.freeList.get(index).getStartAddress() 
+                    + this.freeList.get(index).getSize();
+            int nextPos = this.freeList.get(index + 1).
                     getStartAddress();
             
             if (pos == nextPos) {
@@ -126,10 +139,10 @@ public class QuickDefrag<T extends Comparable<? super T>> {
      * @param size size of new block
      */
     private void combine(int bottomIndex, int topIndex, int size) {
-        int start = ((MemBlock) this.freeList.get(bottomIndex)).
+        int start = this.freeList.get(bottomIndex).
                 getStartAddress(); 
-        @SuppressWarnings("unchecked")
-        T newBlock = (T) new MemBlock(start, size, true);
+       // @SuppressWarnings("unchecked")
+        MemBlock newBlock = new MemBlock(start, size, true);
         int i = bottomIndex;
         int count = 0;
         //remove all blocks that are adjacent and combinable
@@ -137,7 +150,6 @@ public class QuickDefrag<T extends Comparable<? super T>> {
             this.freeList.remove(i);
             count++;
         }
-        System.out.println("-----");
         this.freeList.add(newBlock);
     }
     
@@ -151,9 +163,9 @@ public class QuickDefrag<T extends Comparable<? super T>> {
         }
         String list = "[";
         for (int i = 1; i < this.freeList.size() - 1; i++) {
-            list += ((MemBlock) this.freeList.get(i)).getStartAddress() + ", ";
+            list += this.freeList.get(i).getStartAddress() + ", ";
         }
-        list += ((MemBlock) this.freeList.get(this.freeList.size() - 1))
+        list += this.freeList.get(this.freeList.size() - 1)
                 .getStartAddress() + "]";
         return list;
         
