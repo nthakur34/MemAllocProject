@@ -1,5 +1,6 @@
 package manage;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -28,21 +29,48 @@ public interface MemoryManager {
     boolean dealloc(int id);
     
     /**
-     * Defragment the data with a bucket defrag method.
+     * Defragment the data with a given defrag method.
+     * @param toSort the collection to be sorted
+     * @param isBucket whether BucketSort or QuickSort
      * @return collection of defragmented memblocks
      */
-    Collection<MemBlock> bucketDefrag();
-    
-    /**
-     * Defragment the data with a quicksort method.
-     * @return collection of defragmented memblocks
-     */
-    Collection<MemBlock> quickDefrag();
+    Collection<MemBlock> defrag(ArrayList<MemBlock> toSort, boolean isBucket);
     
     /**
      * Rebuild the free memory scheme after a defrag.
      * @param blocks the newly defragmented free blocks of memory 
      */
     void rebuild(Collection<MemBlock> blocks);
+    
+    /**
+     * Get number of defrags during session.
+     * @return number of defrags
+     */
+    int defragCount();
+    
+    /**
+     * Get number of failed allocations during session.
+     * @return number of failed allocations
+     */
+    int totalFails();
+    
+    /**
+     * Get average size of failed allocations.
+     * @return average failed allocation size
+     */
+    int avgFailSize();
+    
+    /**
+     * Get average time to process allocation.
+     * @return average time to process allocation
+     */
+    int avgTime();
+    
+    /**
+     * Get average time/size for a sort.
+     * @param isBucket whether BucketSort or QuickSort
+     * @return average failed allocation size
+     */
+    int avgSortRatio(boolean isBucket);
     
 }

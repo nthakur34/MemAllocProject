@@ -192,13 +192,13 @@ final class MemSimMain {
         outPut.println("");
         outPut.printf("%-35s%8.2f%13.2f%13.2f",
                 "Average time/size quicksort*:",
-            sims[0].avgSortRatio(), sims[1].avgSortRatio(),
-            sims[2].avgSortRatio());
+            sims[0].avgSortRatio(false), sims[1].avgSortRatio(false),
+            sims[2].avgSortRatio(false));
         outPut.println("");
         outPut.printf("%-35s%8.2f%13.2f%13.2f",
                 "Average time/size bucketsort*:",
-            sims[0].avgSortRatio(), sims[1].avgSortRatio(),
-            sims[2].avgSortRatio());
+            sims[0].avgSortRatio(true), sims[1].avgSortRatio(true),
+            sims[2].avgSortRatio(true));
         outPut.println("");
         outPut.println("");
         outPut.println("*All times in microseconds.");

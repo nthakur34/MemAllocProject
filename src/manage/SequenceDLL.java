@@ -179,7 +179,8 @@ public class SequenceDLL<T> implements Sequence<T> {
         }
         
         @Override
-        public void remove() throws ConcurrentModificationException, IllegalStateException {
+        public void remove() throws ConcurrentModificationException,
+            IllegalStateException {
             // check states
             if (this.myState != SequenceDLL.this.state) { // check modify
                 throw new java.util.ConcurrentModificationException();
