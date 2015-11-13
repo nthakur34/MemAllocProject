@@ -188,19 +188,22 @@ public class AVLtree<T extends Comparable<? super T>> {
     private BNode delete(BNode curr, T value) {
         BNode temp = null;
         //BNode toRemove = curr;
-
+        //if value not equal to node value
         if (curr.data.compareTo(value) != 0) {
-            //System.out.println(curr.left.data + "---" + value);
+            //Check if less than or equal to value at left.
             if (curr.left.data.compareTo(value) >= 0) {
                 this.delete(curr.left, value);
+            //check if greater than or equal to value at right
             } else if (curr.right.data.compareTo(value) <= 0) {
                 this.delete(curr.right, value);
             } else {
                 return null; //could not find node
             }
         } else {
+            //if value is a leaf, remove it
             if (curr.isLeaf()) {
                 curr = null;
+                //check if no grandchildren
             } else if (curr.height == 1) {
                 if (curr.left == null) {
                     curr = curr.right;
@@ -209,6 +212,7 @@ public class AVLtree<T extends Comparable<? super T>> {
                     curr = curr.left;
                     curr.left = null;
                 }
+               //if grandchildren
             } else {
                 temp = this.findMin(curr.right);
                 curr = temp;
@@ -216,30 +220,7 @@ public class AVLtree<T extends Comparable<? super T>> {
             }
         }
         
-        /*Iterator<BNode> iter = this.inOrderNodes().iterator();
-    while (iter.hasNext() && iter != value) {
-    toRemove = iter.next();
-    }
-    //BNode toRemove = curr; //not true;
-    if (toRemove.isLeaf()) {
-    iter.remove();  
-    } else if (height(toRemove) == 1) {
-    if (toRemove.left == null) {
-        temp = toRemove;
-    toRemove.data = toRemove.right.data;
-    toRemove.right.data = temp.data;
-        	} else if (toRemove.right == null) {
-        		temp = toRemove;
-        		toRemove.data = toRemove.left.data;
-        		toRemove.left.data = temp.data;
-        	}
-        } else {
-        	temp = findMin(toRemove.right);
-        	toRemove = temp;
-        	temp = null;
-        	//How to set min to zero?
-    	} */
-    	curr = this.balance(curr);
+        curr = this.balance(curr);
         return curr;
     }
 

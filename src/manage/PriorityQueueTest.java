@@ -84,6 +84,10 @@ public class PriorityQueueTest {
         assertEquals("[5]", e4.toString());
         assertTrue(all.add((Integer) 11));
         assertTrue(all.contains((Integer) 11));
+        assertTrue(all.add((Integer) 5));
+        assertTrue(all.add((Integer) 5));
+        assertTrue(all.add((Integer) 11));
+        assertEquals("[11, 9, 11, 6, 8, 5, 10, 0, 3, 2, 7, 1, 5, 4, 5]", all.toString());
         /*assertEquals("[11, ")
         System.out.println("");
         assertEquals(11, temp);
@@ -113,21 +117,22 @@ public class PriorityQueueTest {
         assertEquals((Integer) 11, all.removeMax());
         assertFalse(all.contains((Integer) 11));
     }
- /*       //Use traversal to see if last one is 11. 
-        Iterator<Integer> iter = all.preOrder().iterator();
-        int temp = 0;
-        while(iter.hasNext()) {
-        	temp = iter.next();
-        	System.out.print(temp + "   ");
-        }
-        System.out.println("");
-        assertEquals(11, temp);
-        System.out.println(all.toString());
-        assertTrue(all.remove((Integer) 7));
-        assertFalse(all.contains((Integer) 7)); 
-        assertEquals("[0, 1, 2, 3, 4, 5, 6, 8, 9, 10, 11]", all.toString());
-
-    } */
+    
+    @Test
+    public void testSize() {
+        assertFalse(e4.contains((Integer) 1));
+        assertTrue(all.contains((Integer) 1));
+        assertTrue(e4.isEmpty());
+        assertFalse(all.isEmpty());
+        assertEquals(0, e4.size());
+        assertEquals(11, all.size());
+        assertTrue(e4.add(12));
+        assertTrue(all.add(12));
+        all.removeMax();
+        assertEquals(1, e4.size());
+        assertEquals(11, all.size());
+        
+    }
 
 }
 
