@@ -207,22 +207,28 @@ public class AVLtree<T extends Comparable<? super T>> {
             //if value is a leaf, remove it
             if (curr.isLeaf()) {
                 curr = null;
+                return curr;
                 //check if no grandchildren
             } else if (curr.height == 1) {
-                if (curr.left == null) {
-                    curr = curr.right;
-                    curr.right = null;
-                } else {
+                // if there's only a left child
+                if (curr.right == null) {
                     curr = curr.left;
                     curr.left = null;
+                    return curr;
+                // if there exists a right child
+                } else {
+                    curr = curr.right;
+                    curr.right = null;
+                    return curr;
                 }
                //if grandchildren
-            } else {
+            } else if (curr.height > 1) {
                 temp = this.findMin(curr.right);
                 curr = temp;
-                curr.right = this.delete(this.findMin(curr.right), 
-                        curr.right.data);
+                this.delete(curr.right, temp.data);
+                return curr;
             }
+            return curr;
         }
         if (curr != null) {
             System.out.println("---" + curr.data);
