@@ -33,6 +33,9 @@ public class BucketSort<T extends Comparable<T>> {
      */
     @SuppressWarnings("unchecked")
     public BucketSort(int size) {
+        if (size <= 0) {
+            throw new IllegalArgumentException("Size must be greater than 0"); 
+        }
         // create data array with inputted size
         this.data = (LinkedList<T>[]) new LinkedList[(size / TEN) + 1];
     }
@@ -41,7 +44,6 @@ public class BucketSort<T extends Comparable<T>> {
      * Sort data into HashMap.
      * 
      * Exceptions to throw:
-     *      size =< 0
      *      blocks is messed up/null
      *      bad comparator?
      * 
@@ -87,11 +89,11 @@ public class BucketSort<T extends Comparable<T>> {
         
         ArrayList<T> output = new ArrayList<T>();
         // need to convert data to array list
-        for (int i = 0; i < data.length; i++) {
+        for (int i = 0; i < this.data.length; i++) {
             // check if there is a linked list in this index
-            if (data[i] != null) {
+            if (this.data[i] != null) {
                 // if so, go through linked list and move all data to arraylist
-                output.addAll(data[i]);
+                output.addAll(this.data[i]);
             }
         }
         return output;
