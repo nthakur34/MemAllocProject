@@ -39,6 +39,22 @@ public class MemBlockTest {
         assertEquals(newBlock.getSize(), 10);
         assertEquals(newBlock.isFree(), false);
         
+        // now run another allocate
+        // on newly formatted old block
+        // starts at 10
+        // has size 40
+        // give an allocation of 10
+        newBlock = testBlock.allocate(13);
+        // result should be 2 blocks:
+        // Initial block: 23 start address, 27 size, true free
+        assertEquals(testBlock.getStartAddress(), 23);
+        assertEquals(testBlock.getSize(), 27);
+        assertEquals(testBlock.isFree(), true);
+        // Second block: 10 start address, 23 size, false free
+        assertEquals(newBlock.getStartAddress(), 10);
+        assertEquals(newBlock.getSize(), 13);
+        assertEquals(newBlock.isFree(), false);
+        
         // next bad cases
         // = 0
         newBlock = testBlock.allocate(0);

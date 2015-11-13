@@ -7,7 +7,7 @@ import java.util.Collection;
  * @author navthakur
  *
  */
-public class BaseManager implements MemoryManager {
+public abstract class BaseManager implements MemoryManager {
     
     /**
      * ArrayList of allocated memory.
@@ -50,11 +50,46 @@ public class BaseManager implements MemoryManager {
         
     }
     
+    /*
+     * Alloc functions
+     * (non-Javadoc)
+     * @see manage.MemoryManager#alloc(int)
+     */
+    
     @Override
     public boolean alloc(int size) {
-        // TODO Auto-generated method stub
-        return false;
+        // Grab mem block to be allocated
+        // method of grabbing varies based on
+        // alloc scheme
+        MemBlock toAllocate = this.grabToAlloc(size);
+        // check if failed allocation
+        if (toAllocate == null) {
+            // if so, defrag
+        }
+        // after grabbing block, allocate into new block
+        // add request to allocMem array list
+        this.allocMem.add(toAllocate.allocate(size));
+        // if toAllocate still has size, should be readded to free mem
+        if (toAllocate.getSize() != 0) {
+            this.addUnalloc(toAllocate);
+        }
+        return true;
     }
+    
+    /**
+     * Find the free block to be used to allocate.
+     * @param size
+     * @return the free memory block to use.
+     *          Will return null if cannot find
+     *          a fitting block
+     */
+    protected abstract MemBlock grabToAlloc(int size);
+    
+    /**
+     * Add back the unused block of memory into the free mem scheme.
+     * @param unAlloc unallocated block of memory
+     */
+    protected abstract void addUnalloc(MemBlock unAlloc);
 
     @Override
     public boolean dealloc(int id) {
