@@ -27,14 +27,15 @@ import java.util.TreeSet;
 
 public class PriorityQueueTest {
 
-    static PriorityQueue<Integer> e4;  // empty map, max load .4
-    static PriorityQueue<Integer> e7;  // empty map, max load .7
-    static PriorityQueue<Integer> all;  // all in map
+    static PriorityQueue<Integer> e4; 
+    static PriorityQueue<Integer> e5; 
+    static PriorityQueue<MemBlock> e7;  
+    static PriorityQueue<Integer> all;
 
     // note - Integer hashCode() returns the int value
     static Integer[] iray = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
     static ArrayList<Integer> svals;
-    static MemBlock[] pray = {null, new MemBlock(0, 10, true), new MemBlock(
+    static MemBlock[] pray = {new MemBlock(0, 10, true), new MemBlock(
             10, 7, true), new MemBlock(17, 3, true), new MemBlock(25, 6, true),
             new MemBlock(33, 5, true), new MemBlock(39, 3, true), new MemBlock
             (42, 8, true)};
@@ -56,14 +57,27 @@ public class PriorityQueueTest {
     @Before
     public void setup() {
         // these start out empty before each test
-        e4 = new PriorityQueue<Integer>();  
+        e4 = new PriorityQueue<Integer>(); 
+        e5 = new PriorityQueue<Integer>(); 
         e7 = new PriorityQueue<MemBlock>();  
+        
+        e5.add(10);
+        e5.add(9);
+        e5.add(8);
+        e5.add(7);
+        e5.add(6);
+        e5.add(5);
 
         // this is full set, assuming put works correctly
         all = new PriorityQueue<Integer>();
         for (int i=0; i < iray.length; i++) {
             all.add(svals.get(i));
         }
+        
+        for (int i=0; i < pray.length; i++) {
+            e7.add(pvals.get(i));
+        }
+        
     }
 
     @Test
@@ -80,6 +94,9 @@ public class PriorityQueueTest {
         assertTrue(all.contains((Integer) 1));
         assertTrue(e4.isEmpty());
         assertFalse(all.isEmpty());
+        assertFalse(e7.isEmpty());
+        assertFalse(e7.contains(new MemBlock(4, 6, true)));
+        assertTrue(e7.contains(new MemBlock(0, 10, true)));
     }
 
     @Test
@@ -96,6 +113,13 @@ public class PriorityQueueTest {
         assertTrue(all.add((Integer) 5));
         assertTrue(all.add((Integer) 11));
         assertEquals("[11, 9, 11, 6, 8, 5, 10, 0, 3, 2, 7, 1, 5, 4, 5]", all.toString());
+        assertEquals("[10, 9, 8, 7, 6, 5]", e5.toString());
+        e5.add(13);
+        e5.add(14);
+        assertEquals("[14, 13, 10, 9, 6, 5, 8, 7]", e5.toString());
+        assertEquals((Integer) 14, e5.removeMax());
+        e5.add(14);
+        assertEquals("[14, 13, 10, 9, 6, 5, 8, 7]", e5.toString());
         /*assertEquals("[11, ")
         System.out.println("");
         assertEquals(11, temp);
@@ -112,6 +136,7 @@ public class PriorityQueueTest {
         assertEquals((Integer) 10, all.removeMax());
         assertFalse(all.contains((Integer) 10));
         assertEquals(10, all.size());
+        System.out.println(all.toString());
         assertEquals((Integer) 9, all.removeMax());
         assertFalse(all.contains((Integer) 9));
         assertTrue(e4.add((Integer) 6));
@@ -136,6 +161,7 @@ public class PriorityQueueTest {
         assertEquals(11, all.size());
         assertTrue(e4.add(12));
         assertTrue(all.add(12));
+        System.out.println(all.toString());
         all.removeMax();
         assertEquals(1, e4.size());
         assertEquals(11, all.size());
