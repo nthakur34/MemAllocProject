@@ -9,21 +9,14 @@ package manage;
 
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.util.Iterator;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.TreeSet;
+
 
 public class PriorityQueueTest {
 
@@ -148,7 +141,17 @@ public class PriorityQueueTest {
         assertTrue(all.contains((Integer) 11));
         assertEquals((Integer) 11, all.removeMax());
         assertFalse(all.contains((Integer) 11));
-        
+        assertEquals("[0, 10, 42, 25, 33, 39, 17]", e7.toString());
+        e7.add(new MemBlock(55, 13, true));
+        assertTrue(e7.contains(new MemBlock(55, 13, true)));
+        assertEquals(new MemBlock(55, 13, true), e7.removeMax());
+        e7.add(new MemBlock(108, 4, true));
+        e7.add(new MemBlock(135, 4, true));
+        assertEquals(new MemBlock(0, 10, true), e7.removeMax());
+        assertEquals(new MemBlock(42, 8, true), e7.removeMax());
+        assertEquals(new MemBlock(10, 7, true), e7.removeMax());
+        assertFalse(e7.contains(new MemBlock(0, 10, true)));
+        assertEquals("[25, 33, 135, 108, 17, 39]", e7.toString());
     }
     
     @Test
