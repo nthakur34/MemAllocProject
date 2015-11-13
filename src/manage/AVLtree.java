@@ -47,7 +47,7 @@ public class AVLtree<T extends Comparable<? super T>> {
         }
         
         /**
-         * Returns whether node has two children or not
+         * Returns whether node has two children or not.
          * @return true is node has two children, false if not
          */
         public boolean hasTwoChildren() {
@@ -233,7 +233,6 @@ public class AVLtree<T extends Comparable<? super T>> {
      */
     private BNode balance(BNode curr) {
         int factor = this.balanceFactor(curr);
-        
         if (curr.isLeaf()) {
             return curr;
         } else if (!curr.hasTwoChildren()) {
@@ -241,29 +240,11 @@ public class AVLtree<T extends Comparable<? super T>> {
         } else {
             this.twoChildBalance(curr);
         }
-        if (factor > 1) {
-            // subtree too long on left
-            if (curr.left.left.isLeaf()) {
-                // left-right too long
-                
-            } else {
-                // left-left too long
-            }
-        } else if (factor < -1) {
-            // subtree too long on right
-            if (curr.right.right.isLeaf()) {
-                // right-left too long
-                
-            } else {
-                // right-right too long
-            }
-        }
-
         return curr;
     }
     
     /**
-     * Balance the node with one child
+     * Balance the node with one child.
      * @param curr the subtree to be balanced
      * @return the root of the balanced subtree
      */
@@ -292,7 +273,7 @@ public class AVLtree<T extends Comparable<? super T>> {
     }
     
     /**
-     * Balance the node with two children
+     * Balance the node with two children.
      * @param curr the subtree to be balanced
      * @return the root of the balanced subtree
      */
@@ -320,23 +301,23 @@ public class AVLtree<T extends Comparable<? super T>> {
         return curr;
     }
     
-    private BNode getToLowest(BNode curr) {
-        int factor = this.balanceFactor(curr);
-        if (factor > 1) {
-            // subtree is too heavy on left
-            if (this.balanceFactor(curr.left) > 1
-                    || this.balanceFactor(curr.left) < 1) {
-                this.getToLowest(curr.left);
-            }
-        } else if (factor < -1) {
-            // subtree is too heavy on right
-            if (this.balanceFactor(curr.right) > 1
-                    || this.balanceFactor(curr.right) < 1) {
-                this.getToLowest(curr.right);
-            }
-        }
-        return curr;
-    }
+//    private BNode getToLowest(BNode curr) {
+//        int factor = this.balanceFactor(curr);
+//        if (factor > 1) {
+//            // subtree is too heavy on left
+//            if (this.balanceFactor(curr.left) > 1
+//                    || this.balanceFactor(curr.left) < 1) {
+//                this.getToLowest(curr.left);
+//            }
+//        } else if (factor < -1) {
+//            // subtree is too heavy on right
+//            if (this.balanceFactor(curr.right) > 1
+//                    || this.balanceFactor(curr.right) < 1) {
+//                this.getToLowest(curr.right);
+//            }
+//        }
+//        return curr;
+//    }
 
     /**
      * Checks balance of nodes.
