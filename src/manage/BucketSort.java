@@ -59,14 +59,14 @@ public class BucketSort<T extends Comparable<T>> {
      * @param comparator comparator for type of data being sorted
      * @return array of all values sorted
      */
-    public void sort(Collection<T> blocks,
+    public void sort(ArrayList<T> blocks,
             Comparator<? super T> comparator) {
 
         // get an iterator to go through all values
-        Iterator<T> blockIter = blocks.iterator();
-        while (blockIter.hasNext()) {
+        //Iterator<T> blockIter = blocks.iterator();
+        for (int i = 0; i < blocks.size(); i++) {
             // grab next value
-            T toInsert = blockIter.next();
+            T toInsert = blocks.get(i);
             // use hash code to find out
             // which bucket it should be placed in
             int index = toInsert.hashCode();

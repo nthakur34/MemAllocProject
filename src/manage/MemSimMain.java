@@ -10,6 +10,7 @@ package manage;
 import java.io.File;
 import java.io.PrintWriter;
 import java.io.IOException;
+import java.util.LinkedList;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -129,6 +130,10 @@ final class MemSimMain {
         PrintWriter outPut = new PrintWriter("analysis.txt");
         printOutput(outPut, sims, memSize, filename); 
 
+        long start = System.nanoTime();
+        LinkedList<Integer> l = new LinkedList<Integer>();
+        System.out.println(System.nanoTime() - start);
+        
     }
 
 
