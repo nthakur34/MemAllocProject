@@ -1,5 +1,7 @@
 package manage;
 
+import java.util.ArrayList;
+
 /** 
  * Generic queue interface.
  *
@@ -51,6 +53,12 @@ public interface Queue<T> {
      */
     int size();
 
+    /**
+     * Get ArrayList form of current queue.
+     * @return ArrayList of values in queue.
+     */
+    ArrayList<T> getArrayList();
+    
 
     /**
      * Return a representation of the items in the queue, in order
