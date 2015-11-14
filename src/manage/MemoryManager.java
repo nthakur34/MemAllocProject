@@ -52,19 +52,19 @@ public interface MemoryManager {
      * Get average size of failed allocations.
      * @return average failed allocation size
      */
-    int avgFailSize();
+    double avgFailSize();
     
     /**
      * Get average time to process allocation.
      * @return average time to process allocation
      */
-    int avgTime();
+    double avgTime();
     
     /**
      * Get average time/size for a sort.
      * @param isBucket whether BucketSort or QuickSort
      * @return average failed allocation size
      */
-    int avgSortRatio(boolean isBucket);
+    double avgSortRatio(boolean isBucket);
     
 }
