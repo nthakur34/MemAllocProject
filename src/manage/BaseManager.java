@@ -129,6 +129,7 @@ public abstract class BaseManager implements MemoryManager {
     
     @Override
     public void defrag(boolean isBucket) {
+        this.defragCount++;
         Collection<MemBlock> toSort = this.getCollection();
         // increment defragCount
         this.defragCount++;
