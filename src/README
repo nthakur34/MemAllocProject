@@ -1,0 +1,24 @@
+README
+Nitin Kumar
+Jonathan Liu
+Navjyoth Thakur
+
+================================================================
+RUNNING THE PROGRAM
+1) cd into the src directory
+2) type: javac manage/MemSimMain.java
+3) type: java manage/MemSimMain
+4) enter the test file name
+5) the results should be printed in analysis.txt and translog.txt
+
+We originally did all the coding in Eclipse so the classpaths are kinda messed up.
+Which is why we have to compile everything from the src directory, not the manage directory.
+
+After you compile and run everything, you can go inside of manage and type:
+make clean
+to clean up all the .class files.
+================================================================
+
+
+================================================================
+
