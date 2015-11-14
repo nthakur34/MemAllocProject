@@ -48,7 +48,10 @@ public class NextFitAlloc extends BaseManager {
             System.err.println("Inputted block is null");
             return;
         }
-        if (unAlloc.getRightAdjacent() >= this.memSize)
+        if (unAlloc.getRightAdjacent() > this.memSize) {
+            System.err.println("Unallocated block lies outside of memSize");
+            throw new IllegalArgumentException("Size must be greater than 0");
+        }
         this.queue.enqueue(unAlloc);
     }
 
@@ -61,7 +64,9 @@ public class NextFitAlloc extends BaseManager {
     public void rebuild(ArrayList<MemBlock> blocks) {
         this.queue.clear();
         for (int i = 0; i < blocks.size(); i++) {
-            this.queue.enqueue(blocks.get(i));
+            if (blocks.get(i) != null) {
+                this.queue.enqueue(blocks.get(i));
+            }
         }
     }
 

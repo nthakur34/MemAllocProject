@@ -69,7 +69,10 @@ public class PriorityQueue<T extends Comparable<? super T>> {
      * @return the left child index.
      */
     private int leftChild(int pos) {
-        if (pos > (this.blockIndex - 2) / 2) {
+        if (this.blockIndex == 0) {
+            return -1;
+        }
+        if (pos > (this.blockIndex - 1) / 2) {
             return -1;
         }
         return 2 * pos + 1;
@@ -81,7 +84,10 @@ public class PriorityQueue<T extends Comparable<? super T>> {
      * @return the index of right child
      */
     private int rightChild(int pos) {
-        if (pos > (this.blockIndex - 3) / 2) {
+        if (this.blockIndex == 1) {
+            return -1;
+        }
+        if (pos > (this.blockIndex - 2) / 2) {
             return -1;
         }
         return 2 * pos + 2;
@@ -141,7 +147,7 @@ public class PriorityQueue<T extends Comparable<? super T>> {
     private void swap(int curr) {
         
         //if no children end swapping
-        if ((this.leftChild(curr) < 0 && this.rightChild(curr) < 0)) {
+        if ((this.rightChild(curr) < 0 && this.leftChild(curr) < 0)) {
             return;
         //if no left child swap with right child
         } else if (this.leftChild(curr) < 0) {

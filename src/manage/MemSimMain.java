@@ -88,37 +88,32 @@ final class MemSimMain {
         sims[2] = queue;
         //fromFile.next();
         int val;
-        while (fromFile.hasNext()) {
-            String temp = fromFile.next();
-            System.out.println(temp);
-            if (temp.compareTo("A") == 0) {
-                val = fromFile.nextInt();
-                sims[1].alloc(val, false);
-            } else if (temp.compareTo("D") == 0) {
-                val = fromFile.nextInt();
-                sims[1].dealloc(val);
-            } else {
-                System.out.println("Neither A nor D");
-                //fromFile.next();
-            }
-        }
         fromFile.close();
-        fromFile = new Scanner(new File(filename));
-        fromFile.nextLine();
-        while (fromFile.hasNext()) {
-            String temp = fromFile.next();
-            System.out.println(temp);
-            if (temp.compareTo("A") == 0) {
-                val = fromFile.nextInt();
-                sims[0].alloc(val, false);
-            } else if (temp.compareTo("D") == 0) {
-                val = fromFile.nextInt();
-                sims[0].dealloc(val);
-            } else {
-                System.out.println("Neither A nor D");
-                //fromFile.next();
+        for (int i = 0; i < numApproaches; i++) {
+            int idCount = 0;
+            fromFile = new Scanner(new File(filename));
+            fromFile.nextLine();
+            while (fromFile.hasNext()) {
+                String temp = fromFile.next();
+                System.out.println(temp);
+                if (temp.compareTo("A") == 0) {
+                    idCount++;
+                    val = fromFile.nextInt();
+                    int retAddress = sims[i].alloc(val, false);
+                    boolean hasDefragged = sims[i].checkPrevDefrag();
+                    lines.add(formatAlloc(new String(), retAddress, 
+                            hasDefragged, idCount, val));
+                } else if (temp.compareTo("D") == 0) {
+                    val = fromFile.nextInt();
+                    sims[i].dealloc(val);
+                } else {
+                    System.err.println("Neither A nor D");
+                    //fromFile.next();
+                }
             }
+            fromFile.close();
         }
+     
      
         printTrans(outPut1, lines);
         outPut1.close();

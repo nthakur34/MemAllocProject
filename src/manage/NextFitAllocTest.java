@@ -49,12 +49,33 @@ public class NextFitAllocTest {
         assertTrue(baseManager.getCollection().isEmpty());
     }
     
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testAddUnalloc() {
-        baseManager = new NextFitAlloc(110);
         // first try with filled array
+        baseManager = new NextFitAlloc(110);
         baseManager.rebuild(testBlocks);
         baseManager.addUnalloc(new MemBlock(100, 10, true));
+        testBlocks.add(new MemBlock(100, 10, true));
+        assertEquals(testBlocks, baseManager.getCollection());
+        
+        // try with empty array
+        baseManager = new NextFitAlloc(10);
+        testBlocks = new ArrayList<MemBlock>();
+        baseManager.rebuild(testBlocks);
+        baseManager.addUnalloc(new MemBlock(0, 10, true));
+        testBlocks.add(new MemBlock(0, 10, true));
+        assertEquals(testBlocks, baseManager.getCollection());
+        
+        // try with adding block that lies out of range
+        // and with block that is null
+        // look for fail lines in stderr printed below
+        // and exception thrown
+        // first null
+        baseManager.addUnalloc(null);
+        // above is good
+        baseManager.addUnalloc(new MemBlock(0, 11, true));
+        // above is too, exception was caught
+        
     }
     
     @Test
@@ -66,10 +87,46 @@ public class NextFitAllocTest {
          * - Exact fit is in middle of queue
          * - Potential fit is last possible check
          * - there is no potential fit
+         * - grab from empty list
          */
         
         // Potential fit is in middle of queue
-        baseManager.addUnalloc(unAlloc);
+        baseManager.grabToAlloc(38);
+        // see if basemanager no longer has 40 block and instead
+        // 
+        testBlocks = new ArrayList<MemBlock>();
+        for (int i = 0; i < 50; i += 10) {
+            testBlocks.add(new MemBlock(i, 10, true));
+        }        
+        for (int i = 50; i < 74; i += 12) {
+            testBlocks.add(new MemBlock(i, 12, true));
+        }
+        for (int i = 74; i < 94; i += 20) {
+            testBlocks.add(new MemBlock(i, 20, true));
+        }
+        baseManager.rebuild(testBlocks);
+        // grab a block of 11 size
+        MemBlock grabbed = baseManager.grabToAlloc(11);
+        assertEquals(grabbed.getStartAddress(), 50);
+        assertEquals(grabbed.getSize(), 12);
+        System.out.println(baseManager.getCollection());
+        // test case 2- exact size
+        grabbed = baseManager.grabToAlloc(12);
+        assertEquals(grabbed.getStartAddress(), 62);
+        assertEquals(grabbed.getSize(), 12);
+        System.out.println(baseManager.getCollection());
+        // test case 4- no potential matches
+        grabbed = baseManager.grabToAlloc(25);
+        assertNull(grabbed);
+        // test case 3- potential match at end of list
+        // re-initialize list
+        baseManager.rebuild(testBlocks);
+        grabbed = baseManager.grabToAlloc(19);
+        assertEquals(grabbed.getStartAddress(), 74);
+        assertEquals(grabbed.getSize(), 20);
+        // check empty list returns null
+        baseManager.rebuild(new ArrayList<MemBlock>());
+        assertNull(baseManager.grabToAlloc(1));
         
     }
 

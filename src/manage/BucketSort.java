@@ -20,6 +20,11 @@ public class BucketSort<T extends Comparable<T>> {
      * will be separated into tens.
      */
     private static final int TEN = 10;
+   
+    /**
+     * Length of the list based on the inputted max size.
+     */
+    private int listLen;    
     
     /**
      * Bucket array representation of the data.
@@ -36,8 +41,13 @@ public class BucketSort<T extends Comparable<T>> {
         if (size <= 0) {
             throw new IllegalArgumentException("Size must be greater than 0"); 
         }
+        if (size / TEN < TEN) {
+            this.listLen = size / TEN;
+        } else {
+            this.listLen = TEN;
+        }
         // create data array with inputted size
-        this.data = (LinkedList<T>[]) new LinkedList[(size / TEN) + 1];
+        this.data = (LinkedList<T>[]) new LinkedList[(size / this.listLen) + 1];
     }
     
     /**
@@ -63,7 +73,7 @@ public class BucketSort<T extends Comparable<T>> {
             // which bucket it should be placed in
             int index = toInsert.hashCode();
             // find linked list index in main array
-            int tens = index / TEN;
+            int tens = index / this.listLen;
             // check if no list there
             if (this.data[tens] == null) {
                 // then make one

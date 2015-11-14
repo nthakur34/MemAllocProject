@@ -8,11 +8,11 @@ import java.util.Collection;
  *
  */
 public abstract class BaseManager implements MemoryManager {
-    
+        
     /**
      * ArrayList of allocated memory.
      */
-    ArrayList<MemBlock> allocMem;
+    protected ArrayList<MemBlock> allocMem;
     
     /**
      * Size of whole memory.
@@ -35,6 +35,12 @@ public abstract class BaseManager implements MemoryManager {
     protected int failSize;
     
     /**
+     * Check if previous allocation had a defrag.
+     */
+    private boolean prevDefrag;
+
+    
+    /**
      * Constructor.
      * @param inMemSize maximum size of whole memory
      */
@@ -44,6 +50,7 @@ public abstract class BaseManager implements MemoryManager {
             throw new IllegalArgumentException("Size must be greater than 0"); 
         }
         this.memSize = inMemSize;
+        this.prevDefrag = false;
         this.defragCount = 0;
         this.failCount = 0;
         this.failSize = 0;
@@ -62,9 +69,19 @@ public abstract class BaseManager implements MemoryManager {
      */
     
     @Override
-    public boolean alloc(int size, boolean hasDefragged) {
-        if (size < 0) {
+    public int alloc(int size, boolean hasDefragged) {
+        this.prevDefrag = hasDefragged;
+        if (size <= 0) {
+            this.failCount++;
             System.err.println("Size must be greater than 0.");
+            this.allocMem.add(null);
+            return -1;
+        }
+        if (size > this.memSize) {
+            this.failSize += size;
+            this.failCount++;
+            this.allocMem.add(null);
+            return -1;
         }
         // Grab mem block to be allocated
         // method of grabbing varies based on
@@ -81,17 +98,24 @@ public abstract class BaseManager implements MemoryManager {
             this.failCount++;
             this.failSize += size;
             this.allocMem.add(null);
-            return false;
+            return -1;
         }
         // after grabbing block, allocate into new block
         // add request to allocMem array list
         this.allocMem.add(toAllocate.allocate(size));
-        System.out.println("toAllocate size after allocating: " + toAllocate.getSize());
+        System.out.println("toAllocate size after allocating: "
+                + toAllocate.getSize());
         // if toAllocate still has size, should be readded to free mem
         if (toAllocate.getSize() != 0) {
             this.addUnalloc(toAllocate);
         }
-        return true;
+        
+        return toAllocate.getStartAddress();
+    }
+    
+    @Override
+    public boolean checkPrevDefrag() {
+        return this.prevDefrag;
     }
     
     /**
