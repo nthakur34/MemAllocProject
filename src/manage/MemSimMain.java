@@ -102,7 +102,9 @@ final class MemSimMain {
                 //fromFile.next();
             }
         }
-        
+        fromFile.close();
+        fromFile = new Scanner(new File(filename));
+        fromFile.nextLine();
         while (fromFile.hasNext()) {
             String temp = fromFile.next();
             System.out.println(temp);
