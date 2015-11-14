@@ -70,10 +70,14 @@ public abstract class BaseManager implements MemoryManager {
         // method of grabbing varies based on
         // alloc scheme
         MemBlock toAllocate = this.grabToAlloc(size);
+        if (toAllocate != null) {
+            System.out.println("toAllocate size: " + toAllocate.getSize());
+        }
         // check if failed allocation
         if (toAllocate == null) {
             // if has no been running after defrag
             if (!hasDefragged) {
+                System.out.println("about to defrag");
                 this.defrag();
                 return this.alloc(size, true);
             }
@@ -86,6 +90,7 @@ public abstract class BaseManager implements MemoryManager {
         // after grabbing block, allocate into new block
         // add request to allocMem array list
         this.allocMem.add(toAllocate.allocate(size));
+        System.out.println("toAllocate size after allocating: " + toAllocate.getSize());
         // if toAllocate still has size, should be readded to free mem
         if (toAllocate.getSize() != 0) {
             this.addUnalloc(toAllocate);
