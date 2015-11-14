@@ -22,6 +22,7 @@ public class WorstFitAlloc extends BaseManager {
      */
     public WorstFitAlloc(int inMemSize) {
         super(inMemSize);
+        //initialize free block of given size
         this.freeBlocks.add(new MemBlock(0, inMemSize, true));
     }
     
