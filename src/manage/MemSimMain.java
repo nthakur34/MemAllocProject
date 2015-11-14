@@ -119,6 +119,23 @@ final class MemSimMain {
                 //fromFile.next();
             }
         }
+        fromFile.close();
+        fromFile = new Scanner(new File(filename));
+        fromFile.nextLine();
+        while (fromFile.hasNext()) {
+            String temp = fromFile.next();
+            System.out.println(temp);
+            if (temp.compareTo("A") == 0) {
+                val = fromFile.nextInt();
+                sims[2].alloc(val, false);
+            } else if (temp.compareTo("D") == 0) {
+                val = fromFile.nextInt();
+                sims[2].dealloc(val);
+            } else {
+                System.out.println("Neither A nor D");
+                //fromFile.next();
+            }
+        }
      
         printTrans(outPut1, lines);
         outPut1.close();
