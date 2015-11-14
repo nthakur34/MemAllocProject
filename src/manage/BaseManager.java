@@ -101,6 +101,10 @@ public abstract class BaseManager implements MemoryManager {
      */
     public abstract void addUnalloc(MemBlock unAlloc);
 
+    /*
+     * Dealloc functions
+     */
+    
     @Override
     public boolean dealloc(int id) {
         // if id is within allocMem's size
@@ -139,6 +143,7 @@ public abstract class BaseManager implements MemoryManager {
             // otherwise is quicksort defrag
             defragger.quickSort();            
         }
+        defragger.defragBlocks();
         this.rebuild(defragger.getCollection());
     }
     
@@ -152,6 +157,8 @@ public abstract class BaseManager implements MemoryManager {
      */
     public abstract void rebuild(ArrayList<MemBlock> blocks);
 
+    
+    
     @Override
     public int defragCount() {
         return this.defragCount;
