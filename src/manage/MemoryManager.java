@@ -27,16 +27,7 @@ public interface MemoryManager {
      *          attached to it.
      */
     boolean dealloc(int id);
-    
-    /**
-     * Dealloc covers the ArrayList allocMem's part of the dealloc.
-     * @param id id of the block being deallocated
-     * @return the memblock associated with the allocation
-     *          will return null if request is out of bounds
-     *          or id leads to failed request/request already removed
-     */
-    MemBlock deallocHelper(int id);
-    
+        
     /**
      * Defragment the data with a given defrag method. Will change data.
      * @param toSort the collection to be sorted

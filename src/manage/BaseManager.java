@@ -103,29 +103,23 @@ public abstract class BaseManager implements MemoryManager {
 
     @Override
     public boolean dealloc(int id) {
-        MemBlock temp = this.deallocHelper(id);
-        if (temp != null) {
-            this.addUnalloc(temp);
+        // if id is within allocMem's size
+        // and is >= 1
+        if (this.allocMem.size() <= id || id < 1) {
+            System.err.println("Invalid dealloc request");
+            return false;
+        }
+        // will return a memblock at id if was successful alloc
+        // will return null if failed
+        MemBlock toReturn = this.allocMem.get(id);
+        // set to null to indicate deallocated
+        this.allocMem.set(id, null);
+        if (toReturn != null) {
+            toReturn.setFree(true);
+            this.addUnalloc(toReturn);
             return true;
         }
         return false;
-    }
-    
-    @Override
-    public MemBlock deallocHelper(int id) {
-        // if id is within allocMem's size
-        // and is >= 1
-        if (this.allocMem.size() > id
-                && id >= 1) {
-            // will return a memblock at id if was successful alloc
-            // will return null if failed
-            MemBlock toReturn = this.allocMem.get(id);
-            // set to null to indicate deallocated
-            this.allocMem.set(id, null);
-            return toReturn;
-        }
-        // if out of bounds, return null
-        return null;
     }
 
     /*
