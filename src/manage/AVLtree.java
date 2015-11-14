@@ -4,7 +4,6 @@ package manage;
  * Starter code for AVLtree implementation
  */
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.LinkedList;
 
 /**
@@ -134,46 +133,7 @@ public class AVLtree<T extends Comparable<? super T>> {
         }
         return this.contains(val, curr.right);
     }
-    
-//    /**
-//     * Method to find the smallest node greater than or 
-//     * equal to the value
-//     * @param val the value we're looking for
-//     * @param curr the subtree we're searching through
-//     * @return the node that is the smallest node greater than
-//     *         or equal to the value
-//     */
-//    public BNode getBestFit(T val, BNode curr) {
-//        if (curr == null || this.isEmpty()) {
-//            return null;
-//        }
-//        if (val.equals(curr.data)) {
-//            return curr;
-//        } else if (val.compareTo(curr.data) < 0) {
-//            // ^if val is less than curr.data, check left child
-//            if (curr.left == null) {
-//                return curr;
-//            } else if (val.compareTo(curr.left.data) < 0
-//                    || val.equals(curr.left.data)) {
-//                return this.getBestFit(val, curr.left);
-//            } else if (val.compareTo(curr.left.data) > 0 && curr.left.right == null) {
-//                return curr;
-//            } else {
-//                return this.getBestFit(val, curr.left);
-//            }
-//        } else {
-//            // ^if val is greater than curr.data, check right child
-//            if (curr.right == null) {
-//                return curr;
-//            } else if (val.compareTo(curr.right.data) == 0) {
-//                return this.getBestFit(val, curr.right);
-//            } else if (val.compareTo(curr.right.data) < 0) {
-//                return this.getBestFit(val, curr.right);
-//            } else if (val.compareTo(curr.right.data) > 0){ 
-//                return this.getBestFit(val, curr.right);
-//            }
-//        }
-//    }
+
     
     /**
      * Gets the node of best fit, the smallest node greater than
@@ -294,7 +254,6 @@ public class AVLtree<T extends Comparable<? super T>> {
      * @return the new subtree after rebalancing
      */
     private BNode delete(BNode curr, T value) {
-        BNode temp = null;
         // if value not equal to node value, keep going down
         if (curr.data.compareTo(value) != 0) {
             // if value is less than curr, move to left child
@@ -333,7 +292,8 @@ public class AVLtree<T extends Comparable<? super T>> {
 //                temp.right = curr.right;
 //                temp.left = curr.left;
 //                curr = temp;
-                curr.right = this.delete(curr.right, this.findMin(curr.right).data);
+                curr.right = this.delete(curr.right, 
+                        this.findMin(curr.right).data);
                 curr = this.balance(curr);
                 return curr;
             }
