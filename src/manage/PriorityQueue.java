@@ -3,7 +3,8 @@ package manage;
 import java.util.ArrayList;
 
 /**
- *Navjyoth Thakur
+ * Manages, the storage and removal of T values.
+ * Navjyoth Thakur
  * @param <T>
  */
 public class PriorityQueue<T extends Comparable<? super T>> {
