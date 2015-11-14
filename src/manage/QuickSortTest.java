@@ -47,36 +47,41 @@ public class QuickSortTest {
     @Before
     public void setup() {
         // these start out empty before each test
-        e4 = new QuickSort<Integer>(svals, new Comparator<Integer>(){
+        e4 = new QuickSort<Integer>(svals);
+        e4.sort(new Comparator<Integer>() {
             @Override
             public int compare(Integer s1, Integer s2) {
                 return s1.compareTo(s2);
             }
         });
-        e5 = new QuickSort<Integer>(pvals, new Comparator<Integer>(){
+        e5 = new QuickSort<Integer>(pvals);
+        e5.sort(new Comparator<Integer>() {
             @Override
             public int compare(Integer s1, Integer s2) {
                 return s1.compareTo(s2);
             }
         });
-        e6 = new QuickSort<Integer>(tvals, new Comparator<Integer>(){
+        e6 = new QuickSort<Integer>(tvals);
+        e6.sort(new Comparator<Integer>() {
             @Override
             public int compare(Integer s1, Integer s2) {
                 return s1.compareTo(s2);
             }
         });
-        e7 = new QuickSort<Integer>(evals, new Comparator<Integer>(){
+        e7 = new QuickSort<Integer>(evals);
+        e7.sort(new Comparator<Integer>() {
             @Override
             public int compare(Integer s1, Integer s2) {
                 return s1.compareTo(s2);
             }
         });
-        all = new QuickSort<Integer>(null, new Comparator<Integer>(){
+        all = new QuickSort<Integer>(null); 
+        all.sort(new Comparator<Integer>() {
             @Override
             public int compare(Integer s1, Integer s2) {
                 return s1.compareTo(s2);
             }
-        }); 
+        });
     }
     
     @Test
