@@ -87,7 +87,6 @@ public class BucketSort<T extends Comparable<T>> {
             // add when either end condition is reached
             listIterator.add(toInsert);
         }
-        
         ArrayList<T> output = new ArrayList<T>();
         // need to convert data to array list
         for (int i = 0; i < this.data.length; i++) {
