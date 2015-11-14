@@ -256,7 +256,10 @@ public class SequenceTest {
         //it.remove();
     }
     
-    
+    @Test
+    public void testQueueToArrayList() {
+        
+    }
 
 
 }

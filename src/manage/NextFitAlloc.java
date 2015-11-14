@@ -22,6 +22,7 @@ public class NextFitAlloc extends BaseManager {
     public NextFitAlloc(int inMemSize) {
         super(inMemSize);
         this.queue = new QueueSeq<MemBlock>();
+        this.queue.enqueue(new MemBlock(0, inMemSize, true));
     }
 
     @Override
