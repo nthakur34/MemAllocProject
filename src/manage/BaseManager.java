@@ -185,15 +185,15 @@ public abstract class BaseManager implements MemoryManager {
     }
 
     @Override
-    public int avgTime() {
+    public double avgTime() {
         // TODO Auto-generated method stub
-        return 0;
+        return 0.00;
     }
 
     @Override
-    public int avgSortRatio(boolean isBucket) {
+    public double avgSortRatio(boolean isBucket) {
         // TODO Auto-generated method stub
-        return 0;
+        return 0.00;
     }
 
 }
