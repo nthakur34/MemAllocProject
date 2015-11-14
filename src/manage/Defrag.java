@@ -66,9 +66,10 @@ public class Defrag {
      */
     public long bucketSort() {
         long startTime = System.nanoTime();
-        this.freeList = this.bucketSort.sort(this.freeList,
-                new MemBlock.MemBlockComparator());
-        return System.nanoTime() - startTime;
+        this.bucketSort.sort(this.freeList, new MemBlock.MemBlockComparator());
+        long timeDifference = System.nanoTime() - startTime;
+        this.freeList = this.bucketSort.getData();
+        return timeDifference;
     }
     
     /**
