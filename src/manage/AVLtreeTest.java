@@ -22,6 +22,8 @@ public class AVLtreeTest {
     static AVLtree<Integer> e4; 
     static AVLtree<Integer> e7; 
     static AVLtree<Integer> e10;
+    static AVLtree<Integer> t1;
+
     static AVLtree<Integer> all;  // all in map
 
     // note - Integer hashCode() returns the int value
@@ -44,6 +46,8 @@ public class AVLtreeTest {
         e4 = new AVLtree<Integer>();  
         e7 = new AVLtree<Integer>(); 
         e10 = new AVLtree<Integer>(); 
+        t1 = new AVLtree<Integer>(); 
+
 
         // this is full set, assuming put works correctly
         all = new AVLtree<Integer>();
@@ -138,22 +142,22 @@ public class AVLtreeTest {
         AVLtree<Integer> ass = new AVLtree<>();
         
         ass.add(15);
-        assertEquals(e7.getBestFit(11).data, ass.root());
+        assertEquals(ass.getBestFit(11), ass.root());
         ass.remove(15);
-        assertNull(e7.getBestFit(26));
-        assertNull(e7.getBestFit(50));
+        assertNull(ass.getBestFit(26));
+        assertNull(ass.getBestFit(50));
         ass.add(25);
-        assertEquals(e7.getBestFit(25).data, ass.root());
-        assertEquals(e7.getBestFit(24).data, ass.root());
+        assertEquals(ass.getBestFit(25), ass.root());
+        assertEquals(ass.getBestFit(24), ass.root());
         ass.remove(25);
         ass.add(20);
-        assertEquals(e7.getBestFit(17).data, ass.root());
+        assertEquals(ass.getBestFit(17), ass.root());
         ass.remove(20);
         ass.add(7);
-        assertEquals(e7.getBestFit(6).data, ass.root());
+        assertEquals(ass.getBestFit(6), ass.root());
         ass.remove(7);
         ass.add(5);
-        assertEquals(e7.getBestFit(4).data, ass.root());
+        assertEquals(ass.getBestFit(4), ass.root());
         ass.remove(5);
         assertEquals(ass.size(), 0);
         
@@ -238,29 +242,36 @@ public class AVLtreeTest {
         System.out.println("max value: " + e10.getMaxVal());
         AVLtree<Integer> e11 = new AVLtree<>();
         e11.add(13);
-        assertEquals(e10.getBestFit(13).data, e11.root());
+        assertEquals(e10.getBestFit(13), e11.root());
         e11.remove(13);
         e11.add(7);
-        assertEquals(e10.getBestFit(7).data, e11.root());
+        assertEquals(e10.getBestFit(7), e11.root());
         e11.remove(7);
         e11.add(5);
-        assertEquals(e10.getBestFit(4).data, e11.root());
+        assertEquals(e10.getBestFit(4), e11.root());
         e11.remove(5);
         e11.add(3);
-        assertEquals(e10.getBestFit(1).data, e11.root());
+        assertEquals(e10.getBestFit(1), e11.root());
         e11.remove(3);
         e11.add(5);
-        assertEquals(e10.getBestFit(4).data, e11.root());
+        assertEquals(e10.getBestFit(4), e11.root());
         e11.remove(5);
         e11.add(10);
-        assertEquals(e10.getBestFit(9).data, e11.root());
+        assertEquals(e10.getBestFit(9), e11.root());
         e11.remove(10);
         e11.add(13);
-        assertEquals(e10.getBestFit(12).data, e11.root());
+        assertEquals(e10.getBestFit(12), e11.root());
         e11.remove(13);
         e11.add(15);
-        assertEquals(e10.getBestFit(14).data, e11.root());
+        assertEquals(e10.getBestFit(14), e11.root());
 
+        t1.add(1);
+       
+        t1.add(2);
+        System.out.println("preOrder" + t1.preOrder().toString());
+        System.out.println("helloooooo");
+        t1.add(3);
+        System.out.println("preOrder" + t1.preOrder().toString());
         
         
         

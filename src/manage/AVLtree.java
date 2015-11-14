@@ -53,6 +53,14 @@ public class AVLtree<T extends Comparable<? super T>> {
         public boolean hasTwoChildren() {
             return (this.left != null && this.right != null);
         }
+        
+        /**
+         * Gets the data.  Used for testing.
+         * @return the data
+         */
+        public T getData() {
+            return this.data;
+        }
     }
 
     /** The root of the tree. */
@@ -232,10 +240,10 @@ public class AVLtree<T extends Comparable<? super T>> {
      * @return true if added, false if val is null
      */
     public boolean add(T val) {
-//        System.out.println("ADDING : " + val);
+        System.out.println("ADDING : " + val);
         if (val != null) {
             this.root = this.insert(val, this.root);
-//            System.out.println("after inserting: " + val);
+            System.out.println("after inserting: " + val);
             this.size++;
             //how you can check whether the root is balanced:
             //System.out.println(Math.abs(balanceFactor(this.root)));

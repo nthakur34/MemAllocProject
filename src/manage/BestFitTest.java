@@ -34,6 +34,11 @@ public class BestFitTest {
     }
     
     @Test
+    public void grabToAllocTest() {
+        
+    }
+    
+    @Test
     public void allocTest() {
         assertTrue(bf1.alloc(1, false));
         System.out.println(bf1.getCollection().toString());
@@ -50,7 +55,8 @@ public class BestFitTest {
         assertTrue(bf1.dealloc(1));
         assertEquals("[9, 0]", bf1.getCollection().toString());
         assertTrue(bf1.dealloc(4));
-        assertEquals("[1, 0, 9]", bf1.getCollection().toString());
+System.out.println("collection: " + bf1.getCollection().toString());
+        assertEquals("[0, 9, 3]", bf1.getCollection().toString());
         assertTrue(bf1.alloc(3, false));
         //since, defrags, and 0 and 1 adjacent, combine, then used
         assertEquals("[9]", bf1.getCollection().toString());
