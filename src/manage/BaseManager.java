@@ -35,6 +35,26 @@ public abstract class BaseManager implements MemoryManager {
     protected int failSize;
     
     /**
+     * Total alloc time (in nanoseconds).
+     */
+    protected long totalAllocTime;
+    
+    /**
+     * Total size of all sorts.
+     */
+    protected long totalSortSize;
+    
+    /**
+     * Total time for quickSorts.
+     */
+    protected long quickSortTime;
+    
+    /**
+     * Total time for bucketSorts.
+     */
+    protected int bucketSortTime;
+    
+    /**
      * Check if previous allocation had a defrag.
      */
     private boolean prevDefrag;
@@ -69,18 +89,33 @@ public abstract class BaseManager implements MemoryManager {
      */
     
     @Override
+    public boolean checkPrevDefrag() {
+        return this.prevDefrag;
+    }
+    
+    /*
+     * Alloc functions
+     * (non-Javadoc)
+     * @see manage.MemoryManager#alloc(int)
+     */
+    
+    @Override
     public int alloc(int size, boolean hasDefragged) {
+        // get time stuff
+        long startTime = System.nanoTime();
         this.prevDefrag = hasDefragged;
         if (size <= 0) {
             this.failCount++;
             System.err.println("Size must be greater than 0.");
             this.allocMem.add(null);
+            this.totalAllocTime += System.nanoTime() - startTime;
             return -1;
         }
         if (size > this.memSize) {
             this.failSize += size;
             this.failCount++;
             this.allocMem.add(null);
+            this.totalAllocTime += System.nanoTime() - startTime;
             return -1;
         }
         // Grab mem block to be allocated
@@ -91,6 +126,7 @@ public abstract class BaseManager implements MemoryManager {
         if (toAllocate == null) {
             // if has no been running after defrag
             if (!hasDefragged) {
+                this.totalAllocTime += System.nanoTime() - startTime;
                 this.defrag();
                 return this.alloc(size, true);
             }
@@ -98,27 +134,22 @@ public abstract class BaseManager implements MemoryManager {
             this.failCount++;
             this.failSize += size;
             this.allocMem.add(null);
+            this.totalAllocTime += System.nanoTime() - startTime;
             return -1;
         }
         // after grabbing block, allocate into new block
         // add request to allocMem array list
         MemBlock allocBlock = toAllocate.allocate(size);
         this.allocMem.add(allocBlock);
-        System.out.println("toAllocate size after allocating: "
-                + toAllocate.getSize());
         // if toAllocate still has size, should be readded to free mem
         if (toAllocate.getSize() != 0) {
             this.addUnalloc(toAllocate);
         }
         
+        this.totalAllocTime += System.nanoTime() - startTime;
         return allocBlock.getStartAddress();
     }
-    
-    @Override
-    public boolean checkPrevDefrag() {
-        return this.prevDefrag;
-    }
-    
+
     /**
      * Find the free block to be used to allocate.
      * @param size size of block to be allocated
@@ -165,12 +196,13 @@ public abstract class BaseManager implements MemoryManager {
     public void defrag() {
         this.defragCount++;
         Collection<MemBlock> toSort = this.getCollection();
+        this.totalSortSize += toSort.size();
         // initialize defragger
         Defrag defragger = new Defrag(toSort, this.memSize);
-        defragger.bucketSort();
+        this.totalSortSize += defragger.bucketSort();
         
         defragger = new Defrag(toSort, this.memSize);
-        defragger.quickSort(); 
+        this.totalSortSize += defragger.quickSort(); 
         
         defragger.defragBlocks();
         this.rebuild(defragger.getCollection());
@@ -187,8 +219,6 @@ public abstract class BaseManager implements MemoryManager {
      * @param blocks rebuild allocation scheme with new defragged blocks
      */
     public abstract void rebuild(ArrayList<MemBlock> blocks);
-
-    
     
     @Override
     public int defragCount() {
@@ -210,8 +240,7 @@ public abstract class BaseManager implements MemoryManager {
 
     @Override
     public double avgTime() {
-        // TODO Auto-generated method stub
-        return 0.00;
+        return this.totalAllocTime / (1000 * ((double) this.allocMem.size() - 1 + this.defragCount));
     }
 
     @Override

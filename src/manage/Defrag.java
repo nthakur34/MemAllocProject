@@ -49,18 +49,22 @@ public class Defrag {
     /**
      * Function to quickSort the freeList.
      */
-    public void quickSort() {
+    public long quickSort() {
+        long startTime = System.nanoTime();
         this.quickSort = new QuickSort<MemBlock>(this.freeList,
                 new MemBlock.MemBlockComparator());
         this.freeList = this.quickSort.getList();
+        return System.nanoTime() - startTime;
     }
     
     /**
      * Function to bucketSort the freeList.
      */
-    public void bucketSort() {
+    public long bucketSort() {
+        long startTime = System.nanoTime();
         this.freeList = this.bucketSort.sort(this.freeList,
                 new MemBlock.MemBlockComparator());
+        return System.nanoTime() - startTime;
     }
     
     /**

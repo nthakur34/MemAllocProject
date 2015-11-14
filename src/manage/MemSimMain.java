@@ -41,6 +41,7 @@ final class MemSimMain {
             Scanner sc = new Scanner(System.in);
             System.out.println("Enter filename: ");
             filename = sc.nextLine();
+            sc.close();
         } else {
             filename = args[0];
         }
