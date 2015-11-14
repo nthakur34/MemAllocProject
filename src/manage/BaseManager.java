@@ -88,7 +88,7 @@ public abstract class BaseManager implements MemoryManager {
     
     /**
      * Find the free block to be used to allocate.
-     * @param size
+     * @param size the size of the block to be allocated
      * @return the free memory block to use.
      *          Will return null if cannot find
      *          a fitting block
