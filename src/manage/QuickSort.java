@@ -1,10 +1,11 @@
 package manage;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Comparator;
 
 /**
- * @author navthakur
+ * @author Navjyoth Thakur
  *
  * @param <T>
  */
@@ -18,15 +19,25 @@ public class QuickSort<T extends Comparable<? super T>> {
     /**
      * Constructor to set up arraylist of blocks.
      * @param blockList List to sort and defrag.
-     * @param comparator for starting address of Memblocks
      */
-    public QuickSort(ArrayList<T> blockList, Comparator<? super T> comparator) {
+    public QuickSort(ArrayList<T> blockList) {
         
         if (blockList == null || blockList.size() < 1) {
             return;
         }
         this.freeList = blockList;
-        this.quickSort(0, blockList.size() - 1, comparator);
+//        this.sort(0, blockList.size() - 1, comparator);
+    }
+
+    /**
+     * Sorts the blocks.
+     * @param comparator used for comparing blocks
+     */
+    public void sort(Comparator<? super T> comparator) {
+        if (this.freeList == null || this.freeList.size() < 1) {
+            return;
+        }
+        this.quickSortHelper(0, this.freeList.size() - 1, comparator);
     }
     
     /**
@@ -35,7 +46,7 @@ public class QuickSort<T extends Comparable<? super T>> {
      * @param higherIndex higher index to compare to pivotPoint
      * @param comparator for starting address of Memblocks
      */
-    private void quickSort(int lowerIndex, int higherIndex, Comparator<?
+    private void quickSortHelper(int lowerIndex, int higherIndex, Comparator<?
             super T> comparator) {
         // i is front cursor moving forwards
         // j is end cursor moving backwards
@@ -70,10 +81,10 @@ public class QuickSort<T extends Comparable<? super T>> {
         }
         // check that we've not reached either end of array
         if (lowerIndex < j) {
-            this.quickSort(lowerIndex, j, comparator);
+            this.quickSortHelper(lowerIndex, j, comparator);
         }
         if (i < higherIndex) {
-            this.quickSort(i, higherIndex, comparator);
+            this.quickSortHelper(i, higherIndex, comparator);
         }   
     }
     

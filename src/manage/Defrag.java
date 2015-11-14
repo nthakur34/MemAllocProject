@@ -44,21 +44,25 @@ public class Defrag {
         // initialize BucketSort but not QuickSort
         // because QuickSort sorts upon initialization
         this.bucketSort = new BucketSort<MemBlock>(maxSize);
+        this.quickSort = new QuickSort<MemBlock>(this.freeList);
     }
     
     /**
      * Function to quickSort the freeList.
+     * @return how long the program took to run
      */
     public long quickSort() {
         long startTime = System.nanoTime();
-        this.quickSort = new QuickSort<MemBlock>(this.freeList,
-                new MemBlock.MemBlockComparator());
+        this.quickSort.sort(new MemBlock.MemBlockComparator());
+//        this.quickSort = new QuickSort<MemBlock>(this.freeList,
+//                new MemBlock.MemBlockComparator());
         this.freeList = this.quickSort.getList();
         return System.nanoTime() - startTime;
     }
     
     /**
      * Function to bucketSort the freeList.
+     * @return how long the program took to run
      */
     public long bucketSort() {
         long startTime = System.nanoTime();
