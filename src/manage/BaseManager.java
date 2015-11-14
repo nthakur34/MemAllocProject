@@ -88,7 +88,7 @@ public abstract class BaseManager implements MemoryManager {
     
     /**
      * Find the free block to be used to allocate.
-     * @param size
+     * @param size find a block that works for this size.
      * @return the free memory block to use.
      *          Will return null if cannot find
      *          a fitting block
@@ -132,7 +132,7 @@ public abstract class BaseManager implements MemoryManager {
         Collection<MemBlock> toSort = this.getCollection();
         // initialize defragger
         Defrag defragger = new Defrag(toSort, this.memSize);
-        if (isBucket) { //IMPORTANT CHANGE BACK. DONT FORGET CHANGE BACK. THIS CANNOT BE. RMEOVE EXCLAMATION
+        if (isBucket) {
             // if bucket defrag
             defragger.bucketSort();
         } else {
@@ -142,7 +142,14 @@ public abstract class BaseManager implements MemoryManager {
         this.rebuild(defragger.getCollection());
     }
     
+    /**
+     * @return Collection of MemBlocks
+     */
     public abstract Collection<MemBlock> getCollection();
+    
+    /**
+     * @param blocks rebuild allocation scheme with new defragged blocks.   
+     */
     public abstract void rebuild(ArrayList<MemBlock> blocks);
 
     @Override
