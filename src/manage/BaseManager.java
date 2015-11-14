@@ -136,11 +136,9 @@ public abstract class BaseManager implements MemoryManager {
     public void defrag(boolean isBucket) {
         this.defragCount++;
         Collection<MemBlock> toSort = this.getCollection();
-        // increment defragCount
-        this.defragCount++;
         // initialize defragger
         Defrag defragger = new Defrag(toSort, this.memSize);
-        if (!isBucket) { //IMPORTANT CHANGE BACK. DONT FORGET CHANGE BACK. THIS CANNOT BE. RMEOVE EXCLAMATION
+        if (isBucket) { //IMPORTANT CHANGE BACK. DONT FORGET CHANGE BACK. THIS CANNOT BE. RMEOVE EXCLAMATION
             // if bucket defrag
             defragger.bucketSort();
         } else {
