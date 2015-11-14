@@ -1,0 +1,10 @@
+Memory Transaction Log
+Memory Size:200
+Input file: test0.txt
+Memory Address begins at location 0
+
+----------------------------------------------------------------------------------------------------------------
+           Best Fit                                Worst Fit                                Your Fit
+----------------------------------------------------------------------------------------------------------------
+   ID  DF? Success  Addr.  Size           ID  DF? Success  Addr.  Size           ID  DF? Success  Addr.  Size
+
