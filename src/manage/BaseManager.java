@@ -64,7 +64,13 @@ public abstract class BaseManager implements MemoryManager {
     @Override
     public boolean alloc(int size, boolean hasDefragged) {
         if (size < 0) {
+            this.failCount++;
             System.err.println("Size must be greater than 0.");
+        }
+        if (size > this.memSize) {
+            this.failSize += size;
+            this.failCount++;
+            return false;
         }
         // Grab mem block to be allocated
         // method of grabbing varies based on
