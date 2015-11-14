@@ -101,6 +101,10 @@ public abstract class BaseManager implements MemoryManager {
      */
     public abstract void addUnalloc(MemBlock unAlloc);
 
+    /*
+     * Dealloc functions
+     */
+    
     @Override
     public boolean dealloc(int id) {
         // if id is within allocMem's size
@@ -132,19 +136,22 @@ public abstract class BaseManager implements MemoryManager {
         Collection<MemBlock> toSort = this.getCollection();
         // initialize defragger
         Defrag defragger = new Defrag(toSort, this.memSize);
-        if (isBucket) { //IMPORTANT CHANGE BACK. DONT FORGET CHANGE BACK. THIS CANNOT BE. RMEOVE EXCLAMATION
+        if (isBucket) {
             // if bucket defrag
             defragger.bucketSort();
         } else {
             // otherwise is quicksort defrag
             defragger.quickSort();            
         }
+        defragger.defragBlocks();
         this.rebuild(defragger.getCollection());
     }
     
     public abstract Collection<MemBlock> getCollection();
     public abstract void rebuild(ArrayList<MemBlock> blocks);
 
+    
+    
     @Override
     public int defragCount() {
         return this.defragCount;
