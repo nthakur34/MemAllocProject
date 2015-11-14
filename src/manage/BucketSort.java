@@ -59,7 +59,7 @@ public class BucketSort<T extends Comparable<T>> {
      * @param comparator comparator for type of data being sorted
      * @return array of all values sorted
      */
-    public ArrayList<T> sort(Collection<T> blocks,
+    public void sort(Collection<T> blocks,
             Comparator<? super T> comparator) {
 
         // get an iterator to go through all values
@@ -97,6 +97,9 @@ public class BucketSort<T extends Comparable<T>> {
             */
             this.data[index] = toInsert;
         }
+    }
+    
+    public ArrayList<T> getData() {
         ArrayList<T> output = new ArrayList<T>();
         // need to convert data to array list
         for (int i = 0; i < this.data.length; i++) {
