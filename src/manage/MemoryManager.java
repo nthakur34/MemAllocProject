@@ -12,9 +12,15 @@ public interface MemoryManager {
      * to ArrayList of alloc ids.
      * @param size size of memory block to be allocated
      * @param hasDefragged whether while running this defrag has happened or not
-     * @return whether during alloc defragged or nah
+     * @return start address, -1 if failed
      */
-    boolean alloc(int size, boolean hasDefragged);
+    int alloc(int size, boolean hasDefragged);
+    
+    /**
+     * Check if previous allocation used a defrag.
+     * @return if there was a defrag in previous allocation
+     */
+    boolean checkPrevDefrag();
     
     /**
      * Deallocate a block of allocated memory in allocated array list

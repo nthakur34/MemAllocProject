@@ -90,14 +90,19 @@ final class MemSimMain {
         int val;
         fromFile.close();
         for (int i = 0; i < numApproaches; i++) {
+            int idCount = 0;
             fromFile = new Scanner(new File(filename));
             fromFile.nextLine();
             while (fromFile.hasNext()) {
                 String temp = fromFile.next();
                 System.out.println(temp);
                 if (temp.compareTo("A") == 0) {
+                    idCount++;
                     val = fromFile.nextInt();
-                    sims[i].alloc(val, false);
+                    int retAddress = sims[i].alloc(val, false);
+                    boolean hasDefragged = sims[i].checkPrevDefrag();
+                    lines.add(formatAlloc(new String(), retAddress, 
+                            hasDefragged, idCount, val));
                 } else if (temp.compareTo("D") == 0) {
                     val = fromFile.nextInt();
                     sims[i].dealloc(val);
