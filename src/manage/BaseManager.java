@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 /**
- * @author navthakur
+ * Navjyoth Thakur - nthakur2 -  600.226.01 - P4
  *
  */
 public abstract class BaseManager implements MemoryManager {
