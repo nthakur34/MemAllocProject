@@ -1,6 +1,6 @@
 Memory Transaction Log
-Memory Size:200
-Input file: test0.txt
+Memory Size:100
+Input file: test3.txt
 Memory Address begins at location 0
 
 ----------------------------------------------------------------------------------------------------------------
