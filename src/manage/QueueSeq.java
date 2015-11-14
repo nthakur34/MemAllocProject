@@ -1,5 +1,7 @@
 package manage;
 
+import java.util.ArrayList;
+
 /**
  * Citing from project 2 code:
  * QueueSeq is a queue wrapper for a Sequence, using the doubly linked
@@ -48,6 +50,15 @@ public class QueueSeq<T> implements Queue<T> {
     @Override
     public String toString() {
         return this.data.toString();
+    }
+
+    @Override
+    public ArrayList<T> getArrayList() {
+        ArrayList<T> toReturn = new ArrayList<T>();
+        for (int i = 0; i < this.size(); i++) {
+            toReturn.add(this.dequeue());
+        }
+        return toReturn;
     }
 
 }

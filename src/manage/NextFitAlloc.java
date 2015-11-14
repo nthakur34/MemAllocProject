@@ -48,7 +48,7 @@ public class NextFitAlloc extends BaseManager {
 
     @Override
     public Collection<MemBlock> getCollection() {
-        return null;
+        return this.queue.getArrayList();
     }
 
     @Override

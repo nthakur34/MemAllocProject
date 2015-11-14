@@ -39,6 +39,10 @@ public abstract class BaseManager implements MemoryManager {
      * @param inMemSize maximum size of whole memory
      */
     public BaseManager(int inMemSize) {
+        // check if mem size is valid
+        if (inMemSize < 1) {
+            throw new IllegalArgumentException("Size must be greater than 0"); 
+        }
         this.memSize = inMemSize;
         this.defragCount = 0;
         this.failCount = 0;
@@ -59,6 +63,9 @@ public abstract class BaseManager implements MemoryManager {
     
     @Override
     public boolean alloc(int size, boolean hasDefragged) {
+        if (size < 0) {
+            System.err.println("Size must be greater than 0.");
+        }
         // Grab mem block to be allocated
         // method of grabbing varies based on
         // alloc scheme
@@ -67,7 +74,7 @@ public abstract class BaseManager implements MemoryManager {
         if (toAllocate == null) {
             // if has no been running after defrag
             if (!hasDefragged) {
-                this.defrag(true);
+                this.defrag();
                 return this.alloc(size, true);
             }
             // if has defragged and still no block need to count as fail
@@ -88,7 +95,11 @@ public abstract class BaseManager implements MemoryManager {
     
     /**
      * Find the free block to be used to allocate.
+<<<<<<< HEAD
+     * @param size size of block to be allocated
+=======
      * @param size find a block that works for this size.
+>>>>>>> branch 'master' of https://nkumar14@bitbucket.org/p4jnn/the-three-muskequeers.git
      * @return the free memory block to use.
      *          Will return null if cannot find
      *          a fitting block
@@ -131,29 +142,37 @@ public abstract class BaseManager implements MemoryManager {
      */
     
     @Override
-    public void defrag(boolean isBucket) {
+    public void defrag() {
         this.defragCount++;
         Collection<MemBlock> toSort = this.getCollection();
         // initialize defragger
         Defrag defragger = new Defrag(toSort, this.memSize);
-        if (isBucket) {
-            // if bucket defrag
-            defragger.bucketSort();
-        } else {
-            // otherwise is quicksort defrag
-            defragger.quickSort();            
-        }
+        defragger.bucketSort();
+        
+        defragger = new Defrag(toSort, this.memSize);
+        defragger.quickSort(); 
+        
         defragger.defragBlocks();
         this.rebuild(defragger.getCollection());
     }
     
     /**
+<<<<<<< HEAD
+     * Return collection (in whatever form) of free mem data.
+     * @return collection of data
+=======
      * @return Collection of MemBlocks
+>>>>>>> branch 'master' of https://nkumar14@bitbucket.org/p4jnn/the-three-muskequeers.git
      */
     public abstract Collection<MemBlock> getCollection();
     
     /**
+<<<<<<< HEAD
+     * Rebuild the free memory block data structure.
+     * @param blocks arraylist of blocks
+=======
      * @param blocks rebuild allocation scheme with new defragged blocks.   
+>>>>>>> branch 'master' of https://nkumar14@bitbucket.org/p4jnn/the-three-muskequeers.git
      */
     public abstract void rebuild(ArrayList<MemBlock> blocks);
 
@@ -171,6 +190,9 @@ public abstract class BaseManager implements MemoryManager {
 
     @Override
     public int avgFailSize() {
+        if (this.failCount == 0) {
+            return 0;
+        }
         return this.failSize / this.failCount;
     }
 

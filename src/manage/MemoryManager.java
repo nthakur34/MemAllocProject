@@ -27,9 +27,8 @@ public interface MemoryManager {
         
     /**
      * Defragment the data with a given defrag method. Will change data.
-     * @param isBucket whether BucketSort or QuickSort
      */
-    void defrag(boolean isBucket);
+    void defrag();
     
     /**
      * Rebuild the free memory scheme after a defrag.
