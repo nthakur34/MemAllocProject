@@ -18,9 +18,9 @@ public class BestFit extends BaseManager {
      */
     public BestFit(int inMemSize) {
         super(inMemSize);
-        
-        // TODO Auto-generated constructor stub
-        
+        this.tree = new AVLtree<MemBlock>();
+        MemBlock temp = new MemBlock(0, inMemSize, true);
+        this.tree.add(temp);
     }
     
     /**
@@ -44,14 +44,15 @@ public class BestFit extends BaseManager {
      */
     public void addUnalloc(MemBlock unAlloc) {
         this.tree.add(unAlloc);
+        //oi
     }
     
     /**
-     * Returns a collection of the memBlocks in the tree in preOrder.
+     * Returns a collection of the memBlocks in the tree in inOrder.
      * @return the collection
      */
     public Collection<MemBlock> getCollection() {
-        return (Collection<MemBlock>) this.tree.preOrder();
+        return (Collection<MemBlock>) this.tree.inOrder();
     }
     
     /**

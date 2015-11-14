@@ -86,6 +86,7 @@ public abstract class BaseManager implements MemoryManager {
         // after grabbing block, allocate into new block
         // add request to allocMem array list
         this.allocMem.add(toAllocate.allocate(size));
+        System.out.println("toAllocate size after allocating: " + toAllocate.getSize());
         // if toAllocate still has size, should be readded to free mem
         if (toAllocate.getSize() != 0) {
             this.addUnalloc(toAllocate);
@@ -117,7 +118,6 @@ public abstract class BaseManager implements MemoryManager {
         // if id is within allocMem's size
         // and is >= 1
         if (this.allocMem.size() <= id || id < 1) {
-            System.err.println("Invalid dealloc request");
             return false;
         }
         // will return a memblock at id if was successful alloc
@@ -177,11 +177,11 @@ public abstract class BaseManager implements MemoryManager {
     }
 
     @Override
-    public double avgFailSize() {
+    public int avgFailSize() {
         if (this.failCount == 0) {
             return 0;
         }
-        return (double) this.failSize / this.failCount;
+        return this.failSize / this.failCount;
     }
 
     @Override

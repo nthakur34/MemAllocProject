@@ -52,7 +52,7 @@ public interface MemoryManager {
      * Get average size of failed allocations.
      * @return average failed allocation size
      */
-    double avgFailSize();
+    int avgFailSize();
     
     /**
      * Get average time to process allocation.
