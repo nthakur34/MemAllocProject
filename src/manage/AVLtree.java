@@ -60,6 +60,7 @@ public class AVLtree<T extends Comparable<? super T>> {
     /** The size of the tree. */
     private int size;
 
+
     /**
      * Constructs a Binary Search Tree.
      */
@@ -121,6 +122,99 @@ public class AVLtree<T extends Comparable<? super T>> {
             return this.contains(val, curr.left);
         }
         return this.contains(val, curr.right);
+    }
+    
+//    /**
+//     * Method to find the smallest node greater than or 
+//     * equal to the value
+//     * @param val the value we're looking for
+//     * @param curr the subtree we're searching through
+//     * @return the node that is the smallest node greater than
+//     *         or equal to the value
+//     */
+//    public BNode getBestFit(T val, BNode curr) {
+//        if (curr == null || this.isEmpty()) {
+//            return null;
+//        }
+//        if (val.equals(curr.data)) {
+//            return curr;
+//        } else if (val.compareTo(curr.data) < 0) {
+//            // ^if val is less than curr.data, check left child
+//            if (curr.left == null) {
+//                return curr;
+//            } else if (val.compareTo(curr.left.data) < 0
+//                    || val.equals(curr.left.data)) {
+//                return this.getBestFit(val, curr.left);
+//            } else if (val.compareTo(curr.left.data) > 0 && curr.left.right == null) {
+//                return curr;
+//            } else {
+//                return this.getBestFit(val, curr.left);
+//            }
+//        } else {
+//            // ^if val is greater than curr.data, check right child
+//            if (curr.right == null) {
+//                return curr;
+//            } else if (val.compareTo(curr.right.data) == 0) {
+//                return this.getBestFit(val, curr.right);
+//            } else if (val.compareTo(curr.right.data) < 0) {
+//                return this.getBestFit(val, curr.right);
+//            } else if (val.compareTo(curr.right.data) > 0){ 
+//                return this.getBestFit(val, curr.right);
+//            }
+//        }
+//    }
+    
+    /**
+     * Gets the node of best fit, the smallest node greater than
+     * or equal to the value
+     * @param val the value we're looking for
+     * @return the node
+     */
+    public BNode getBestFit(T val) {
+        if (val.compareTo(this.getMaxVal()) > 0) {
+            return null;
+        }
+        return this.findBestFit(val, this.root);
+    }
+    
+    /**
+//   * Helper method to find the smallest node greater than or 
+//   * equal to the value
+//   * @param val the value we're looking for
+//   * @param curr the subtree we're searching through
+//   * @return the node that is the smallest node greater than
+//   *         or equal to the value
+//   */
+    private BNode findBestFit(T val, BNode curr) {
+        BNode temp;
+        if (curr == null || this.isEmpty()) {
+            return null;
+        }
+        if (val.equals(curr.data)) {
+            return curr;
+        } else if (val.compareTo(curr.data) < 0) {
+            // ^if val is less than curr.data, check left child
+            temp = this.findBestFit(val, curr.left);
+            if (temp == null && val.compareTo(curr.data) < 0) {
+                return curr;
+            }
+            return temp;
+        } else {
+            // ^if val is greater than curr.data, check right child
+            temp = this.findBestFit(val, curr.right);
+            if (temp == null && val.compareTo(curr.data) < 0) {
+                return curr;
+            }
+            return temp;
+        }
+    }
+    
+    /**
+     * Gets the maximum value in the tree.
+     * @return the maximum value in the tree
+     */
+    public T getMaxVal() {
+        return this.findMax(this.root).data;
     }
 
     /**
@@ -210,11 +304,11 @@ public class AVLtree<T extends Comparable<? super T>> {
      * @return the new subtree after rebalancing
      */
     private BNode delete(BNode curr, T value) {
-        System.out.println("Deleting: " + value);
-        if (curr != null) {
-            System.out.println("Comparing to: " + curr.data);
-
-        }
+//        System.out.println("Deleting: " + value);
+//        if (curr != null) {
+//            System.out.println("Comparing to: " + curr.data);
+//
+//        }
         System.out.println("right fucking here");
         BNode temp = null;
         // if value not equal to node value, keep going down
@@ -447,6 +541,22 @@ public class AVLtree<T extends Comparable<? super T>> {
         }
         while (temp.left != null) {
             temp = temp.left;
+        }
+        return temp;
+    }
+    
+    /**
+     * Search from curr (as root of subtree) and find maximum value.
+     * @param curr the root of the tree
+     * @return the max
+     */
+    private BNode findMax(BNode curr) {
+        BNode temp = curr;
+        if (temp == null) {
+            return temp;
+        }
+        while (temp.right != null) {
+            temp = temp.right;
         }
         return temp;
     }
