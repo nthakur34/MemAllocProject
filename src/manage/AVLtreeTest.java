@@ -1,10 +1,4 @@
 package manage;
-/* Navjyoth Thakur
- * 600.226.01
- * nthakur2
- * p4
- */
-
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;

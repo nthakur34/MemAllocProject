@@ -166,31 +166,34 @@ public class AVLtree<T extends Comparable<? super T>> {
     
     /**
      * Gets the node of best fit, the smallest node greater than
-     * or equal to the value
+     * or equal to the value.
      * @param val the value we're looking for
      * @return the node
      */
     public T getBestFit(T val) {
-        if (val.compareTo(this.getMaxVal()) > 0) {
+        if (this.root == null || val.compareTo(this.getMaxVal()) > 0) {
             return null;
         }
         return this.findBestFit(val, this.root).data;
     }
     
     /**
-//   * Helper method to find the smallest node greater than or 
-//   * equal to the value
-//   * @param val the value we're looking for
-//   * @param curr the subtree we're searching through
-//   * @return the node that is the smallest node greater than
-//   *         or equal to the value
-//   */
+     * Helper method to find the smallest node greater than or 
+     * equal to the value
+     * @param val the value we're looking for
+     * @param curr the subtree we're searching through
+     * @return the node that is the smallest node greater than
+     *         or equal to the value
+     */
     private BNode findBestFit(T val, BNode curr) {
+//        System.out.println(val.size());
+        System.out.println("INSIDE FINDBESTFIT");
         BNode temp;
         if (curr == null || this.isEmpty()) {
             return null;
         }
-        if (val.equals(curr.data)) {
+        if (val.compareTo(curr.data) == 0) {
+            System.out.println("THEY WERE EQUAL");
             return curr;
         } else if (val.compareTo(curr.data) < 0) {
             // ^if val is less than curr.data, check left child
@@ -214,7 +217,10 @@ public class AVLtree<T extends Comparable<? super T>> {
      * @return the maximum value in the tree
      */
     public T getMaxVal() {
-        return this.findMax(this.root).data;
+        if (this.root != null) {
+            return this.findMax(this.root).data;
+        }
+        return null;
     }
 
     /**
@@ -284,8 +290,6 @@ public class AVLtree<T extends Comparable<? super T>> {
      * @return true if removed, false if not found
      */
     public boolean remove(T val) {
-        System.out.println("REMOVING: " + val);
-        System.out.println("root.data: " + this.root.data);
         if (this.contains(val)) {
             this.root = this.delete(this.root, val);
             this.size--;
