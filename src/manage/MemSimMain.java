@@ -88,32 +88,37 @@ final class MemSimMain {
         sims[2] = queue;
         //fromFile.next();
         int val;
-        fromFile.close();
-        for (int i = 0; i < numApproaches; i++) {
-            int idCount = 0;
-            fromFile = new Scanner(new File(filename));
-            fromFile.nextLine();
-            while (fromFile.hasNext()) {
-                String temp = fromFile.next();
-                System.out.println(temp);
-                if (temp.compareTo("A") == 0) {
-                    idCount++;
-                    val = fromFile.nextInt();
+        int[] idCount = new int[numApproaches];
+        while (fromFile.hasNext()) {
+            String temp = fromFile.next();
+            System.out.println(temp);
+            output = new String();
+            boolean isAllocate = false;
+            if (temp.compareTo("A") == 0) {
+                val = fromFile.nextInt();
+                isAllocate = true;
+            } else if (temp.compareTo("D") == 0) {
+                val = fromFile.nextInt();
+            } else {
+                System.err.println("Neither A nor D");
+                val = 0;
+                //fromFile.next();
+            }
+            for (int i = 0; i < numApproaches; i++) {
+                if (isAllocate) {
+                    idCount[i]++;
                     int retAddress = sims[i].alloc(val, false);
                     boolean hasDefragged = sims[i].checkPrevDefrag();
-                    lines.add(formatAlloc(new String(), retAddress, 
-                            hasDefragged, idCount, val));
-                } else if (temp.compareTo("D") == 0) {
-                    val = fromFile.nextInt();
-                    MemBlock retBlock = sims[i].dealloc(val);
-                    lines.add(formatDealloc(new String(), retBlock, val));
+                    output = formatAlloc(output, retAddress, 
+                            hasDefragged, idCount[i], val);
                 } else {
-                    System.err.println("Neither A nor D");
-                    //fromFile.next();
+                    MemBlock retBlock = sims[i].dealloc(val);
+                    output = formatDealloc(output, retBlock, val);
                 }
             }
-            fromFile.close();
+            lines.add(output);
         }
+        fromFile.close();
      
         printTrans(outPut1, lines);
         outPut1.close();
