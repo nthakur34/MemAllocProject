@@ -42,7 +42,7 @@ public abstract class BaseManager implements MemoryManager {
     /**
      * Total size of all sorts.
      */
-    protected long totalSortSize;
+    protected double totalSortSize;
     
     /**
      * Total time for quickSorts.
@@ -199,10 +199,10 @@ public abstract class BaseManager implements MemoryManager {
         this.totalSortSize += toSort.size();
         // initialize defragger
         Defrag defragger = new Defrag(toSort, this.memSize);
-        this.totalSortSize += defragger.bucketSort();
+        this.bucketSortTime += defragger.bucketSort();
         
         defragger = new Defrag(toSort, this.memSize);
-        this.totalSortSize += defragger.quickSort(); 
+        this.quickSortTime += defragger.quickSort(); 
         
         defragger.defragBlocks();
         this.rebuild(defragger.getCollection());
@@ -245,8 +245,13 @@ public abstract class BaseManager implements MemoryManager {
 
     @Override
     public double avgSortRatio(boolean isBucket) {
-        // TODO Auto-generated method stub
-        return 0.00;
+        double retVal;
+        if (isBucket) {
+            retVal = (double) this.bucketSortTime / 1000;
+        } else {
+            retVal = (double) this.quickSortTime / 1000;
+        }
+        return retVal / this.totalSortSize;
     }
 
 }

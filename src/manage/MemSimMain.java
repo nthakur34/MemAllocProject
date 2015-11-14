@@ -92,7 +92,6 @@ final class MemSimMain {
         int[] idCount = new int[numApproaches];
         while (fromFile.hasNext()) {
             String temp = fromFile.next();
-            System.out.println(temp);
             output = new String();
             boolean isAllocate = false;
             if (temp.compareTo("A") == 0) {
