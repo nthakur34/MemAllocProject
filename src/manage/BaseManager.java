@@ -88,7 +88,7 @@ public abstract class BaseManager implements MemoryManager {
     
     /**
      * Find the free block to be used to allocate.
-     * @param size the size of the block to be allocated
+     * @param size find a block that works for this size.
      * @return the free memory block to use.
      *          Will return null if cannot find
      *          a fitting block
@@ -147,7 +147,14 @@ public abstract class BaseManager implements MemoryManager {
         this.rebuild(defragger.getCollection());
     }
     
+    /**
+     * @return Collection of MemBlocks
+     */
     public abstract Collection<MemBlock> getCollection();
+    
+    /**
+     * @param blocks rebuild allocation scheme with new defragged blocks.   
+     */
     public abstract void rebuild(ArrayList<MemBlock> blocks);
 
     

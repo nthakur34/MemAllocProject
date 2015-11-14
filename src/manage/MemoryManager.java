@@ -1,8 +1,5 @@
 package manage;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 /**
  * General interface that implements different methods of managing data
  * to handle free memory.
@@ -30,7 +27,6 @@ public interface MemoryManager {
         
     /**
      * Defragment the data with a given defrag method. Will change data.
-     * @param toSort the collection to be sorted
      * @param isBucket whether BucketSort or QuickSort
      */
     void defrag(boolean isBucket);

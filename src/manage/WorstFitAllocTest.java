@@ -34,25 +34,26 @@ public class WorstFitAllocTest {
 
     @Test
     public void testAlloc() {
-        System.out.println(e4.getCollection().toString());
-           assertTrue(e4.alloc(1, false));
-           System.out.println(e4.getCollection().toString());
-           assertTrue(e4.alloc(9, false));
-           System.out.println(e4.getCollection().toString());
-           assertFalse(e4.alloc(1, false));
-           assertTrue(e4.dealloc(2));
-           System.out.println(e4.getCollection().toString());
-           assertTrue(e4.alloc(2, false));
-           System.out.println(e4.getCollection().toString());
-           assertTrue(e4.alloc(5, false));
-           System.out.println(e4.getCollection().toString());
-           assertTrue(e4.alloc(1, false));
-           System.out.println(e4.getCollection().toString());
-           assertTrue(e4.dealloc(1));
-           System.out.println(e4.getCollection().toString() + "   8");
-           assertTrue(e4.dealloc(3));
-           System.out.println(e4.getCollection().toString() + "   9");
-           assertTrue(e4.alloc(3, false));
+       //allocates 1 and 9 to a block of size 10
+       assertTrue(e4.alloc(1, false));
+       assertTrue(e4.alloc(9, false));
+       assertEquals("[]", e4.getCollection().toString());
+       //fails since all filles, but retains ID #
+       assertFalse(e4.alloc(1, false));
+       //free the large 9 block
+       assertTrue(e4.dealloc(2));
+       assertTrue(e4.alloc(2, false));
+       assertTrue(e4.alloc(5, false));
+       assertTrue(e4.alloc(1, false));
+       assertTrue(e4.dealloc(1));
+       assertEquals("[9, 0]", e4.getCollection().toString());
+       assertTrue(e4.dealloc(4));
+       assertEquals("[1, 0, 9]", e4.getCollection().toString());
+       assertTrue(e4.alloc(3, false));
+       //since, defrags, and 0 and 1 adjacent, combine, then used
+       assertEquals("[9]", e4.getCollection().toString());
+       
+       //try with larger block size for more defrags
     }
   
     @Test

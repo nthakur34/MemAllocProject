@@ -3,12 +3,23 @@ package manage;
 import java.util.ArrayList;
 import java.util.Collection;
 
+/**
+ * @author navthakur
+ *worst fit allocation for priority queue
+ */
 public class WorstFitAlloc extends BaseManager {
     
    // priority queue to manage
+    /**
+     * 
+     */
     private  PriorityQueue<MemBlock> freeBlocks = new PriorityQueue<MemBlock>();
 
     //constructor from superclass
+    /**
+     * Constructor to set priority queue.
+     * @param inMemSize The amount of memeory we handle.
+     */
     public WorstFitAlloc(int inMemSize) {
         super(inMemSize);
         this.freeBlocks.add(new MemBlock(0, inMemSize, true));
