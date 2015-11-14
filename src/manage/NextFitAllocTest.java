@@ -29,12 +29,39 @@ public class NextFitAllocTest {
     
     @Before
     public void setup() {
-        baseManager = new NextFitAlloc(500);
+        baseManager = new NextFitAlloc(10);
+    }
+    
+    @Test
+    public void testRebuild() {
+        // first try with filled array
+        ArrayList<MemBlock> testBlocks = new ArrayList<MemBlock>();
+        for (int i = 0; i < 100; i += 10) {
+            testBlocks.add(new MemBlock(i, 10, true));
+        }
+        baseManager.rebuild(testBlocks);
+        baseM
+        System.out.println(testBlocks);
+    }
+    
+    @Test
+    public void testAddUnalloc() {
+        ArrayList<MemBlock> testBlocks = new ArrayList<MemBlock>();
     }
     
     @Test
     public void testGrabToAlloc() {
-        // first test normal constructor
+        /* should never be passed bad size param
+         * because alloc should handle
+         * tests to run:
+         * - Potential fit is in middle of queue
+         * - Exact fit is in middle of queue
+         * - Potential fit is last possible check
+         * - there is no potential fit
+         */
+        
+        // Potential fit is in middle of queue
+        baseManager.addUnalloc(unAlloc);
         
     }
 

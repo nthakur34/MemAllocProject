@@ -95,11 +95,7 @@ public abstract class BaseManager implements MemoryManager {
     
     /**
      * Find the free block to be used to allocate.
-<<<<<<< HEAD
      * @param size size of block to be allocated
-=======
-     * @param size find a block that works for this size.
->>>>>>> branch 'master' of https://nkumar14@bitbucket.org/p4jnn/the-three-muskequeers.git
      * @return the free memory block to use.
      *          Will return null if cannot find
      *          a fitting block
@@ -157,22 +153,14 @@ public abstract class BaseManager implements MemoryManager {
     }
     
     /**
-<<<<<<< HEAD
      * Return collection (in whatever form) of free mem data.
-     * @return collection of data
-=======
      * @return Collection of MemBlocks
->>>>>>> branch 'master' of https://nkumar14@bitbucket.org/p4jnn/the-three-muskequeers.git
      */
     public abstract Collection<MemBlock> getCollection();
     
     /**
-<<<<<<< HEAD
      * Rebuild the free memory block data structure.
-     * @param blocks arraylist of blocks
-=======
-     * @param blocks rebuild allocation scheme with new defragged blocks.   
->>>>>>> branch 'master' of https://nkumar14@bitbucket.org/p4jnn/the-three-muskequeers.git
+     * @param blocks rebuild allocation scheme with new defragged blocks
      */
     public abstract void rebuild(ArrayList<MemBlock> blocks);
 
