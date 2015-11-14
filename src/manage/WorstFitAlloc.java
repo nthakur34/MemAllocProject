@@ -11,11 +11,12 @@ public class WorstFitAlloc extends BaseManager {
     //constructor from superclass
     public WorstFitAlloc(int inMemSize) {
         super(inMemSize);
+        this.freeBlocks.add(new MemBlock(0, inMemSize, true));
     }
     
     @Override
     public boolean alloc(int size, boolean hasDefragged) {
-        return super.alloc(size, false);
+        return super.alloc(size, hasDefragged);
     }
 
     @Override
@@ -26,7 +27,11 @@ public class WorstFitAlloc extends BaseManager {
     @Override
     public MemBlock grabToAlloc(int size) {
         MemBlock temp = this.freeBlocks.getMax();
-        if (temp.getSize() < size) {
+        //if the max is not large enough, return null,
+        //else remove the block
+        if (temp == null) {
+            return null;
+        } else if (temp.getSize() < size) {
             return null;
         } else {
             return this.freeBlocks.removeMax();

@@ -40,6 +40,7 @@ public class Defrag {
             // need to make this an error throw
             return;
         }
+        this.freeList = new ArrayList<MemBlock>();
         this.freeList.addAll(blockList);
         // initialize BucketSort but not QuickSort
         // because QuickSort sorts upon initialization

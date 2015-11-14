@@ -79,12 +79,29 @@ final class MemSimMain {
 
 
         // insert lots of stuff here to fill lines, calling methods below
-
-
+        WorstFitAlloc priorityQueue = new WorstFitAlloc(memSize);
+        //fromFile.next();
+        int val;
+        while (fromFile.hasNext()) {
+            String temp = fromFile.next();
+            System.out.println(temp);
+            if (temp.compareTo("A") == 0) {
+                val = fromFile.nextInt();
+                priorityQueue.alloc(val, false);
+            } else if (temp.compareTo("D") == 0) {
+                val = fromFile.nextInt();
+                priorityQueue.alloc(val, false);
+            } else {
+                System.out.println("Neither A nor D");
+                //fromFile.next();
+            }
+        }
+        
+     /*
         printTrans(outPut1, lines);
         outPut1.close();
         PrintWriter outPut = new PrintWriter("analysis.txt");
-        printOutput(outPut, sims, memSize, filename);
+        printOutput(outPut, sims, memSize, filename); */
 
     }
 

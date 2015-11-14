@@ -45,8 +45,9 @@ public abstract class BaseManager implements MemoryManager {
         this.failSize = 0;
         // initialize allocMem
         // make 0 term null
-        this.allocMem = new ArrayList<MemBlock>(1);
-        this.allocMem.set(0, null);
+        this.allocMem = new ArrayList<MemBlock>();
+        this.allocMem.add(null);
+        //this.allocMem.set(0, null);
         
     }
     
@@ -139,7 +140,7 @@ public abstract class BaseManager implements MemoryManager {
         this.defragCount++;
         // initialize defragger
         Defrag defragger = new Defrag(toSort, this.memSize);
-        if (isBucket) {
+        if (!isBucket) { //IMPORTANT CHANGE BACK. DONT FORGET CHANGE BACK. THIS CANNOT BE. RMEOVE EXCLAMATION
             // if bucket defrag
             defragger.bucketSort();
         } else {

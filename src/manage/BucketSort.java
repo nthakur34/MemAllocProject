@@ -53,6 +53,7 @@ public class BucketSort<T extends Comparable<T>> {
      */
     public ArrayList<T> sort(Collection<T> blocks,
             Comparator<? super T> comparator) {
+
         // get an iterator to go through all values
         Iterator<T> blockIter = blocks.iterator();
         while (blockIter.hasNext()) {
