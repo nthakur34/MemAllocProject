@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.ListIterator;
 
 /**
  * Generic sorter through bucket implementation.
@@ -29,7 +27,7 @@ public class BucketSort<T extends Comparable<T>> {
     /**
      * Bucket array representation of the data.
      */
-    private LinkedList<T>[] data;
+    private T[] data;
    
     
     /**
@@ -47,7 +45,7 @@ public class BucketSort<T extends Comparable<T>> {
             this.listLen = TEN;
         }
         // create data array with inputted size
-        this.data = (LinkedList<T>[]) new LinkedList[(size / this.listLen) + 1];
+        this.data = (T[]) new Comparable[size];
     }
     
     /**
@@ -73,17 +71,17 @@ public class BucketSort<T extends Comparable<T>> {
             // which bucket it should be placed in
             int index = toInsert.hashCode();
             // find linked list index in main array
-            int tens = index / this.listLen;
+            /*int tens = index / this.listLen;
             // check if no list there
             if (this.data[tens] == null) {
                 // then make one
-                this.data[tens] = new LinkedList<T>();
+                //this.data[tens] = new LinkedList<T>();
             }
             // does contain index
             // get the linked list at the bucket
-            LinkedList<T> currList = this.data[tens];
+            //LinkedList<T> currList = this.data[tens];
             // make an iterator for the list
-            ListIterator<T> listIterator = currList.listIterator();
+            //ListIterator<T> listIterator = currList.listIterator();
             // find where either the next no-element position is
             // or where 
             // make comparator to compare memblock addresses
@@ -96,6 +94,8 @@ public class BucketSort<T extends Comparable<T>> {
             }
             // add when either end condition is reached
             listIterator.add(toInsert);
+            */
+            this.data[index] = toInsert;
         }
         ArrayList<T> output = new ArrayList<T>();
         // need to convert data to array list
@@ -103,7 +103,7 @@ public class BucketSort<T extends Comparable<T>> {
             // check if there is a linked list in this index
             if (this.data[i] != null) {
                 // if so, go through linked list and move all data to arraylist
-                output.addAll(this.data[i]);
+                output.add(this.data[i]);
             }
         }
         return output;
