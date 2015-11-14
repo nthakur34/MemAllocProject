@@ -190,21 +190,18 @@ public class AVLtree<T extends Comparable<? super T>> {
     
     /**
      * Helper method to find the smallest node greater than or 
-     * equal to the value
+     * equal to the value.
      * @param val the value we're looking for
      * @param curr the subtree we're searching through
      * @return the node that is the smallest node greater than
      *         or equal to the value
      */
     private BNode findBestFit(T val, BNode curr) {
-//        System.out.println(val.size());
-        System.out.println("INSIDE FINDBESTFIT");
         BNode temp;
         if (curr == null || this.isEmpty()) {
             return null;
         }
         if (val.compareTo(curr.data) == 0) {
-            System.out.println("THEY WERE EQUAL");
             return curr;
         } else if (val.compareTo(curr.data) < 0) {
             // ^if val is less than curr.data, check left child
@@ -240,15 +237,11 @@ public class AVLtree<T extends Comparable<? super T>> {
      * @return true if added, false if val is null
      */
     public boolean add(T val) {
-        System.out.println("ADDING : " + val);
         if (val != null) {
             this.root = this.insert(val, this.root);
-            System.out.println("after inserting: " + val);
             this.size++;
             //how you can check whether the root is balanced:
             //System.out.println(Math.abs(balanceFactor(this.root)));
-//            System.out.println("root.data: " + root.data);
-//            System.out.println("root.height: " + this.root.height);
             return true;
         }
         return false;
@@ -261,36 +254,18 @@ public class AVLtree<T extends Comparable<? super T>> {
      * @return the node that is inserted
      */
     private BNode insert(T val, BNode curr) {
-//        System.out.println("INSIDE INSERT");
-//        if (curr != null) {
-//            System.out.println("curr.data: " + curr.data);
-//            System.out.println("curr.height: " + curr.height);
-//        }
         
         BNode temp = curr;
         if (temp == null) { // leaf, make new node
-//            System.out.println("adding leaf: " + val);
             return new BNode(val);
         }
         if (val.compareTo(temp.data) < 0) {
-//            System.out.println("MOVE LEFT");
             temp.left = this.insert(val, temp.left);
-//            System.out.println("temp.data: " + temp.data);
-//            System.out.println("temp.left.data: " + temp.left.data);
             temp = this.balance(temp);
-//            System.out.println("AFTER BALANCING");
-//            System.out.println("temp.data: " + temp.data);
-//            System.out.println("root.height: " + this.root.height);
 
         } else {  // val >= temp
-//            System.out.println("MOVE RIGHT");
             temp.right = this.insert(val, temp.right);
             temp = this.balance(temp);
-//            System.out.println("AFTER BALANCING");
-//            System.out.println("temp.data: " + temp.data);
-//            System.out.println("root.data: " + root.data);
-//            System.out.println("root.height: " + this.root.height);
-
         }
         return temp;
     }
@@ -319,39 +294,26 @@ public class AVLtree<T extends Comparable<? super T>> {
      * @return the new subtree after rebalancing
      */
     private BNode delete(BNode curr, T value) {
-//        System.out.println("Deleting: " + value);
-//        if (curr != null) {
-//            System.out.println("Comparing to: " + curr.data);
-//
-//        }
-        System.out.println("right fucking here");
         BNode temp = null;
         // if value not equal to node value, keep going down
         if (curr.data.compareTo(value) != 0) {
             // if value is less than curr, move to left child
             if (curr.left != null && curr.left.data.compareTo(value) >= 0) {
-                System.out.println("rm move to left child");
                 curr.left = this.delete(curr.left, value);
                 curr = this.balance(curr);
             // if value is greater than curr, move to right child
             } else if (curr.right != null && curr.right.data.compareTo(
                     value) <= 0) {
-                System.out.println("rm move to right child");
                 curr.right = this.delete(curr.right, value);
                 curr = this.balance(curr);
             }
-            System.out.println("HEUEHUEHEUHEUEHUE");
         } else {
-            System.out.println("FOUND");
-            System.out.println("height: " + curr.height);
             //if value is a leaf, remove it
             if (curr.isLeaf()) {
-                System.out.println("IS LEAF");
                 curr = null;
                 return curr;
                 //check if no grandchildren
             } else if (curr.height == 1) {
-                System.out.println("ONLY HAS CHILDREN");
                 // if there's only a left child
                 if (curr.right == null) {
                     curr.data = curr.left.data;
@@ -365,16 +327,12 @@ public class AVLtree<T extends Comparable<? super T>> {
                 }
                //if grandchildren
             } else if (curr.height > 1) {
-                System.out.println("HAS GRANDCHILDREN");
-                System.out.println("the min value: " + this.findMin(curr.right).data);
                 curr.data = this.findMin(curr.right).data;
 //                temp = curr;
 //                temp.data = this.findMin(curr.right).data;
 //                temp.right = curr.right;
 //                temp.left = curr.left;
 //                curr = temp;
-                System.out.println("about to delete: " + this.findMin(curr.right).data);
-                System.out.println("from subtree: " + curr.right.data);
                 curr.right = this.delete(curr.right, this.findMin(curr.right).data);
                 curr = this.balance(curr);
                 return curr;
@@ -382,12 +340,6 @@ public class AVLtree<T extends Comparable<? super T>> {
             
             return curr;
         }
-//        if (curr != null) {
-//            System.out.println("---" + curr.data);
-//        } else {
-//            System.out.println("***");
-//        }
-        System.out.println("NOWHERE TO BE FUCKING FOUND");
         return curr;
     }
 
@@ -435,7 +387,6 @@ public class AVLtree<T extends Comparable<? super T>> {
                         this.height(curr.right)) + 1;
 
             } else if (curr.left != null) {
-                System.out.println("IN HEREERERERER");
                 curr.height = curr.left.height + 1;
             } else if (curr.right != null) {
                 curr.height = curr.right.height + 1;
@@ -449,7 +400,6 @@ public class AVLtree<T extends Comparable<? super T>> {
      * @return the root of the balanced subtree
      */
     private BNode oneChildBalance(BNode curr) {
-        System.out.println("INSIDE ONE CHILD BALANCE");
         int factor = this.balanceFactor(curr);
         if (factor > 1) {
             // subtree too long on left
@@ -470,7 +420,6 @@ public class AVLtree<T extends Comparable<? super T>> {
                 // right-left too long
                 curr = this.doubleWithRightChild(curr);
             } else {
-                System.out.println("RIGHT RIGHT TOO LONG");
                 // right-right too long
                 curr = this.rotateWithRightChild(curr);
             }
@@ -484,7 +433,6 @@ public class AVLtree<T extends Comparable<? super T>> {
      * @return the root of the balanced subtree
      */
     private BNode twoChildBalance(BNode curr) {
-        System.out.println("INSIDE TWOCHILDBALANCE");
         int factor = this.balanceFactor(curr);
         if (factor > 1) {
             // subtree too long on left
@@ -501,7 +449,6 @@ public class AVLtree<T extends Comparable<? super T>> {
                 // right-left too long
                 curr = this.doubleWithRightChild(curr);
             } else {
-                System.out.println("RIGHT RIGHT TOO LONG");
                 // right-right too long
                 curr = this.rotateWithRightChild(curr);
             }
@@ -609,7 +556,6 @@ public class AVLtree<T extends Comparable<? super T>> {
      * @return updated node
      */
     private BNode rotateWithLeftChild(BNode k2) {
-        System.out.println("INSIDE ROTATEWITHLEFTCHILD");
         if (k2 == null) {
             return null;
         }
@@ -631,12 +577,10 @@ public class AVLtree<T extends Comparable<? super T>> {
      * @return updated node
      */
     private BNode rotateWithRightChild(BNode k1) {
-        System.out.println("INSIDE ROTATEWITHRIGHTCHILD");
         if (k1 == null) {
             return null;
         }
         BNode k2 = k1.right;
-        System.out.println("to be the root: " + k2.data);
         if (k2 != null) {
             k1.right = k2.left;
             k2.left = k1;
@@ -654,7 +598,6 @@ public class AVLtree<T extends Comparable<? super T>> {
      * @return update node
      */
     private BNode doubleWithLeftChild(BNode k3) {
-        System.out.println("INSIDE DOUBLEWITHLEFTCHILD");
         if (k3 != null) {
             k3.left = this.rotateWithRightChild(k3.left);
             return this.rotateWithLeftChild(k3);
