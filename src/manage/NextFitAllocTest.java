@@ -26,27 +26,35 @@ public class NextFitAllocTest {
     }
     
     BaseManager baseManager;
+    ArrayList<MemBlock> testBlocks;
     
     @Before
     public void setup() {
-        baseManager = new NextFitAlloc(10);
+        baseManager = new NextFitAlloc(100);
+        testBlocks = new ArrayList<MemBlock>();
+        for (int i = 0; i < 100; i += 10) {
+            testBlocks.add(new MemBlock(i, 10, true));
+        }
     }
     
     @Test
     public void testRebuild() {
         // first try with filled array
-        ArrayList<MemBlock> testBlocks = new ArrayList<MemBlock>();
-        for (int i = 0; i < 100; i += 10) {
-            testBlocks.add(new MemBlock(i, 10, true));
-        }
         baseManager.rebuild(testBlocks);
-        baseM
-        System.out.println(testBlocks);
+        assertEquals(testBlocks, baseManager.getCollection());
+        
+        // next try with an empty one
+        testBlocks = new ArrayList<MemBlock>();
+        baseManager.rebuild(testBlocks);
+        assertTrue(baseManager.getCollection().isEmpty());
     }
     
     @Test
     public void testAddUnalloc() {
-        ArrayList<MemBlock> testBlocks = new ArrayList<MemBlock>();
+        baseManager = new NextFitAlloc(110);
+        // first try with filled array
+        baseManager.rebuild(testBlocks);
+        baseManager.addUnalloc(new MemBlock(100, 10, true));
     }
     
     @Test

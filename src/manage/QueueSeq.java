@@ -55,7 +55,8 @@ public class QueueSeq<T> implements Queue<T> {
     @Override
     public ArrayList<T> getArrayList() {
         ArrayList<T> toReturn = new ArrayList<T>();
-        for (int i = 0; i < this.size(); i++) {
+        int queueSize = this.size();
+        for (int i = 0; i < queueSize; i++) {
             toReturn.add(this.dequeue());
         }
         return toReturn;
