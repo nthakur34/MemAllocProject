@@ -102,7 +102,11 @@ public abstract class BaseManager implements MemoryManager {
 
     @Override
     public boolean dealloc(int id) {
-        // TODO Auto-generated method stub
+        MemBlock temp = this.deallocHelper(id);
+        if (temp != null) {
+            this.addUnalloc(this.deallocHelper(id));
+            return true;
+        }
         return false;
     }
     
