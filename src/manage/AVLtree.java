@@ -103,7 +103,7 @@ public class AVLtree<T extends Comparable<? super T>> {
      */
     public boolean contains(T val) {
         if (val == null) {
-            return null;
+            return false;
         }
         return this.contains(val, this.root) != null;
     }
