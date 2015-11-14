@@ -105,7 +105,7 @@ public abstract class BaseManager implements MemoryManager {
     public boolean dealloc(int id) {
         MemBlock temp = this.deallocHelper(id);
         if (temp != null) {
-            this.addUnalloc(this.deallocHelper(id));
+            this.addUnalloc(temp);
             return true;
         }
         return false;
