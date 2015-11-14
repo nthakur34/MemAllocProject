@@ -64,7 +64,9 @@ public class NextFitAlloc extends BaseManager {
     public void rebuild(ArrayList<MemBlock> blocks) {
         this.queue.clear();
         for (int i = 0; i < blocks.size(); i++) {
-            this.queue.enqueue(blocks.get(i));
+            if (blocks.get(i) != null) {
+                this.queue.enqueue(blocks.get(i));
+            }
         }
     }
 
