@@ -40,24 +40,28 @@ public class BestFitTest {
     
     @Test
     public void allocTest() {
-        assertTrue(bf1.alloc(1, false));
+        assertEquals(bf1.alloc(1, false), 0);
         System.out.println(bf1.getCollection().toString());
         System.out.println("RIGHT FUCKING HERE");
-        assertTrue(bf1.alloc(9, false));
+        assertEquals(bf1.alloc(9, false), 1);
         assertEquals("[]", bf1.getCollection().toString());
         //fails since all full, but retains ID #
-        assertFalse(bf1.alloc(1, false));
+        assertEquals(bf1.alloc(1, false), -1);
         //free the large 9 block
-        assertTrue(bf1.dealloc(2));
-        assertTrue(bf1.alloc(2, false));
-        assertTrue(bf1.alloc(5, false));
-        assertTrue(bf1.alloc(1, false));
-        assertTrue(bf1.dealloc(1));
+        MemBlock temp = new MemBlock(1, 9, true);
+//        System.out.println("jonathan: " + bf1.dealloc(2).getSize());
+        assertEquals(bf1.dealloc(2), temp);
+        assertEquals(bf1.alloc(2, false), 1);
+        assertEquals(bf1.alloc(5, false), 3);
+        assertEquals(bf1.alloc(1, false), 8);
+        temp = new MemBlock(0, 1, true);
+        assertEquals(bf1.dealloc(1), temp);
         assertEquals("[9, 0]", bf1.getCollection().toString());
-        assertTrue(bf1.dealloc(4));
+        temp = new MemBlock(1, 2, true);
+        assertEquals(bf1.dealloc(4), temp);
 System.out.println("collection: " + bf1.getCollection().toString());
-        assertEquals("[0, 9, 3]", bf1.getCollection().toString());
-        assertTrue(bf1.alloc(3, false));
+        assertEquals("[0, 9, 1]", bf1.getCollection().toString());
+        assertEquals(bf1.alloc(3, false), 0);
         //since, defrags, and 0 and 1 adjacent, combine, then used
         assertEquals("[9]", bf1.getCollection().toString());
     }
