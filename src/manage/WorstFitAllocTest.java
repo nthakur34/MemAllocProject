@@ -49,9 +49,9 @@ public class WorstFitAllocTest {
            assertTrue(e4.alloc(1, false));
            System.out.println(e4.getCollection().toString());
            assertTrue(e4.dealloc(1));
-           System.out.println(e4.getCollection().toString());
+           System.out.println(e4.getCollection().toString() + "   8");
            assertTrue(e4.dealloc(3));
-           System.out.println(e4.getCollection().toString());
+           System.out.println(e4.getCollection().toString() + "   9");
            assertTrue(e4.alloc(3, false));
     }
   
