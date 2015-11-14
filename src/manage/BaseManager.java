@@ -150,9 +150,13 @@ public abstract class BaseManager implements MemoryManager {
         return allocBlock.getStartAddress();
     }
     
+    /**
+     * Gets total elapsed time from given start time.
+     * @param startTime the time to use as start to get total
+     */
     private void incAllocTime(long startTime) {
         long timeDifference = System.nanoTime() - startTime;
-        if ( timeDifference == 0) {
+        if (timeDifference == 0) {
             System.err.println("Alloc messed up");
             System.exit(2);
         }
@@ -259,16 +263,19 @@ public abstract class BaseManager implements MemoryManager {
 
     @Override
     public double avgTime() {
-        return this.totalAllocTime / (1000 * ((double) this.allocMem.size() - 1 + this.defragCount));
+        final int conversionToMicro = 1000; 
+        return this.totalAllocTime / (conversionToMicro * ((double) this.
+                allocMem.size() - 1 + this.defragCount));
     }
 
     @Override
     public double avgSortRatio(boolean isBucket) {
+        final int conversionToMicro = 1000;
         double retVal;
         if (isBucket) {
-            retVal = (double) this.bucketSortTime / 1000;
+            retVal = (double) this.bucketSortTime / conversionToMicro;
         } else {
-            retVal = (double) this.quickSortTime / 1000;
+            retVal = (double) this.quickSortTime / conversionToMicro;
         }
         return retVal / this.totalSortSize;
     }
