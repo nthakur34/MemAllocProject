@@ -14,7 +14,7 @@ public class Defrag {
     /**
      * ArrayList holding free blocks.
      */
-    private ArrayList<MemBlock> freeList = new ArrayList<MemBlock>();
+    private ArrayList<MemBlock> freeList;
     
     /**
      * QuickSort to sort the list, to keep in order.
@@ -34,13 +34,13 @@ public class Defrag {
      * @param blockList List to sort and defrag.
      * @param maxSize total size of all memory
      */
-    public Defrag(ArrayList<MemBlock> blockList, int maxSize) {
+    public Defrag(Collection<MemBlock> blockList, int maxSize) {
         
         if (blockList == null || blockList.size() < 1) {
             // need to make this an error throw
             return;
         }
-        this.freeList = blockList;
+        this.freeList.addAll(blockList);
         // initialize BucketSort but not QuickSort
         // because QuickSort sorts upon initialization
         this.bucketSort = new BucketSort<MemBlock>(maxSize);
@@ -111,11 +111,11 @@ public class Defrag {
     }
     
     /**
-     * gives collection back sorted and defragged.
-     * Return collection (post sort).
-     * @return sorted collection
+     * gives arraylist back sorted and defragged.
+     * Return arraylist (post sort).
+     * @return sorted arraylist
      */
-    public Collection<MemBlock> getCollection() {
+    public ArrayList<MemBlock> getCollection() {
         return this.freeList;
     }
 }

@@ -57,14 +57,23 @@ public abstract class BaseManager implements MemoryManager {
      */
     
     @Override
-    public boolean alloc(int size) {
+    public boolean alloc(int size, boolean hasDefragged) {
         // Grab mem block to be allocated
         // method of grabbing varies based on
         // alloc scheme
         MemBlock toAllocate = this.grabToAlloc(size);
         // check if failed allocation
         if (toAllocate == null) {
-            // if so, defrag
+            // if has no been running after defrag
+            if (!hasDefragged) {
+                this.defrag(true);
+                return this.alloc(size, true);
+            }
+            // if has defragged and still no block need to count as fail
+            this.failCount++;
+            this.failSize += size;
+            this.allocMem.add(null);
+            return false;
         }
         // after grabbing block, allocate into new block
         // add request to allocMem array list
@@ -83,13 +92,13 @@ public abstract class BaseManager implements MemoryManager {
      *          Will return null if cannot find
      *          a fitting block
      */
-    protected abstract MemBlock grabToAlloc(int size);
+    public abstract MemBlock grabToAlloc(int size);
     
     /**
      * Add back the unused block of memory into the free mem scheme.
      * @param unAlloc unallocated block of memory
      */
-    protected abstract void addUnalloc(MemBlock unAlloc);
+    public abstract void addUnalloc(MemBlock unAlloc);
 
     @Override
     public boolean dealloc(int id) {
@@ -114,9 +123,13 @@ public abstract class BaseManager implements MemoryManager {
         return null;
     }
 
+    /*
+     * Defrag functions
+     */
+    
     @Override
-    public Collection<MemBlock> defrag(ArrayList<MemBlock> toSort, 
-            boolean isBucket) {
+    public void defrag(boolean isBucket) {
+        Collection<MemBlock> toSort = this.getCollection();
         // increment defragCount
         this.defragCount++;
         // initialize defragger
@@ -128,14 +141,11 @@ public abstract class BaseManager implements MemoryManager {
             // otherwise is quicksort defrag
             defragger.quickSort();            
         }
-        return defragger.getCollection();
+        this.rebuild(defragger.getCollection());
     }
-
-    @Override
-    public void rebuild(Collection<MemBlock> blocks) {
-        // TODO Auto-generated method stub
-
-    }
+    
+    public abstract Collection<MemBlock> getCollection();
+    public abstract void rebuild(ArrayList<MemBlock> blocks);
 
     @Override
     public int defragCount() {

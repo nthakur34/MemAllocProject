@@ -14,9 +14,10 @@ public interface MemoryManager {
      * Function for allocating a free block of memory from fit model
      * to ArrayList of alloc ids.
      * @param size size of memory block to be allocated
+     * @param hasDefragged whether while running this defrag has happened or not
      * @return whether alloc could happen or not
      */
-    boolean alloc(int size);
+    boolean alloc(int size, boolean hasDefragged);
     
     /**
      * Deallocate a block of allocated memory in allocated array list
@@ -37,18 +38,17 @@ public interface MemoryManager {
     MemBlock deallocHelper(int id);
     
     /**
-     * Defragment the data with a given defrag method.
+     * Defragment the data with a given defrag method. Will change data.
      * @param toSort the collection to be sorted
      * @param isBucket whether BucketSort or QuickSort
-     * @return collection of defragmented memblocks
      */
-    Collection<MemBlock> defrag(ArrayList<MemBlock> toSort, boolean isBucket);
+    void defrag(boolean isBucket);
     
     /**
      * Rebuild the free memory scheme after a defrag.
      * @param blocks the newly defragmented free blocks of memory 
      */
-    void rebuild(Collection<MemBlock> blocks);
+    abstract void rebuild(Collection<MemBlock> blocks);
     
     /**
      * Get number of defrags during session.
