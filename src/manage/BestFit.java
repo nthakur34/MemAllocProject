@@ -25,13 +25,14 @@ public class BestFit extends BaseManager {
     
     /**
      * Find the free block to be used to allocate.
-     * @param size 
+     * @param size the size of the block to be allocated
      * @return the free memory block to use.
      *          Will return null if cannot find
      *          a fitting block
      */
     public MemBlock grabToAlloc(int size) {
-        
+        MemBlock temp = new MemBlock(0, size, true);
+        return tree.getBestFit(temp);
     }
     
     /**

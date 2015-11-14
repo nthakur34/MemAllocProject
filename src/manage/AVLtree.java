@@ -170,11 +170,11 @@ public class AVLtree<T extends Comparable<? super T>> {
      * @param val the value we're looking for
      * @return the node
      */
-    public BNode getBestFit(T val) {
+    public T getBestFit(T val) {
         if (val.compareTo(this.getMaxVal()) > 0) {
             return null;
         }
-        return this.findBestFit(val, this.root);
+        return this.findBestFit(val, this.root).data;
     }
     
     /**

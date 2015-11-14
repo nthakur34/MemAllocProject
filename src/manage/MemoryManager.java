@@ -45,12 +45,6 @@ public interface MemoryManager {
     void defrag(boolean isBucket);
     
     /**
-     * Rebuild the free memory scheme after a defrag.
-     * @param blocks the newly defragmented free blocks of memory 
-     */
-    abstract void rebuild(Collection<MemBlock> blocks);
-    
-    /**
      * Get number of defrags during session.
      * @return number of defrags
      */
