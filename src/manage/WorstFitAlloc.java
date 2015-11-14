@@ -1,83 +1,59 @@
 package manage;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 public class WorstFitAlloc extends BaseManager {
     
-   // private MemBlock usedBlocks[];  
+   // priority queue to manage
+    private  PriorityQueue<MemBlock> freeBlocks = new PriorityQueue<MemBlock>();
 
-    private  PriorityQueue<MemBlock> freeBlocks;
-    
-    //private int size;
-    
-    private Defrag sortedBlocks;
-
- /*   public WorstFitAlloc(int memSize) {
-        
-        this.size = memSize;
-        this.usedBlocks = new MemBlock[memSize];
-        this.freeBlocks = new PriorityQueue<MemBlock>(); 
-        this.freeBlocks.add(new MemBlock(0, memSize, true));
-    }
-*/
+    //constructor from superclass
     public WorstFitAlloc(int inMemSize) {
         super(inMemSize);
-        // TODO Auto-generated constructor stub
+        this.freeBlocks.add(new MemBlock(0, inMemSize, true));
     }
     
     @Override
-    public boolean alloc(int size) {
-        return super.alloc(size);
-     /*   if (size > this.size) {
-            return false;
-        }
-      /*  MemBlock temp = this.freeBlocks.getMax();
-        if (temp == null) {
-            return false;
-        }
-        if (temp.getSize() < size) {
-            sortedBlocks = new Defrag(this.freeBlocks.getList(), size);
-            
-        }*/
+    public boolean alloc(int size, boolean hasDefragged) {
+        return super.alloc(size, hasDefragged);
     }
 
     @Override
     public boolean dealloc(int id) {
         return super.dealloc(id);
-        //return false;
     }
-
- /*   @Override
-    public Collection<MemBlock> bucketDefrag() {
-    /   sortedBlocks = new Defrag(this.freeBlocks.getList(), size);
-        sortedBlocks.bucketSort(); 
-        //sorted.
-        return null; 
-
+    
+    @Override
+    public MemBlock grabToAlloc(int size) {
+        MemBlock temp = this.freeBlocks.getMax();
+        //if the max is not large enough, return null,
+        //else remove the block
+        if (temp == null) {
+            return null;
+        } else if (temp.getSize() < size) {
+            return null;
+        } else {
+            return this.freeBlocks.removeMax();
+        }
     }
 
     @Override
-    public Collection<MemBlock> quickDefrag() {
-        sortedBlocks = new Defrag(this.freeBlocks.getList(), size);
-        sortedBlocks.quickSort();
-        return null;
-    }
-*/
-    @Override
-    public void rebuild(Collection<MemBlock> blocks) {
-        super.rebuild(blocks);
+    public void addUnalloc(MemBlock unAlloc) {
+        this.freeBlocks.add(unAlloc);
         
     }
 
     @Override
-    protected MemBlock grabToAlloc(int size) {
-        // TODO Auto-generated method stub
-        return null;
+    public Collection<MemBlock> getCollection() {
+        return this.freeBlocks.getList();
     }
 
     @Override
-    protected void addUnalloc(MemBlock unAlloc) {
-        // TODO Auto-generated method stub
-        
+    public void rebuild(ArrayList<MemBlock> blocks) {
+        this.freeBlocks = new PriorityQueue<MemBlock>();
+        for (int i = 0; i < blocks.size(); i++) {
+            this.freeBlocks.add(blocks.get(i));
+        }
     }
 }

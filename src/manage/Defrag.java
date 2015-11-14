@@ -35,11 +35,11 @@ public class Defrag {
      * @param maxSize total size of all memory
      */
     public Defrag(Collection<MemBlock> blockList, int maxSize) {
-        
-        if (blockList == null || blockList.size() < 1) {
-            // need to make this an error throw
+        if (blockList == null) {
+            System.err.println("No list");
             return;
         }
+        this.freeList = new ArrayList<MemBlock>();
         this.freeList.addAll(blockList);
         // initialize BucketSort but not QuickSort
         // because QuickSort sorts upon initialization
