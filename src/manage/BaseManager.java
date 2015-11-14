@@ -70,6 +70,7 @@ public abstract class BaseManager implements MemoryManager {
         if (size > this.memSize) {
             this.failSize += size;
             this.failCount++;
+            this.allocMem.add(null);
             return false;
         }
         // Grab mem block to be allocated
@@ -87,7 +88,7 @@ public abstract class BaseManager implements MemoryManager {
             this.failCount++;
             this.failSize += size;
             this.allocMem.add(null);
-            return false;
+            return true;
         }
         // after grabbing block, allocate into new block
         // add request to allocMem array list
@@ -98,7 +99,8 @@ public abstract class BaseManager implements MemoryManager {
         if (toAllocate.getSize() != 0) {
             this.addUnalloc(toAllocate);
         }
-        return true;
+        
+        return hasDefragged;
     }
     
     /**

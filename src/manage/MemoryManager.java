@@ -12,7 +12,7 @@ public interface MemoryManager {
      * to ArrayList of alloc ids.
      * @param size size of memory block to be allocated
      * @param hasDefragged whether while running this defrag has happened or not
-     * @return whether alloc could happen or not
+     * @return whether during alloc defragged or nah
      */
     boolean alloc(int size, boolean hasDefragged);
     
