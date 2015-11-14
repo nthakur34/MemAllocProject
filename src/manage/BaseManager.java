@@ -177,11 +177,11 @@ public abstract class BaseManager implements MemoryManager {
     }
 
     @Override
-    public int avgFailSize() {
+    public double avgFailSize() {
         if (this.failCount == 0) {
             return 0;
         }
-        return this.failSize / this.failCount;
+        return (double) this.failSize / this.failCount;
     }
 
     @Override
