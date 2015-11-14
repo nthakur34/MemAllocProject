@@ -105,7 +105,8 @@ final class MemSimMain {
                             hasDefragged, idCount, val));
                 } else if (temp.compareTo("D") == 0) {
                     val = fromFile.nextInt();
-                    sims[i].dealloc(val);
+                    MemBlock retBlock = sims[i].dealloc(val);
+                    lines.add(formatDealloc(new String(), retBlock, val));
                 } else {
                     System.err.println("Neither A nor D");
                     //fromFile.next();
@@ -113,7 +114,6 @@ final class MemSimMain {
             }
             fromFile.close();
         }
-     
      
         printTrans(outPut1, lines);
         outPut1.close();

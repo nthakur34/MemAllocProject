@@ -26,10 +26,10 @@ public interface MemoryManager {
      * Deallocate a block of allocated memory in allocated array list
      * based on id of allocation.
      * @param id id of allocation request   
-     * @return whether request still had an allocated piece of memory
-     *          attached to it.
+     * @return MemBlock dealloced if it was successful, null if alloc was a fail
+     *          or already dealloced
      */
-    boolean dealloc(int id);
+    MemBlock dealloc(int id);
         
     /**
      * Defragment the data with a given defrag method. Will change data.

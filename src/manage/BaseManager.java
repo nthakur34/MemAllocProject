@@ -102,7 +102,8 @@ public abstract class BaseManager implements MemoryManager {
         }
         // after grabbing block, allocate into new block
         // add request to allocMem array list
-        this.allocMem.add(toAllocate.allocate(size));
+        MemBlock allocBlock = toAllocate.allocate(size);
+        this.allocMem.add(allocBlock);
         System.out.println("toAllocate size after allocating: "
                 + toAllocate.getSize());
         // if toAllocate still has size, should be readded to free mem
@@ -110,7 +111,7 @@ public abstract class BaseManager implements MemoryManager {
             this.addUnalloc(toAllocate);
         }
         
-        return toAllocate.getStartAddress();
+        return allocBlock.getStartAddress();
     }
     
     @Override
@@ -138,11 +139,11 @@ public abstract class BaseManager implements MemoryManager {
      */
     
     @Override
-    public boolean dealloc(int id) {
+    public MemBlock dealloc(int id) {
         // if id is within allocMem's size
         // and is >= 1
         if (this.allocMem.size() <= id || id < 1) {
-            return false;
+            return null;
         }
         // will return a memblock at id if was successful alloc
         // will return null if failed
@@ -152,9 +153,8 @@ public abstract class BaseManager implements MemoryManager {
         if (toReturn != null) {
             toReturn.setFree(true);
             this.addUnalloc(toReturn);
-            return true;
         }
-        return false;
+        return toReturn;
     }
 
     /*
