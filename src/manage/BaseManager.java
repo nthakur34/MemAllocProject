@@ -108,14 +108,14 @@ public abstract class BaseManager implements MemoryManager {
             this.failCount++;
             System.err.println("Size must be greater than 0.");
             this.allocMem.add(null);
-            this.totalAllocTime += System.nanoTime() - startTime;
+            this.incAllocTime(startTime);
             return -1;
         }
         if (size > this.memSize) {
             this.failSize += size;
             this.failCount++;
             this.allocMem.add(null);
-            this.totalAllocTime += System.nanoTime() - startTime;
+            this.incAllocTime(startTime);
             return -1;
         }
         // Grab mem block to be allocated
@@ -126,7 +126,7 @@ public abstract class BaseManager implements MemoryManager {
         if (toAllocate == null) {
             // if has no been running after defrag
             if (!hasDefragged) {
-                this.totalAllocTime += System.nanoTime() - startTime;
+                this.incAllocTime(startTime);
                 this.defrag();
                 return this.alloc(size, true);
             }
@@ -134,7 +134,7 @@ public abstract class BaseManager implements MemoryManager {
             this.failCount++;
             this.failSize += size;
             this.allocMem.add(null);
-            this.totalAllocTime += System.nanoTime() - startTime;
+            this.incAllocTime(startTime);
             return -1;
         }
         // after grabbing block, allocate into new block
@@ -146,8 +146,17 @@ public abstract class BaseManager implements MemoryManager {
             this.addUnalloc(toAllocate);
         }
         
-        this.totalAllocTime += System.nanoTime() - startTime;
+        this.incAllocTime(startTime);
         return allocBlock.getStartAddress();
+    }
+    
+    private void incAllocTime(long startTime) {
+        long timeDifference = System.nanoTime() - startTime;
+        if ( timeDifference == 0) {
+            System.err.println("Alloc messed up");
+            System.exit(2);
+        }
+        this.totalAllocTime += timeDifference;
     }
 
     /**
@@ -199,11 +208,21 @@ public abstract class BaseManager implements MemoryManager {
         this.totalSortSize += toSort.size();
         // initialize defragger
         Defrag defragger = new Defrag(toSort, this.memSize);
-        this.bucketSortTime += defragger.bucketSort();
+        long bucketTime = defragger.bucketSort();
+        if (bucketTime == 0) {
+            System.err.println("BucketSwagger");
+            System.exit(2);
+        }
+        this.bucketSortTime += bucketTime;
         
         defragger = new Defrag(toSort, this.memSize);
-        this.quickSortTime += defragger.quickSort(); 
-        
+        long quickTime = defragger.quickSort(); 
+        if (quickTime == 0) {
+            System.err.println("QuickSwagger");
+            System.exit(2);
+        }
+        this.quickSortTime += quickTime;
+                
         defragger.defragBlocks();
         this.rebuild(defragger.getCollection());
     }
