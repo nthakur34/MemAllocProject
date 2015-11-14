@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 /**
- * @author navthakur
+ * @author Navjyoth Thakur
  *worst fit allocation for priority queue
  */
 public class WorstFitAlloc extends BaseManager {

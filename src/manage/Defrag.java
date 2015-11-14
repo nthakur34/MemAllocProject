@@ -48,6 +48,7 @@ public class Defrag {
     
     /**
      * Function to quickSort the freeList.
+     * @return how long the program took to run
      */
     public long quickSort() {
         long startTime = System.nanoTime();
@@ -59,6 +60,7 @@ public class Defrag {
     
     /**
      * Function to bucketSort the freeList.
+     * @return how long the program took to run
      */
     public long bucketSort() {
         long startTime = System.nanoTime();

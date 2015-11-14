@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 /**
- * @author navthakur
+ * @author Navjyoth Thakur
  *
  * @param <T>
  */

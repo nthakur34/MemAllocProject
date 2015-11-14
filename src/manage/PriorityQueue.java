@@ -3,7 +3,7 @@ package manage;
 import java.util.ArrayList;
 
 /**
- *
+ *Navjyoth Thakur
  * @param <T>
  */
 public class PriorityQueue<T extends Comparable<? super T>> {
