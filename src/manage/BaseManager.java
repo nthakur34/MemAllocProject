@@ -17,22 +17,22 @@ public abstract class BaseManager implements MemoryManager {
     /**
      * Size of whole memory.
      */
-    private int memSize;
+    protected int memSize;
     
     /**
      * Counter of number of defrags.
      */
-    private int defragCount;
+    protected int defragCount;
     
     /**
      * Counter of number of failed allocations.
      */
-    private int failCount;
+    protected int failCount;
     
     /**
      * Total sizes of failed allocations.
      */
-    private int failSize;
+    protected int failSize;
     
     /**
      * Constructor.
