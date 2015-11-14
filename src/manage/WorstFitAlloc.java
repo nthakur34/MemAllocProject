@@ -5,12 +5,12 @@ import java.util.Collection;
 
 public class WorstFitAlloc extends BaseManager {
     
-   // private MemBlock usedBlocks[];  
+   // priority queue to manage
     private  PriorityQueue<MemBlock> freeBlocks = new PriorityQueue<MemBlock>();
 
+    //constructor from superclass
     public WorstFitAlloc(int inMemSize) {
         super(inMemSize);
-        // TODO Auto-generated constructor stub
     }
     
     @Override
@@ -41,8 +41,7 @@ public class WorstFitAlloc extends BaseManager {
 
     @Override
     public Collection<MemBlock> getCollection() {
-        // TODO Auto-generated method stub
-        return null;
+        return this.freeBlocks.getList();
     }
 
     @Override
