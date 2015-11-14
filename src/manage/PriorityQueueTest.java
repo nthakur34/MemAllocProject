@@ -144,7 +144,6 @@ public class PriorityQueueTest {
         assertEquals((Integer) 10, all.removeMax());
         assertFalse(all.contains((Integer) 10));
         assertEquals(10, all.size());
-        System.out.println(all.toString());
         assertEquals((Integer) 9, all.removeMax());
         assertFalse(all.contains((Integer) 9));
         assertTrue(e4.add((Integer) 6));
@@ -183,7 +182,6 @@ public class PriorityQueueTest {
         assertEquals(11, all.size());
         assertTrue(e4.add(12));
         assertTrue(all.add(12));
-        System.out.println(all.toString());
         all.removeMax();
         assertEquals(1, e4.size());
         assertEquals(11, all.size());

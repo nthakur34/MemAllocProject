@@ -83,8 +83,8 @@ final class MemSimMain {
         BestFit avlTree = new BestFit(memSize);
         NextFitAlloc queue = new NextFitAlloc(memSize);
         
-        sims[0] = priorityQueue;
-        sims[1] = avlTree;
+        sims[0] = avlTree;
+        sims[1] = priorityQueue;
         sims[2] = queue;
         //fromFile.next();
         int val;
@@ -93,10 +93,25 @@ final class MemSimMain {
             System.out.println(temp);
             if (temp.compareTo("A") == 0) {
                 val = fromFile.nextInt();
+                sims[1].alloc(val, false);
+            } else if (temp.compareTo("D") == 0) {
+                val = fromFile.nextInt();
+                sims[1].dealloc(val);
+            } else {
+                System.out.println("Neither A nor D");
+                //fromFile.next();
+            }
+        }
+        
+        while (fromFile.hasNext()) {
+            String temp = fromFile.next();
+            System.out.println(temp);
+            if (temp.compareTo("A") == 0) {
+                val = fromFile.nextInt();
                 sims[0].alloc(val, false);
             } else if (temp.compareTo("D") == 0) {
                 val = fromFile.nextInt();
-                sims[0].alloc(val, false);
+                sims[0].dealloc(val);
             } else {
                 System.out.println("Neither A nor D");
                 //fromFile.next();
