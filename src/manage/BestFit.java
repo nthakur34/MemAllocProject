@@ -52,7 +52,7 @@ public class BestFit extends BaseManager {
      * @return the collection
      */
     public Collection<MemBlock> getCollection() {
-        return (Collection<MemBlock>) this.tree.inOrder();
+        return (Collection<MemBlock>) this.tree.preOrder();
     }
     
     /**
