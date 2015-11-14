@@ -21,5 +21,20 @@ to clean up all the .class files.
 
 
 ================================================================
+OUR FIT
 
+
+================================================================
+
+
+
+================================================================
+NOTES ABOUT TIME EFFICIENCIES
+- We found that executing the program in different environments caused different timings
+    - running it on the ugrad servers made it significantly longer than running it in Eclipse
+- When doing the bucket sort, we were considering two different implementations, either using 
+  a linked list or a 1d array.  Using the linked list resulted in longer times, but was more space
+  efficient than using arrays, so we ended up using a linked list implementation.
+ ================================================================
+ 
 
