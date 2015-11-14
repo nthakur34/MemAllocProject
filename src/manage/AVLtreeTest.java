@@ -140,6 +140,30 @@ public class AVLtreeTest {
         assertEquals(e7.preOrder().toString(), "[10, 5, 3, 7, 8, 20, 15, 23, 22, 25]");
         assertEquals(e7.postOrder().toString(), "[3, 8, 7, 5, 15, 22, 25, 23, 20, 10]");
         assertEquals(e7.inOrder().toString(), "[3, 5, 7, 8, 10, 15, 20, 22, 23, 25]");
+        
+        AVLtree<Integer> ass = new AVLtree<>();
+        
+        ass.add(15);
+        assertEquals(e7.getBestFit(11).data, ass.root());
+        ass.remove(15);
+        assertNull(e7.getBestFit(26));
+        assertNull(e7.getBestFit(50));
+        ass.add(25);
+        assertEquals(e7.getBestFit(25).data, ass.root());
+        assertEquals(e7.getBestFit(24).data, ass.root());
+        ass.remove(25);
+        ass.add(20);
+        assertEquals(e7.getBestFit(17).data, ass.root());
+        ass.remove(20);
+        ass.add(7);
+        assertEquals(e7.getBestFit(6).data, ass.root());
+        ass.remove(7);
+        ass.add(5);
+        assertEquals(e7.getBestFit(4).data, ass.root());
+        ass.remove(5);
+        assertEquals(ass.size(), 0);
+        
+        
         System.out.println("RIGHT HERE");
         assertTrue(e7.remove(10));
         System.out.println("oioioioioioio");
@@ -197,27 +221,53 @@ public class AVLtreeTest {
         
         
         
-//        e10.add(13);
-//        e10.add(7);
-//        e10.add(15);
-//        e10.add(5);
-//        e10.add(10);
-//        e10.add(20);
-//        e10.add(3);
-//        e10.add(11);
-//        
-//        System.out.println("e10 root: " + e10.root());
-//        System.out.println("preorder: " + e10.preOrder().toString());
-//        assertEquals(e10.preOrder().toString(), "[13, 7, 5, 3, 10, 11, 15, 20]");
-//        assertEquals(e10.postOrder().toString(), "[3, 5, 11, 10, 7, 20, 15, 13]");
-//        assertEquals(e10.inOrder().toString(), "[3, 5, 7, 10, 11, 13, 15, 20]");
-//        
-//        assertFalse(e10.remove(1));
-//        assertTrue(e10.remove(20));
-//        assertEquals(e10.preOrder().toString(), "[7, 5, 3, 13, 10, 11, 15]");
-//        assertEquals(e10.postOrder().toString(), "[3, 5, 11, 10, 15, 13, 7]");
-//        assertEquals(e10.inOrder().toString(), "[3, 5, 7, 10, 11, 13, 15]");
-//        
+        e10.add(13);
+        e10.add(7);
+        e10.add(15);
+        e10.add(5);
+        e10.add(10);
+        e10.add(20);
+        e10.add(3);
+        e10.add(11);
+        
+        System.out.println("e10 root: " + e10.root());
+        System.out.println("preorder: " + e10.preOrder().toString());
+        assertEquals(e10.preOrder().toString(), "[13, 7, 5, 3, 10, 11, 15, 20]");
+        assertEquals(e10.postOrder().toString(), "[3, 5, 11, 10, 7, 20, 15, 13]");
+        assertEquals(e10.inOrder().toString(), "[3, 5, 7, 10, 11, 13, 15, 20]");
+        
+        assertFalse(e10.remove(1));
+        assertTrue(e10.remove(20));
+        assertEquals(e10.preOrder().toString(), "[7, 5, 3, 13, 10, 11, 15]");
+        assertEquals(e10.postOrder().toString(), "[3, 5, 11, 10, 15, 13, 7]");
+        assertEquals(e10.inOrder().toString(), "[3, 5, 7, 10, 11, 13, 15]");
+        System.out.println("max value: " + e10.getMaxVal());
+        AVLtree<Integer> e11 = new AVLtree<>();
+        e11.add(13);
+        assertEquals(e10.getBestFit(13).data, e11.root());
+        e11.remove(13);
+        e11.add(7);
+        assertEquals(e10.getBestFit(7).data, e11.root());
+        e11.remove(7);
+        e11.add(5);
+        assertEquals(e10.getBestFit(4).data, e11.root());
+        e11.remove(5);
+        e11.add(3);
+        assertEquals(e10.getBestFit(1).data, e11.root());
+        e11.remove(3);
+        e11.add(5);
+        assertEquals(e10.getBestFit(4).data, e11.root());
+        e11.remove(5);
+        e11.add(10);
+        assertEquals(e10.getBestFit(9).data, e11.root());
+        e11.remove(10);
+        e11.add(13);
+        assertEquals(e10.getBestFit(12).data, e11.root());
+        e11.remove(13);
+        e11.add(15);
+        assertEquals(e10.getBestFit(14).data, e11.root());
+
+        
         
         
 //        
