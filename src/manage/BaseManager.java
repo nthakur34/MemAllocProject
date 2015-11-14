@@ -12,7 +12,7 @@ public abstract class BaseManager implements MemoryManager {
     /**
      * ArrayList of allocated memory.
      */
-    ArrayList<MemBlock> allocMem;
+    protected ArrayList<MemBlock> allocMem;
     
     /**
      * Size of whole memory.
