@@ -332,7 +332,7 @@ public class SequenceDLL<T> implements Sequence<T> {
         } else {
             curr = this.end;
             // iterate through list, once you reach pos stop
-            for (int i = 0; i <= this.size - pos - 1; i++) {
+            for (int i = 0; i < this.size - pos - 1; i++) {
                 curr = curr.getPrev();
             }
         }

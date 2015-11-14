@@ -44,6 +44,11 @@ public class NextFitAlloc extends BaseManager {
 
     @Override
     public void addUnalloc(MemBlock unAlloc) {
+        if (unAlloc == null) {
+            System.err.println("Inputted block is null");
+            return;
+        }
+        if (unAlloc.getRightAdjacent() >= this.memSize)
         this.queue.enqueue(unAlloc);
     }
 
@@ -54,8 +59,9 @@ public class NextFitAlloc extends BaseManager {
 
     @Override
     public void rebuild(ArrayList<MemBlock> blocks) {
+        this.queue.clear();
         for (int i = 0; i < blocks.size(); i++) {
-            this.queue.enqueue(blocks.remove(blocks.size() - 1));
+            this.queue.enqueue(blocks.get(i));
         }
     }
 
