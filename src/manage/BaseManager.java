@@ -92,7 +92,8 @@ public abstract class BaseManager implements MemoryManager {
         // after grabbing block, allocate into new block
         // add request to allocMem array list
         this.allocMem.add(toAllocate.allocate(size));
-        System.out.println("toAllocate size after allocating: " + toAllocate.getSize());
+        System.out.println("toAllocate size after allocating: "
+                + toAllocate.getSize());
         // if toAllocate still has size, should be readded to free mem
         if (toAllocate.getSize() != 0) {
             this.addUnalloc(toAllocate);
