@@ -54,11 +54,11 @@ public class WorstFitAllocTest {
     @Test
     public void testAlloc() {
        //allocates 1 and 9 to a block of size 10
-       assertTrue(e4.alloc(1, false));
-       assertTrue(e4.alloc(9, false));
+       assertEquals(0, e4.alloc(1, false));
+       assertEquals(1, e4.alloc(9, false));
        assertEquals("[]", e4.getCollection().toString());
        //fails since all filles, but retains ID #
-       assertFalse(e4.alloc(1, false));
+       assertEquals(e4.alloc(1, false));
        //free the large 9 block
        assertTrue(e4.dealloc(2));
        assertTrue(e4.alloc(2, false));

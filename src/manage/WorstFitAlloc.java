@@ -27,12 +27,12 @@ public class WorstFitAlloc extends BaseManager {
     }
     
     @Override
-    public boolean alloc(int size, boolean hasDefragged) {
+    public int alloc(int size, boolean hasDefragged) {
         return super.alloc(size, hasDefragged);
     }
 
     @Override
-    public boolean dealloc(int id) {
+    public MemBlock dealloc(int id) {
         return super.dealloc(id);
     }
     
