@@ -87,6 +87,7 @@ public class NextFitAllocTest {
          * - Exact fit is in middle of queue
          * - Potential fit is last possible check
          * - there is no potential fit
+         * - grab from empty list
          */
         
         // Potential fit is in middle of queue
@@ -123,6 +124,9 @@ public class NextFitAllocTest {
         grabbed = baseManager.grabToAlloc(19);
         assertEquals(grabbed.getStartAddress(), 74);
         assertEquals(grabbed.getSize(), 20);
+        // check empty list returns null
+        baseManager.rebuild(new ArrayList<MemBlock>());
+        assertNull(baseManager.grabToAlloc(1));
         
     }
 

@@ -63,7 +63,7 @@ public abstract class BaseManager implements MemoryManager {
     
     @Override
     public boolean alloc(int size, boolean hasDefragged) {
-        if (size < 0) {
+        if (size <= 0) {
             this.failCount++;
             System.err.println("Size must be greater than 0.");
         }
