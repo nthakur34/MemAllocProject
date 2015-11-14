@@ -27,6 +27,10 @@ public interface MemoryManager {
         
     /**
      * Defragment the data with a given defrag method. Will change data.
+<<<<<<< HEAD
+=======
+     * @param isBucket whether BucketSort or QuickSort
+>>>>>>> branch 'master' of https://nkumar14@bitbucket.org/p4jnn/the-three-muskequeers.git
      */
     void defrag();
     

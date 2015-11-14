@@ -24,7 +24,8 @@ public class BestFit extends BaseManager {
     }
     
     /**
-     * Find the free block to be used to allocate.
+     * Find the free block to be used to allocate, deletes it from
+     * the tree, and returns it.
      * @param size the size of the block to be allocated
      * @return the free memory block to use.
      *          Will return null if cannot find
@@ -32,7 +33,9 @@ public class BestFit extends BaseManager {
      */
     public MemBlock grabToAlloc(int size) {
         MemBlock temp = new MemBlock(0, size, true);
-        return tree.getBestFit(temp);
+        MemBlock bf = this.tree.getBestFit(temp);
+        this.tree.remove(bf);
+        return bf;
     }
     
     /**
@@ -40,13 +43,27 @@ public class BestFit extends BaseManager {
      * @param unAlloc unallocated block of memory
      */
     public void addUnalloc(MemBlock unAlloc) {
-        
+        this.tree.add(unAlloc);
     }
     
-    public Collection<MemBlock> getCollection();
+    /**
+     * Returns a collection of the memBlocks in the tree in preOrder.
+     * @return the collection
+     */
+    public Collection<MemBlock> getCollection() {
+        return (Collection<MemBlock>) this.tree.preOrder();
+    }
     
+    /**
+     * Takes in an arraylist of memblocks and completely rebuilds
+     * the tree from it.  This is used after defragging.
+     * @param blocks an arraylist of memblocks
+     */
     public void rebuild(ArrayList<MemBlock> blocks) {
-        
+        this.tree = new AVLtree<MemBlock>();
+        for (int i = 0; i < blocks.size(); i++) {
+            this.tree.add(blocks.get(i));
+        }
     }
     
     
