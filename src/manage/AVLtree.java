@@ -287,11 +287,6 @@ public class AVLtree<T extends Comparable<? super T>> {
                //if grandchildren
             } else if (curr.height > 1) {
                 curr.data = this.findMin(curr.right).data;
-//                temp = curr;
-//                temp.data = this.findMin(curr.right).data;
-//                temp.right = curr.right;
-//                temp.left = curr.left;
-//                curr = temp;
                 curr.right = this.delete(curr.right, 
                         this.findMin(curr.right).data);
                 curr = this.balance(curr);
@@ -342,7 +337,6 @@ public class AVLtree<T extends Comparable<? super T>> {
             curr.height = 0;
         } else {
             if (curr.hasTwoChildren()) {
-//                curr.height = this.max(this.height(k1.left), k2.height) + 1;
                 curr.height = this.max(this.height(curr.left), 
                         this.height(curr.right)) + 1;
 
@@ -415,24 +409,6 @@ public class AVLtree<T extends Comparable<? super T>> {
         }
         return curr;
     }
-    
-//    private BNode getToLowest(BNode curr) {
-//        int factor = this.balanceFactor(curr);
-//        if (factor > 1) {
-//            // subtree is too heavy on left
-//            if (this.balanceFactor(curr.left) > 1
-//                    || this.balanceFactor(curr.left) < 1) {
-//                this.getToLowest(curr.left);
-//            }
-//        } else if (factor < -1) {
-//            // subtree is too heavy on right
-//            if (this.balanceFactor(curr.right) > 1
-//                    || this.balanceFactor(curr.right) < 1) {
-//                this.getToLowest(curr.right);
-//            }
-//        }
-//        return curr;
-//    }
 
     /**
      * Checks balance of nodes.
