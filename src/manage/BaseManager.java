@@ -243,6 +243,13 @@ public abstract class BaseManager implements MemoryManager {
      */
     public abstract void rebuild(ArrayList<MemBlock> blocks);
     
+    /**
+     * @return the array containing allocated MemBlocks.
+     */
+    public ArrayList<MemBlock> getAllocMem() {
+        return this.allocMem;
+    }
+    
     @Override
     public int defragCount() {
         return this.defragCount;
