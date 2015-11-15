@@ -77,6 +77,9 @@ public class Defrag {
      * Defragment the adjacent blocks after sorting. Assumes sorted list.
      */
     public void defragBlocks() {
+        if (this.freeList == null) {
+            return;
+        }
         // make a loop to iterate through list of blocks
         // except last one, as always checking i block and
         // i + 1 for adjacency
