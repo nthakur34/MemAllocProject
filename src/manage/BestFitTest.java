@@ -40,16 +40,14 @@ public class BestFitTest {
     
     @Test
     public void allocTest() {
+        // this method tests alloc, getCollection, and deAlloc
         assertEquals(bf1.alloc(1, false), 0);
-        System.out.println(bf1.getCollection().toString());
-        System.out.println("RIGHT FUCKING HERE");
         assertEquals(bf1.alloc(9, false), 1);
         assertEquals("[]", bf1.getCollection().toString());
         //fails since all full, but retains ID #
         assertEquals(bf1.alloc(1, false), -1);
         //free the large 9 block
         MemBlock temp = new MemBlock(1, 9, true);
-//        System.out.println("jonathan: " + bf1.dealloc(2).getSize());
         assertEquals(bf1.dealloc(2), temp);
         assertEquals(bf1.alloc(2, false), 1);
         assertEquals(bf1.alloc(5, false), 3);
@@ -59,10 +57,34 @@ public class BestFitTest {
         assertEquals("[9, 0]", bf1.getCollection().toString());
         temp = new MemBlock(1, 2, true);
         assertEquals(bf1.dealloc(4), temp);
-System.out.println("collection: " + bf1.getCollection().toString());
         assertEquals("[0, 9, 1]", bf1.getCollection().toString());
         assertEquals(bf1.alloc(3, false), 0);
         //since, defrags, and 0 and 1 adjacent, combine, then used
         assertEquals("[9]", bf1.getCollection().toString());
     }
+    
+    @Test
+    public void rebuildTest() {
+        MemBlock temp = new MemBlock(0, 15, true);
+        ArrayList<MemBlock> list = new ArrayList<>();
+        list.add(temp);
+        temp = new MemBlock(47, 2, true);
+        list.add(temp);
+        temp = new MemBlock(50, 4, true);
+        list.add(temp);
+        temp = new MemBlock(54, 1, true);
+        list.add(temp);
+        temp = new MemBlock(55, 20, true);
+        list.add(temp);
+        temp = new MemBlock(78, 24, true);
+        list.add(temp);
+        
+        bf2.rebuild(list);
+        assertEquals(bf2.getCollection().toString(), "[50, 47, 54, 55, 0, 78]");
+
+
+    }
+    
+    
+    
 }
