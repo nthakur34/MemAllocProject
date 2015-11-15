@@ -75,24 +75,19 @@ public class AVLtreeTest {
 
     @Test
     public void testAdd() {
-        System.out.println("\nINSIDE TESTADD");
         assertEquals(11, all.size());
         assertTrue(e4.add(5));
         assertTrue(e4.contains(5));
-        System.out.println("root: " + e4.root());
         assertTrue(e4.size() == 1);
         assertTrue(e4.add(3));
         assertTrue(e4.contains(3));
         assertTrue(e4.size() == 2);
-        System.out.println("pre order: " + e4.preOrder().toString());
         assertEquals(e4.preOrder().toString(), "[5, 3]");
-        System.out.println("pre order: " + e4.postOrder().toString());
         assertEquals(e4.postOrder().toString(), "[3, 5]");
         assertEquals(e4.inOrder().toString(), "[3, 5]");
         assertTrue(e4.add(10));
         assertTrue(e4.contains(10));
         assertTrue(e4.size() == 3);
-        System.out.println("preorder: " + e4.preOrder().toString());
 
         assertEquals(e4.preOrder().toString(), "[5, 3, 10]");
         assertEquals(e4.postOrder().toString(), "[3, 10, 5]");
@@ -105,8 +100,6 @@ public class AVLtreeTest {
         assertEquals(e4.inOrder().toString(), "[3, 5, 7, 10, 13]");
         e4.add(15);  // right-right path too long
         assertTrue(e4.size() == 6);
-        System.out.println("preorder: " + e4.preOrder().toString());
-        System.out.println("inorder: " + e4.inOrder().toString());
 
         assertEquals(e4.preOrder().toString(), "[10, 5, 3, 7, 13, 15]");
         assertEquals(e4.postOrder().toString(), "[3, 7, 5, 15, 13, 10]");
@@ -121,23 +114,7 @@ public class AVLtreeTest {
         assertTrue(e4.remove(13));  // 
         assertTrue(e4.size() == 4);
         
-        e7.add(10);
-        e7.add(5);
-        e7.add(20);
-        e7.add(3);
-        e7.add(7);
-        e7.add(15);
-        e7.add(25);
-        e7.add(8);
-        e7.add(22);
-        e7.add(23);
-        // ooooh weee 
-        System.out.println("e7.preOrder: " + e7.preOrder().toString());
-
-        System.out.println("e7.inOrder: " + e7.inOrder().toString());
-        assertEquals(e7.preOrder().toString(), "[10, 5, 3, 7, 8, 20, 15, 23, 22, 25]");
-        assertEquals(e7.postOrder().toString(), "[3, 8, 7, 5, 15, 22, 25, 23, 20, 10]");
-        assertEquals(e7.inOrder().toString(), "[3, 5, 7, 8, 10, 15, 20, 22, 23, 25]");
+        
         
         AVLtree<Integer> ass = new AVLtree<>();
         
@@ -160,13 +137,57 @@ public class AVLtreeTest {
         assertEquals(ass.getBestFit(4), ass.root());
         ass.remove(5);
         assertEquals(ass.size(), 0);
+
+        t1.add(1);
+       
+        t1.add(2);
+        
+        t1.add(3);
         
         
-        System.out.println("RIGHT HERE");
+        
+//        
+//        System.out.println("e4: " + e4.toString());
+//        
+        
+//        assertTrue(all.add(11));
+//        //Use traversal to see if last one is 11. 
+//        Iterator<Integer> iter = all.preOrder().iterator();
+//        int temp = 0;
+//        while(iter.hasNext()) {
+//        	temp = iter.next();
+//        	System.out.print(temp + "   ");
+//        }
+//        System.out.println("");
+//        assertEquals(11, temp);
+//        System.out.println("before remove 7: " + all.toString());
+//        assertTrue(all.remove(7));
+//        System.out.println("after remove 7: " + all.toString());
+//        assertFalse(all.contains(7)); 
+//        assertEquals("[0, 1, 2, 3, 4, 5, 6, 8, 9, 10, 11]", all.toString());
+
+    }
+    
+    @Test
+    public void testRemove() {
+        
+        e7.add(10);
+        e7.add(5);
+        e7.add(20);
+        e7.add(3);
+        e7.add(7);
+        e7.add(15);
+        e7.add(25);
+        e7.add(8);
+        e7.add(22);
+        e7.add(23);
+        // ooooh weee 
+
+        assertEquals(e7.preOrder().toString(), "[10, 5, 3, 7, 8, 20, 15, 23, 22, 25]");
+        assertEquals(e7.postOrder().toString(), "[3, 8, 7, 5, 15, 22, 25, 23, 20, 10]");
+        assertEquals(e7.inOrder().toString(), "[3, 5, 7, 8, 10, 15, 20, 22, 23, 25]");
+        
         assertTrue(e7.remove(10));
-        System.out.println("oioioioioioio");
-        System.out.println(e7.inOrder().toString());
-        System.out.println(e7.preOrder().toString());
         assertEquals(e7.preOrder().toString(), "[15, 5, 3, 7, 8, 23, 20, 22, 25]");
         assertEquals(e7.postOrder().toString(), "[3, 8, 7, 5, 22, 20, 25, 23, 15]");
         assertEquals(e7.inOrder().toString(), "[3, 5, 7, 8, 15, 20, 22, 23, 25]");
@@ -216,9 +237,36 @@ public class AVLtreeTest {
         assertEquals(e7.preOrder().toString(), "[]");
         assertEquals(e7.postOrder().toString(), "[]");
         assertEquals(e7.inOrder().toString(), "[]");
+        assertTrue(e7.isEmpty());
         
         
         
+        
+        
+        
+//        assertTrue(e4.add((Integer) 6));
+//        assertTrue(e4.contains((Integer) 6));
+//        assertTrue(e4.remove((Integer) 6));
+//        assertTrue(e4.isEmpty());
+//        assertTrue(all.add((Integer) 11));
+//        //Use traversal to see if last one is 11. 
+//        Iterator<Integer> iter = all.preOrder().iterator();
+//        int temp = 0;
+//        while(iter.hasNext()) {
+//        	temp = iter.next();
+//        	System.out.print(temp + "   ");
+//        }
+//        System.out.println("");
+//        assertEquals(11, temp);
+//        System.out.println(all.toString());
+//        assertTrue(all.remove((Integer) 7));
+//        assertFalse(all.contains((Integer) 7)); 
+//        assertEquals("[0, 1, 2, 3, 4, 5, 6, 8, 9, 10, 11]", all.toString());
+
+    }
+    
+    @Test
+    public void testGetBestFit() {
         e10.add(13);
         e10.add(7);
         e10.add(15);
@@ -228,8 +276,6 @@ public class AVLtreeTest {
         e10.add(3);
         e10.add(11);
         
-        System.out.println("e10 root: " + e10.root());
-        System.out.println("preorder: " + e10.preOrder().toString());
         assertEquals(e10.preOrder().toString(), "[13, 7, 5, 3, 10, 11, 15, 20]");
         assertEquals(e10.postOrder().toString(), "[3, 5, 11, 10, 7, 20, 15, 13]");
         assertEquals(e10.inOrder().toString(), "[3, 5, 7, 10, 11, 13, 15, 20]");
@@ -239,7 +285,6 @@ public class AVLtreeTest {
         assertEquals(e10.preOrder().toString(), "[7, 5, 3, 13, 10, 11, 15]");
         assertEquals(e10.postOrder().toString(), "[3, 5, 11, 10, 15, 13, 7]");
         assertEquals(e10.inOrder().toString(), "[3, 5, 7, 10, 11, 13, 15]");
-        System.out.println("max value: " + e10.getMaxVal());
         AVLtree<Integer> e11 = new AVLtree<>();
         e11.add(13);
         assertEquals(e10.getBestFit(13), e11.root());
@@ -264,65 +309,45 @@ public class AVLtreeTest {
         e11.remove(13);
         e11.add(15);
         assertEquals(e10.getBestFit(14), e11.root());
-
-        t1.add(1);
-       
-        t1.add(2);
-        System.out.println("preOrder" + t1.preOrder().toString());
-        System.out.println("helloooooo");
-        t1.add(3);
-        System.out.println("preOrder" + t1.preOrder().toString());
-        
-        
-        
-//        
-//        System.out.println("e4: " + e4.toString());
-//        
-        
-//        assertTrue(all.add(11));
-//        //Use traversal to see if last one is 11. 
-//        Iterator<Integer> iter = all.preOrder().iterator();
-//        int temp = 0;
-//        while(iter.hasNext()) {
-//        	temp = iter.next();
-//        	System.out.print(temp + "   ");
-//        }
-//        System.out.println("");
-//        assertEquals(11, temp);
-//        System.out.println("before remove 7: " + all.toString());
-//        assertTrue(all.remove(7));
-//        System.out.println("after remove 7: " + all.toString());
-//        assertFalse(all.contains(7)); 
-//        assertEquals("[0, 1, 2, 3, 4, 5, 6, 8, 9, 10, 11]", all.toString());
-
     }
     
-//    @Test
-//    public void testRemove() {
-//        assertEquals(11, all.size());
-//        assertTrue(all.remove((Integer) 5));
-//        assertFalse(all.contains((Integer) 5));
-//        assertTrue(all.size() == 10);
-//        assertTrue(e4.add((Integer) 6));
-//        assertTrue(e4.contains((Integer) 6));
-//        assertTrue(e4.remove((Integer) 6));
-//        assertTrue(e4.isEmpty());
-//        assertTrue(all.add((Integer) 11));
-//        //Use traversal to see if last one is 11. 
-//        Iterator<Integer> iter = all.preOrder().iterator();
-//        int temp = 0;
-//        while(iter.hasNext()) {
-//        	temp = iter.next();
-//        	System.out.print(temp + "   ");
-//        }
-//        System.out.println("");
-//        assertEquals(11, temp);
-//        System.out.println(all.toString());
-//        assertTrue(all.remove((Integer) 7));
-//        assertFalse(all.contains((Integer) 7)); 
-//        assertEquals("[0, 1, 2, 3, 4, 5, 6, 8, 9, 10, 11]", all.toString());
-//
-//    }
+    @Test
+    public void testSmallMethods() {
+        // this method tests isEmpty, root, getMaxVal, getBestFit, and contains
+        assertTrue(t1.isEmpty());
+        t1.add(50);
+        assertTrue(t1.root() == 50);
+        assertEquals((int) t1.getMaxVal(), 50);
+        assertFalse(t1.isEmpty());
+        assertEquals((int) t1.getBestFit(40), 50);
+        assertNull(t1.getBestFit(60));
+        assertEquals((int) t1.getBestFit(50), 50);
+        assertTrue(t1.contains(50));
+        assertFalse(t1.contains(49));
+        t1.add(72);
+        assertTrue(t1.root() == 50);
+        assertEquals((int) t1.getMaxVal(), 72);
+        assertFalse(t1.isEmpty());
+        assertEquals((int) t1.getBestFit(50), 50);
+        assertEquals((int) t1.getBestFit(72), 72);
+        assertNull(t1.getBestFit(73));
+        assertEquals((int) t1.getBestFit(1), 50);
+        assertTrue(t1.contains(72));
+        t1.add(23);
+        t1.add(54);
+        t1.add(17);
+        t1.add(12);
+        assertEquals(t1.preOrder().toString(), "[50, 17, 12, 23, 72, 54]");
+        assertEquals(t1.postOrder().toString(), "[12, 23, 17, 54, 72, 50]");
+        assertEquals(t1.inOrder().toString(), "[12, 17, 23, 50, 54, 72]");
+        assertEquals((int) t1.getMaxVal(), 72);
+        assertEquals((int) t1.getBestFit(24), 50);
+        assertEquals((int) t1.getBestFit(2), 12);
+        assertEquals((int) t1.getBestFit(52), 54);
+        assertEquals((int) t1.getBestFit(16), 17);
+        assertEquals((int) t1.getBestFit(20), 23);
+        assertNull(t1.getBestFit(80));
+    }
 
 }
 
