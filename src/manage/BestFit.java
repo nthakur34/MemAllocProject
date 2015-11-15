@@ -5,7 +5,7 @@ import java.util.Collection;
 
 /**
  * Implementation of the best fit allocation scheme, using AVLTree.
- *
+ * Jonathan Liu, Nav Thakur
  */
 public class BestFit extends BaseManager {
     

@@ -3,7 +3,7 @@ Nitin Kumar - nkumar34 -  600.226.01 - P4
 Jonathan Liu - jiu118 -  600.226.01 - P4
 Navjyoth Thakur - nthakur2 -  600.226.01 - P4
 
-================================================================
+================================================================U
 RUNNING THE PROGRAM
 1) cd into the src directory
 2) type: javac manage/MemSimMain.java
@@ -17,10 +17,10 @@ Which is why we have to compile everything from the src directory, not the manag
 After you compile and run everything, you can go inside of manage and type:
 make clean
 to clean up all the .class files.
-================================================================
+================================================================D
 
 
-================================================================
+================================================================U
 OUR FIT
 Our fit is a Next Fit model, that grabs the next available block of memory that can hold our block.
 The model will iterate through a data structure of blocks, and grab the first one that has at least
@@ -34,11 +34,11 @@ defrag. Iterating through the whole queue again indicates a failed allocation.
 We used the implementation of the queue from project 2 in order to make sure we fully understood the
 code behind the allocation. This means we used the SequenceDLL (i.e. doubly linked list that we made)
 implementation of the Queue, adding nodes at the front of the DLL linked list and removing from the end.
-================================================================
+================================================================D
 
 
 
-================================================================
+================================================================U
 NOTES ABOUT TIME EFFICIENCIES
 - We found that executing the program in different environments caused different timings
     - running it on the ugrad servers made it significantly longer than running it in Eclipse
@@ -47,6 +47,6 @@ NOTES ABOUT TIME EFFICIENCIES
   efficient than using arrays, and we ended up using a 1 dimensional array as we figured for the current
   tests and most simulated entries, the space we were taking up wasn't too much and we gained a lot as
   far as time goes.
- ================================================================
+ ================================================================D
  
 

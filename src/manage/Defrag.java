@@ -6,8 +6,7 @@ import java.util.Collection;
 /**
  * Defragger class that both pulls data and defrags through
  * quick sort method.
- * @author Nitin and navthakur
- * Navjyoth Thakur - nthakur2 -  600.226.01 - P4
+ * @author Nitin and navthakur and Jonathan
  * 
  */
 public class Defrag {

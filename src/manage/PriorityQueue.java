@@ -5,6 +5,7 @@ import java.util.ArrayList;
 /**
  * Manages, the storage and removal of T values.
  * Navjyoth Thakur - nthakur2 -  600.226.01 - P4
+ * Jonathan Liu
  * @param <T>
  */
 public class PriorityQueue<T extends Comparable<? super T>> {

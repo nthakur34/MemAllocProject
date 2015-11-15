@@ -1,3 +1,8 @@
+/*
+ * Jonathan Liu
+ * Nav Thakur
+ */
+
 package manage;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;

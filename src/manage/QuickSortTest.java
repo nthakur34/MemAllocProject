@@ -2,6 +2,7 @@ package manage;
 
 /*
  * Navjyoth Thakur - nthakur2 -  600.226.01 - P4
+ * Nitin Kumar
  */
 
 import static org.junit.Assert.*;

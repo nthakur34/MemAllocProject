@@ -6,8 +6,8 @@ import java.util.Iterator;
 
 /**
  * Generic sorter through bucket implementation.
- * @author Nitin
- *
+ * @author Nitin, Jonathan
+ * 
  * @param <T> Type of data being sorted
  */
 public class BucketSort<T> {

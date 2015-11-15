@@ -10,7 +10,7 @@ import org.junit.Before;
 
 /**
  * Written for Project 2, but updated extensively based on TA comments.
- * @author Nitin
+ * @author Nitin and Nav
  *
  */
 public class SequenceTest {

@@ -5,7 +5,7 @@ package manage;
  * Generic sequence interface (positional list).
  *
  * 600.226 Data Structures, Fall 2015, Project 2
- *
+ * Nitin Kumar
  * @param <T> the underlying type stored in the list
  */
 

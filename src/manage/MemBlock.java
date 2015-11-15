@@ -4,7 +4,7 @@ import java.util.Comparator;
 
 /**
  * MemBlock is a class used to represent a block of memory.
- * @author Nitin
+ * @author Nitin, Jonathan
  *
  */
 public class MemBlock implements Comparable<MemBlock> {

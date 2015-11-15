@@ -2,6 +2,8 @@ package manage;
 
 /* Navjyoth Thakur - nthakur2 -  600.226.01 - P4
 /** TESTS for 600.226 Fall 2015 Project 4
+ * Nitin Kumar
+ */
  */
 
 

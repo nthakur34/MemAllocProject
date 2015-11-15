@@ -1,3 +1,7 @@
+/*
+ * 
+ */
+
 package manage;
 
 import java.util.ArrayList;
@@ -5,7 +9,8 @@ import java.util.Collection;
 
 /**
  * Navjyoth Thakur. - nthakur2 -  600.226.01 - P4
- *
+ * Nitin Kumar
+ * Jonathan Liu
  */
 public abstract class BaseManager implements MemoryManager {
         

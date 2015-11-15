@@ -9,7 +9,7 @@ import java.util.LinkedList;
 /**
  * AVL Tree - based on Weiss.
  * @param <T> the base type of data in a node
- *
+ * Jonathan Liu, Nav Thakur
  */
 public class AVLtree<T extends Comparable<? super T>> {
 

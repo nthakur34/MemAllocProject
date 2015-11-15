@@ -1,6 +1,6 @@
 package manage;
 /* Navjyoth Thakur - nthakur2 -  600.226.01 - P4
-
+    Jonathan Liu
 /** TESTS for 600.226 Fall 2015 Project 3 - HashMapOpen implementation
  */
 

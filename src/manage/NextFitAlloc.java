@@ -5,7 +5,7 @@ import java.util.Collection;
 
 /**
  * Next fit allocation scheme. Uses queue data structure.
- * @author Nitin
+ * @author Nitin, Nav
  *
  */
 public class NextFitAlloc extends BaseManager {
