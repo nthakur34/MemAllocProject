@@ -131,9 +131,7 @@ final class MemSimMain {
         printOutput(outPut, sims, memSize, filename); 
 
         long start = System.nanoTime();
-        LinkedList<Integer> l = new LinkedList<Integer>();
-        System.out.println(System.nanoTime() - start);
-        
+        LinkedList<Integer> l = new LinkedList<Integer>();        
     }
 
 
