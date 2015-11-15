@@ -2,7 +2,6 @@ package manage;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Comparator;
 import java.util.Iterator;
 
 /**
@@ -12,17 +11,6 @@ import java.util.Iterator;
  * @param <T> Type of data being sorted
  */
 public class BucketSort<T extends Comparable<T>> {
-   
-    /**
-     * 10 is the max length of the linked list, and the array
-     * will be separated into tens.
-     */
-    private static final int TEN = 10;
-   
-    /**
-     * Length of the list based on the inputted max size.
-     */
-    private int listLen;    
     
     /**
      * Bucket array representation of the data.
@@ -39,28 +27,16 @@ public class BucketSort<T extends Comparable<T>> {
         if (size <= 0) {
             throw new IllegalArgumentException("Size must be greater than 0"); 
         }
-        if (size / TEN < TEN) {
-            this.listLen = size / TEN;
-        } else {
-            this.listLen = TEN;
-        }
         // create data array with inputted size
         this.data = (T[]) new Comparable[size];
     }
     
     /**
-     * Sort data into HashMap.
-     * 
-     * Exceptions to throw:
-     *      blocks is messed up/null
-     *      bad comparator?
+     * Sort data into array.
      * 
      * @param blocks the collection of info to be sorted
-     * @param comparator comparator for type of data being sorted
-     * @return array of all values sorted
      */
-    public void sort(Collection<T> blocks,
-            Comparator<? super T> comparator) {
+    public void sort(Collection<T> blocks) {
 
         // get an iterator to go through all values
         Iterator<T> blockIter = blocks.iterator();
@@ -70,35 +46,14 @@ public class BucketSort<T extends Comparable<T>> {
             // use hash code to find out
             // which bucket it should be placed in
             int index = toInsert.hashCode();
-            // find linked list index in main array
-            /*int tens = index / this.listLen;
-            // check if no list there
-            if (this.data[tens] == null) {
-                // then make one
-                //this.data[tens] = new LinkedList<T>();
-            }
-            // does contain index
-            // get the linked list at the bucket
-            //LinkedList<T> currList = this.data[tens];
-            // make an iterator for the list
-            //ListIterator<T> listIterator = currList.listIterator();
-            // find where either the next no-element position is
-            // or where 
-            // make comparator to compare memblock addresses
-            while (listIterator.hasNext()) {
-                if (comparator.compare(listIterator.next(), toInsert) > 0) {
-                    // need to go back one with listiterator
-                    listIterator.previous();
-                    break;
-                }
-            }
-            // add when either end condition is reached
-            listIterator.add(toInsert);
-            */
             this.data[index] = toInsert;
         }
     }
     
+    /**
+     * Return sorted data function.
+     * @return sorted data
+     */
     public ArrayList<T> getData() {
         ArrayList<T> output = new ArrayList<T>();
         // need to convert data to array list

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 /**
- * Navjyoth Thakur - nthakur2 -  600.226.01 - P4
+ * Navjyoth Thakur. - nthakur2 -  600.226.01 - P4
  *
  */
 public abstract class BaseManager implements MemoryManager {
@@ -242,6 +242,13 @@ public abstract class BaseManager implements MemoryManager {
      * @param blocks rebuild allocation scheme with new defragged blocks
      */
     public abstract void rebuild(ArrayList<MemBlock> blocks);
+    
+    /**
+     * @return the array containing allocated MemBlocks.
+     */
+    public ArrayList<MemBlock> getAllocMem() {
+        return this.allocMem;
+    }
     
     @Override
     public int defragCount() {
