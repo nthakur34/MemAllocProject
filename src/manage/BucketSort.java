@@ -59,42 +59,17 @@ public class BucketSort<T extends Comparable<T>> {
      * @param comparator comparator for type of data being sorted
      * @return array of all values sorted
      */
-    public void sort(ArrayList<T> blocks,
+    public void sort(Collection<T> blocks,
             Comparator<? super T> comparator) {
 
         // get an iterator to go through all values
-        //Iterator<T> blockIter = blocks.iterator();
-        for (int i = 0; i < blocks.size(); i++) {
+        Iterator<T> blockIter = blocks.iterator();
+        while (blockIter.hasNext()) {
             // grab next value
-            T toInsert = blocks.get(i);
+            T toInsert = blockIter.next();
             // use hash code to find out
             // which bucket it should be placed in
             int index = toInsert.hashCode();
-            // find linked list index in main array
-            /*int tens = index / this.listLen;
-            // check if no list there
-            if (this.data[tens] == null) {
-                // then make one
-                //this.data[tens] = new LinkedList<T>();
-            }
-            // does contain index
-            // get the linked list at the bucket
-            //LinkedList<T> currList = this.data[tens];
-            // make an iterator for the list
-            //ListIterator<T> listIterator = currList.listIterator();
-            // find where either the next no-element position is
-            // or where 
-            // make comparator to compare memblock addresses
-            while (listIterator.hasNext()) {
-                if (comparator.compare(listIterator.next(), toInsert) > 0) {
-                    // need to go back one with listiterator
-                    listIterator.previous();
-                    break;
-                }
-            }
-            // add when either end condition is reached
-            listIterator.add(toInsert);
-            */
             this.data[index] = toInsert;
         }
     }
