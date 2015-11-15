@@ -156,10 +156,10 @@ public abstract class BaseManager implements MemoryManager {
      */
     private void incAllocTime(long startTime) {
         long timeDifference = System.nanoTime() - startTime;
-        if (timeDifference == 0) {
+        /*if (timeDifference == 0) {
             System.err.println("Alloc messed up");
             System.exit(2);
-        }
+        }*/
         this.totalAllocTime += timeDifference;
     }
 
@@ -213,18 +213,18 @@ public abstract class BaseManager implements MemoryManager {
         // initialize defragger
         Defrag defragger = new Defrag(toSort, this.memSize);
         long bucketTime = defragger.bucketSort();
-        if (bucketTime == 0) {
+        /*if (bucketTime == 0) {
             System.err.println("BucketSwagger");
             System.exit(2);
-        }
+        }*/
         this.bucketSortTime += bucketTime;
         
         defragger = new Defrag(toSort, this.memSize);
         long quickTime = defragger.quickSort(); 
-        if (quickTime == 0) {
+        /*if (quickTime == 0) {
             System.err.println("QuickSwagger");
             System.exit(2);
-        }
+        }*/
         this.quickSortTime += quickTime;
                 
         defragger.defragBlocks();
@@ -248,6 +248,13 @@ public abstract class BaseManager implements MemoryManager {
      */
     public ArrayList<MemBlock> getAllocMem() {
         return this.allocMem;
+    }
+    
+    /**
+     * @return whether previous allocation was defrag or not. Default yes.
+     */
+    public boolean getPrevDefrag() {
+        return this.prevDefrag;
     }
     
     @Override
