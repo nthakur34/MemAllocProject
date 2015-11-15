@@ -34,15 +34,6 @@ defrag. Iterating through the whole queue again indicates a failed allocation.
 We used the implementation of the queue from project 2 in order to make sure we fully understood the
 code behind the allocation. This means we used the SequenceDLL (i.e. doubly linked list that we made)
 implementation of the Queue, adding nodes at the front of the DLL linked list and removing from the end.
-
-
-Complexities:
-	- Allocate: Time: O(N), Space: O(1), as in worst case iterates through whole list
-	- Deallocate: Time: O(1), Space: O(1), deallocate is only 1 because simply pops element into back
-											of queue.
-	- Defrag: Time: O(N), Space: O(N), defrag takes N time always because must pop all elements from
-										queue.
-
 ================================================================
 
 
