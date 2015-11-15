@@ -47,7 +47,6 @@ public class BucketSortTest {
         for (int i = 0; i < output.size(); i++) {
             assertEquals((Integer) output.get(i), (Integer) arr[i]);
         }
-        System.out.println(output);
         
         // test with empty arr 
         array = new ArrayList<Integer>();
@@ -57,7 +56,6 @@ public class BucketSortTest {
         testSort.sort(array);
         output = testSort.getData(); 
         assertTrue(output.isEmpty());
-        System.out.println(output);
         
         // test with memblocks!
         // test genericness
@@ -74,7 +72,6 @@ public class BucketSortTest {
         for (int i = 0; i < memOutput.size(); i++) {
             assertEquals(memOutput.get(i), (MemBlock) memArr[i]);
         }
-        System.out.println(output);
     }
     
 }
