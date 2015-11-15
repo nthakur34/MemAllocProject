@@ -22,7 +22,26 @@ to clean up all the .class files.
 
 ================================================================
 OUR FIT
+Our fit is a Next Fit model, that grabs the next available block of memory that can hold our block.
+The model will iterate through a data structure of blocks, and grab the first one that has at least
+the size it is looking for. We implement this through a queue, grabbing a block from the top of the
+queue and comparing it to see if it will work. If so, it will allocate part of the block asked for,
+and then whatever is left is pushed to the bottom of the queue. If the block doesn't handle the
+allocation, it still is pushed to the bottom of the queue, with nothing done to it. The model is to
+iterate through the queue till it finds a matching block, and if it finds none, will initiate a
+defrag. Iterating through the whole queue again indicates a failed allocation.
 
+We used the implementation of the queue from project 2 in order to make sure we fully understood the
+code behind the allocation. This means we used the SequenceDLL (i.e. doubly linked list that we made)
+implementation of the Queue, adding nodes at the front of the DLL linked list and removing from the end.
+
+
+Complexities:
+	- Allocate: Time: O(N), Space: O(1), as in worst case iterates through whole list
+	- Deallocate: Time: O(1), Space: O(1), deallocate is only 1 because simply pops element into back
+											of queue.
+	- Defrag: Time: O(N), Space: O(N), defrag takes N time always because must pop all elements from
+										queue.
 
 ================================================================
 
@@ -34,7 +53,9 @@ NOTES ABOUT TIME EFFICIENCIES
     - running it on the ugrad servers made it significantly longer than running it in Eclipse
 - When doing the bucket sort, we were considering two different implementations, either using 
   a linked list or a 1d array.  Using the linked list resulted in longer times, but was more space
-  efficient than using arrays, so we ended up using a linked list implementation.
+  efficient than using arrays, and we ended up using a 1 dimensional array as we figured for the current
+  tests and most simulated entries, the space we were taking up wasn't too much and we gained a lot as
+  far as time goes.
  ================================================================
  
 

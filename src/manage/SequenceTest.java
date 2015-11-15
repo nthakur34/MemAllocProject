@@ -255,11 +255,6 @@ public class SequenceTest {
         //it.next();
         //it.remove();
     }
-    
-    @Test
-    public void testQueueToArrayList() {
-        
-    }
 
 
 }
