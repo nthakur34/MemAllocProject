@@ -24,36 +24,8 @@ public class BucketSortTest {
     BucketSort<Integer> testSort;
     
     @Test
-    public void linkedListTest() {
-        // test 
-        List<Integer> array = new ArrayList<Integer>();
-        // {0, 5, 3, 2, 6, 1}
-        int arr[] = {0, 1, 2, 3, 5, 6};
-        // {0, 1, 2, 3, 5, 6}
-        // size = 6
-        array.add(0);
-        array.add(5);
-        array.add(3);
-        array.add(2);
-        array.add(6);
-        array.add(1);
-        testSort = new BucketSort<Integer>(10);
-        ArrayList<Integer> output = testSort.sort(array, new Comparator<Integer>(){
-            @Override
-            public int compare(Integer s1, Integer s2) {
-                return s1.compareTo(s2);
-            }
-        });
-        assertTrue(output.size() == 6);
-        assertFalse(output.isEmpty());
-        for (int i = 0; i < 6; i++) {
-            assertEquals((Integer) output.get(i), (Integer) arr[i]);
-        }
-    }
-    
-    @Test
     public void indexTest() {
-        // test 
+        // test with arbitrary values
         List<Integer> array = new ArrayList<Integer>();
         // {4, 23, 22, 1, 0, 12, 2, 10}
         int arr[] = {0, 1, 2, 4, 10, 12, 22, 23};
@@ -69,15 +41,38 @@ public class BucketSortTest {
         array.add(10);
         // fsdsfdsdfdsf
         testSort = new BucketSort<Integer>(30);
-        ArrayList<Integer> output = testSort.sort(array, new Comparator<Integer>(){
-            @Override
-            public int compare(Integer s1, Integer s2) {
-                return s1.compareTo(s2);
-            }
-        });
+        testSort.sort(array);
+        ArrayList<Integer> output = testSort.getData(); 
         assertFalse(output.isEmpty());
         for (int i = 0; i < output.size(); i++) {
             assertEquals((Integer) output.get(i), (Integer) arr[i]);
+        }
+        System.out.println(output);
+        
+        // test with empty arr 
+        array = new ArrayList<Integer>();
+        arr = new int[0];
+        // sort vals
+        testSort = new BucketSort<Integer>(30);
+        testSort.sort(array);
+        output = testSort.getData(); 
+        assertTrue(output.isEmpty());
+        System.out.println(output);
+        
+        // test with memblocks!
+        // test genericness
+        List<MemBlock> memArray = new ArrayList<MemBlock>();
+        memArray.add(new MemBlock(0, 10, true));
+        memArray.add(new MemBlock(22, 5, true));
+        memArray.add(new MemBlock(10, 12, true));
+        MemBlock memArr[] = {new MemBlock(0, 10, true), new MemBlock(10, 12, true), new MemBlock(22, 5, true)};
+        // sort vals
+        BucketSort<MemBlock> memTestSort = new BucketSort<MemBlock>(30);
+        memTestSort.sort(memArray);
+        ArrayList<MemBlock> memOutput = memTestSort.getData(); 
+        assertFalse(memOutput.isEmpty());
+        for (int i = 0; i < memOutput.size(); i++) {
+            assertEquals(memOutput.get(i), (MemBlock) memArr[i]);
         }
         System.out.println(output);
     }

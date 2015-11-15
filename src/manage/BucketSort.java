@@ -10,7 +10,7 @@ import java.util.Iterator;
  *
  * @param <T> Type of data being sorted
  */
-public class BucketSort<T extends Comparable<T>> {
+public class BucketSort<T> {
     
     /**
      * Bucket array representation of the data.
@@ -28,7 +28,7 @@ public class BucketSort<T extends Comparable<T>> {
             throw new IllegalArgumentException("Size must be greater than 0"); 
         }
         // create data array with inputted size
-        this.data = (T[]) new Comparable[size];
+        this.data = (T[]) new Object[size];
     }
     
     /**

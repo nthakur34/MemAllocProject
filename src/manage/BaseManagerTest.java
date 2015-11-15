@@ -56,12 +56,18 @@ public class BaseManagerTest {
        //allocates 1 and 9 to a block of size 10
         assertEquals("[null]", e4.getAllocMem().toString());
        assertEquals(0, e4.alloc(1, false));   //ID # 1
+       //check that there was no defrag run
+       assertFalse(e4.getPrevDefrag());
        assertEquals(1, e4.alloc(9, false));   //ID # 2
+       //check that there was no defrag run
+       assertFalse(e4.getPrevDefrag());
        //check allocated
        assertEquals("[null, 0, 1]", e4.getAllocMem().toString());
        assertEquals("[]", e4.getCollection().toString());
        //fails since all filles, but retains ID #
        assertEquals(-1, e4.alloc(1, false));  //ID # 3
+       // shows that defrag attempted
+       assertTrue(e4.getPrevDefrag());
        assertEquals("[null, 0, 1, null]", e4.getAllocMem().toString());
        //free the large 9 block
        assertEquals(new MemBlock(1, 9, true), e4.dealloc(2));
@@ -113,6 +119,9 @@ public class BaseManagerTest {
   
     @Test
     public void testDefrag() {
+        // try defrag see what happens
+        e5.defrag();
+        // no errors are thrown, so nothing messed up
         assertEquals(null, e5.dealloc(1));
         assertEquals(0, e5.alloc(33, false)); //id # 1
         assertEquals(33, e5.alloc(67, false)); //id # 2
@@ -125,6 +134,9 @@ public class BaseManagerTest {
         assertEquals(240, e5.alloc(35, false)); //id # 9
         assertEquals(275, e5.alloc(25, false)); //id # 10
         assertEquals(-1, e5.alloc(20, false)); //id # 11 Fails
+        // try defrag see what happens
+        e5.defrag();
+        // no errors are thrown, so nothing messed up
         //dealloc when full
         assertEquals(new MemBlock(33, 67, true), e5.dealloc(2));
         //dealloc when not full
