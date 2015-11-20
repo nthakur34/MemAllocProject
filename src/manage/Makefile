@@ -1,26 +1,23 @@
-JFLAGS =
+JFLAGS = -cp .:junit-4.12.jar
+#JRFLAGS = -cp .:junit-4.12.jar:hamcrest-core-1.3.jar:. org.junit.runner.JUnitCore
 JC = javac
 .SUFFIXES: .java .class
 .java.class:
-	$(JC) $(JFLAGS) $(CLASSES)
+	$(JC) $(JFLAGS) $*.java
 
 CLASSES = \
-	MemBlock.java \
-	Sequence.java \
-	SequenceDLL.java \
-	Queue.java \
-	QueueSeq.java \
-        BucketSort.java \
-	QuickSort.java \
-        AVLtree.java \
-	PriorityQueue.java \
-	Defrag.java \
-        BestFit.java \
-	NextFitAlloc.java \
-	WorstFitAlloc.java \
-	MemoryManager.java \
-        BaseManager.java \
-	MemSimMain.java
+	MemBlockTest.java \
+	SequenceTest.java \
+        BucketSortTest.java \
+	QuickSortTest.java \
+        AVLtreeTest.java \
+	PriorityQueueTest.java \
+	DefragTest.java \
+        BestFitTest.java \
+	NextFitAllocTest.java \
+	WorstFitAllocTest.java \
+	MemoryManagerTest.java \
+        BaseManagerTest.java \
 
 default: classes
 
